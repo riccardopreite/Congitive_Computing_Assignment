@@ -28,7 +28,7 @@ import matplotlib.pyplot as plt
 # In order to express more complex types some additional imports
 # are needed
 from typing import Union, Optional, List, Tuple, Dict
-
+import copy
 
 ### Exercise 1, Task 1:
 # Comment: This is a function header in Python.
@@ -205,35 +205,39 @@ class DGraph(object):
         return isAncestor
 
     def is_descendant(self, node_a: str, node_b: str) -> bool:
-        """
-            Checks if node_a is a descendant of node_b. 
-            Should also work in cyclic graphs!
+        isAncestor = False
+        directParents = self.get_children(node_b)
+        
+        if node_a in directParents:
+            isAncestor = True
+        else:
+            for parent in directParents:
+                newParent = self.get_children(parent)
+                if node_a in newParent:
+                    isAncestor = True
+                    break
+                for newlyParent in newParent:
+                    directParents.append(newlyParent)
 
-            Parameters
-            ----------
-            node_a: String
-                The name of the potential descendant node.
-            node_b: String
-                The name of the potential ancestor node.
-
-            Returns
-            -------
-            bool
-                True if node_a is a descendant of node_b, False otherwise.
-        """
-        raise NotImplementedError("TODO is_descendant")
+        return isAncestor
 
     def is_acyclic(self) -> bool:
-
-        """
-            Computes whether or not this graph is acyclic.
+        copy_graph = copy.deepcopy(self)
+        L = []
+        Q = [ node for node in self.nodes.keys() if len(self.get_parents(node)) == 0]
+        while len(Q) != 0:
+            n = Q.pop(0)
+            L.append(n)
+            for m in self.nodes[n]:
+                copy_graph.remove_edge(n, m)
+                if len(copy_graph.get_parents(m)) == 0:
+                    Q.append(m)
         
-            Returns
-            ----------
-            bool
-                True if there are no cycles within the provided graph, False otherwise.
-        """
-        raise NotImplementedError("TODO is_acyclic")
+        check_edges = False
+        for node in copy_graph.nodes.values():
+            if len(node) > 0:
+                return False
+        return True
 
 if __name__ == "__main__":
     # Comment: This condition will evaluate to true, if this

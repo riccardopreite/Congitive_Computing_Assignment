@@ -58,7 +58,7 @@ class TestAssignment1(unittest.TestCase):
         a = np.array([[1,2],[3,4]])
         b = np.array([[1,0],[0,1]])
         true_res = np.array([[1,2],[3,4]])
-        print(solution.matrix_mul(a,b))
+        
         np.testing.assert_array_equal(solution.matrix_mul(a,b), true_res)
 
 
@@ -104,6 +104,17 @@ class TestAssignment1(unittest.TestCase):
         self.assertTrue(g.is_ancestor("A", "C"))
         g.remove_edge("A","B")
         self.assertFalse(g.is_ancestor("A", "C"))
+
+    def test_is_descendant(self):
+        g = solution.DGraph()
+        g.add_node("A")
+        g.add_node("B")
+        g.add_node("C")
+        g.add_edge("A","B")
+        g.add_edge("B","C")
+        self.assertTrue(g.is_descendant("B", "A"))
+        g.remove_edge("A","B")
+        self.assertFalse(g.is_descendant("B", "A"))
 
     def test_get_number_of_nodes(self):
         g = solution.DGraph()
