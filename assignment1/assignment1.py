@@ -69,8 +69,8 @@ def random_array(size: Union[int, Tuple[int, ...]],
 def analyze(array: Union[List, np.array]) -> Dict:
     dict = {}
     dict["mean"] = np.mean(array)
-    dict["max"] = np.max(array)
-    dict["min"] = np.min(array)
+    dict["maximum"] = np.max(array)
+    dict["minimum"] = np.min(array)
     dict["median"] = np.median(array)
     return dict
 
@@ -87,7 +87,7 @@ def histogram(array: np.array, bins: Optional[int] = 10):
     
 ### Exercise 1, Task 5:
 def list_ends(original_list: Union[List, np.array]) -> List:
-    if type(original_list) == List:
+    if type(original_list) != np.array:
         return [original_list[0],original_list[-1]]
     elif original_list.ndim > 1:
         return [original_list[:,0],original_list[:,-1]]
@@ -107,10 +107,13 @@ def combine_dictionaries(dict_a: Dict, dict_b: Dict) -> Dict:
 # A good read on exceptions in Python can be found at: 
 # https://realpython.com/python-exceptions/
 def matrix_mul(matrix_a: np.array, matrix_b: np.array) -> np.array:
-
+    if matrix_a.ndim > 2 or matrix_b.ndim > 2:
+        raise AttributeError('Matrix are bigger then 2 dimensios. First dim is {} and second dim is {}'.format(matrix_a.ndim,matrix_b.ndim))
     if(matrix_a.shape[-1] != matrix_b.shape[0]):
         raise AttributeError('Matrix shape are different. First shape is {} and second shape is {}'.format(matrix_a.shape,matrix_b.shape))
-    return np.multiply(matrix_a,matrix_b)
+    
+    return np.matmul(matrix_a,matrix_b)
+
 
 ### Exercise 2
 # In this exercise you are asked to write complete the class skeleton
@@ -138,130 +141,68 @@ def matrix_mul(matrix_a: np.array, matrix_b: np.array) -> np.array:
 # whenever calling a method on a class instance. I will not include this in the docstrings
 # as it is always the same.
 class DGraph(object):
-    
+
+    nodes = {}
     def __init__(self):
-        """
-            A constructor where instance attributes can be setup.
-        """
-        raise NotImplementedError("TODO Contructor")
+        self.nodes = {}
+       
         
     def add_node(self, node: str):
-        """
-            Adds a node with the given name to the graph. 
-            
-            Parameters
-            ----------
-            node: String
-                The name of the new node.
-        """
-        raise NotImplementedError("TODO add_node")
+        if node not in self.nodes.keys():
+            self.nodes[node] = []
+
         
     def remove_node(self, node: str):
-        """
-            Removes the node with the given name from the graph.
-            Should raise an Exception when the given node is not
-            in the graph.
-            
-            Parameters
-            ----------
-            node: String
-                The name of the node to be removed.
-        """
-        raise NotImplementedError("TODO remove_node")
-        
+        if node in self.nodes.keys():
+            self.nodes.pop(node)
+            for node_graph in self.nodes:
+                if node in node_graph:
+                    node_graph.remove(node)
+
+
     def add_edge(self, node_a: str, node_b: str):
-        """
-            Adds a directed edge from node_a to node_b. 
-            
-            Parameters
-            ----------
-            node_a: String
-                The name of the first node.
-            node_b: String
-                The name of the second node.
-        """
-        raise NotImplementedError("TODO add_edge")
+        if node_a in self.nodes and node_b in self.nodes:
+            if node_b not in self.nodes[node_a]:
+                self.nodes[node_a].append(node_b)
             
     def remove_edge(self, node_a: str, node_b: str):
-        """
-            Removes an edge from node_a to node_b, if it exists. 
-            Non-existing edges are ignored.
-            
-            Parameters
-            ----------
-            node_a: String
-                The name of the first node.
-            node_b: String
-                The name of the second node.
-        """
-        raise NotImplementedError("TODO remove_edge")
-            
+        if node_a in self.nodes and node_b in self.nodes:
+            if node_b in self.nodes[node_a]:
+                self.nodes[node_a].remove(node_b)
 
-    # Comment for porperties: Properties are the preferred way of not using explicit
-    # get_x / set_x methods from other languages. We can discuss how exactly
-    # they work in the tutorials, or you can read up on the reasoning behind them
-    # at https://www.python-course.eu/python3_properties.php
     def get_number_of_nodes(self) -> int:
-        """
-            Returns
-            -------
-            int
-                The total number of nodes in the graph.
-        """
-        raise NotImplementedError("TODO get_number_of_nodes")
+        return len(self.nodes.keys())
     
     def get_parents(self, node: str) -> List[str]:
-        """
-            Collects and returns all parents of the given node. Should raise an
-            exception when the node is not in the graph.
+        parents = []
+        if node in self.nodes:
+            for graph_node in self.nodes:
+                if graph_node != node and node in self.nodes[graph_node]:
+                        parents.append(graph_node)
 
-            Parameters
-            ----------
-            node: String
-                The name of the node whose parents are queried.
-                
-            Returns
-            -------
-            list
-                A list containing all parent nodes of the specified node.
-        """
-        raise NotImplementedError("TODO get_parents")
+        return parents
             
     def get_children(self, node: str) -> List[str]:
-        """
-            Collects and returns all children of the given node. Should raise
-            an exception when the node is not in the graph.
-
-            Parameters
-            ----------
-            node: String
-                The name of the node whose children are queried.
-                
-            Returns
-            -------
-            list
-                A list containing all children nodes of the specified node.
-        """
-        raise NotImplementedError("TODO get_children")
+        children = []
+        if node in self.nodes:
+            children = self.nodes[node]
+        return children
 
     def is_ancestor(self, node_a: str, node_b: str) -> bool:
-        """
-            Checks if node_a is an ancestor of node_b. 
-            Should also work in cyclic graphs!
+        isAncestor = False
+        directParents = self.get_parents(node_b)
+        if node_a in directParents:
+            isAncestor = True
+        else:
+            for parent in directParents:
+                newParent = self.get_parents(parent)
+                if node_a in newParent:
+                    isAncestor = True
+                    break
+                for newlyParent in newParent:
+                    directParents.append(newlyParent)
 
-            Parameters
-            ----------
-            node_a: String
-                The name of the potential ancestor node.
-            node_b: String
-                The name of the potential descendant node.
-
-            Returns
-            -------
-            bool
-                True if node_a is an ancestor of node_b, False otherwise.
-        """
-        raise NotImplementedError("TODO is_ancestor")
+        return isAncestor
 
     def is_descendant(self, node_a: str, node_b: str) -> bool:
         """
@@ -283,6 +224,7 @@ class DGraph(object):
         raise NotImplementedError("TODO is_descendant")
 
     def is_acyclic(self) -> bool:
+
         """
             Computes whether or not this graph is acyclic.
         

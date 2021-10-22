@@ -58,6 +58,7 @@ class TestAssignment1(unittest.TestCase):
         a = np.array([[1,2],[3,4]])
         b = np.array([[1,0],[0,1]])
         true_res = np.array([[1,2],[3,4]])
+        print(solution.matrix_mul(a,b))
         np.testing.assert_array_equal(solution.matrix_mul(a,b), true_res)
 
 
