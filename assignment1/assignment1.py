@@ -143,13 +143,17 @@ def matrix_mul(matrix_a: np.array, matrix_b: np.array) -> np.array:
 class DGraph(object):
 
     nodes = {}
+    num_nodes = 0
     def __init__(self):
         self.nodes = {}
+        self.num_nodes = self.get_number_of_nodes()
+
        
         
     def add_node(self, node: str):
         if node not in self.nodes.keys():
             self.nodes[node] = []
+        self.num_nodes = self.get_number_of_nodes()
 
         
     def remove_node(self, node: str):
@@ -158,12 +162,18 @@ class DGraph(object):
             for node_graph in self.nodes:
                 if node in node_graph:
                     node_graph.remove(node)
+        self.num_nodes = self.get_number_of_nodes()
+
 
 
     def add_edge(self, node_a: str, node_b: str):
         if node_a in self.nodes and node_b in self.nodes:
             if node_b not in self.nodes[node_a]:
                 self.nodes[node_a].append(node_b)
+                
+        if not self.is_acyclic():
+            self.remove_edge(node_a,node_b)
+            print("Removed edge ["+node_a+"-"+node_b+"] because make graph cyclic.")
             
     def remove_edge(self, node_a: str, node_b: str):
         if node_a in self.nodes and node_b in self.nodes:
@@ -179,7 +189,6 @@ class DGraph(object):
             for graph_node in self.nodes:
                 if graph_node != node and node in self.nodes[graph_node]:
                         parents.append(graph_node)
-
         return parents
             
     def get_children(self, node: str) -> List[str]:
@@ -205,21 +214,21 @@ class DGraph(object):
         return isAncestor
 
     def is_descendant(self, node_a: str, node_b: str) -> bool:
-        isAncestor = False
-        directParents = self.get_children(node_b)
+        isDescendant = False
+        directChildrens = self.get_children(node_b)
         
-        if node_a in directParents:
-            isAncestor = True
+        if node_a in directChildrens:
+            isDescendant = True
         else:
-            for parent in directParents:
-                newParent = self.get_children(parent)
-                if node_a in newParent:
-                    isAncestor = True
+            for children in directChildrens:
+                newChildrens = self.get_children(children)
+                if node_a in newChildrens:
+                    isDescendant = True
                     break
-                for newlyParent in newParent:
-                    directParents.append(newlyParent)
+                for newlyChildren in newChildrens:
+                    directChildrens.append(newlyChildren)
 
-        return isAncestor
+        return isDescendant
 
     def is_acyclic(self) -> bool:
         copy_graph = copy.deepcopy(self)
@@ -233,18 +242,12 @@ class DGraph(object):
                 if len(copy_graph.get_parents(m)) == 0:
                     Q.append(m)
         
-        check_edges = False
         for node in copy_graph.nodes.values():
             if len(node) > 0:
                 return False
         return True
 
 if __name__ == "__main__":
-    # Comment: This condition will evaluate to true, if this
-    # module is run directly, i.e. using "python assignment1.py".
-    # You will find some simple example calls for the different functions,
-    # which you may uncomment and extend to test your implementations.
-    
     print("Example calls: ")
 
     ### Exercise 1
@@ -268,16 +271,17 @@ if __name__ == "__main__":
     print("Result from the multiplication: {}".format(res))
 
     ### Exercise 2:
-    # graph = DGraph()
-    # graph.add_node("node_a")
-    # graph.add_node("node_b")
-    # graph.add_node("node_c")
-    # graph.remove_node("node_b")
-    # graph.add_edge("node_a", "node_c")
-    # print("Number of nodes: {}".format(graph.get_number_of_nodes()))
-    # print("Number of nodes (properties): {}".format(graph.num_nodes))
-    # print("Parents of node_c: {}".format(graph.get_parents("node_c")))
-    # print("Is node_c a descendant of node_a? {}".format(graph.is_descendant("node_c","node_a")))
-    # print("Is acyclic? {}".format(graph.is_acyclic))
+    graph = DGraph()
+    graph.add_node("node_a")
+    graph.add_node("node_b")
+    graph.add_node("node_c")
+    graph.remove_node("node_b")
+    graph.add_edge("node_a", "node_c")
+    graph.add_edge("node_c", "node_a")
+    print("Number of nodes: {}".format(graph.get_number_of_nodes()))
+    print("Number of nodes (properties): {}".format(graph.num_nodes))
+    print("Parents of node_c: {}".format(graph.get_parents("node_c")))
+    print("Is node_c a descendant of node_a? {}".format(graph.is_descendant("node_c","node_a")))
+    print("Is acyclic? {}".format(graph.is_acyclic()))
 
     
