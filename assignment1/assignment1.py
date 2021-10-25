@@ -171,9 +171,9 @@ class DGraph(object):
             if node_b not in self.nodes[node_a]:
                 self.nodes[node_a].append(node_b)
                 
-        if not self.is_acyclic():
-            self.remove_edge(node_a,node_b)
-            print("Removed edge ["+node_a+"-"+node_b+"] because make graph cyclic.")
+        # if not self.is_acyclic():
+        #     self.remove_edge(node_a,node_b)
+        #     print("Removed edge ["+node_a+"-"+node_b+"] because make graph cyclic.")
             
     def remove_edge(self, node_a: str, node_b: str):
         if node_a in self.nodes and node_b in self.nodes:
@@ -209,7 +209,8 @@ class DGraph(object):
                     isAncestor = True
                     break
                 for newlyParent in newParent:
-                    directParents.append(newlyParent)
+                    if newlyParent not in directParents:
+                        directParents.append(newlyParent)
 
         return isAncestor
 
@@ -226,7 +227,8 @@ class DGraph(object):
                     isDescendant = True
                     break
                 for newlyChildren in newChildrens:
-                    directChildrens.append(newlyChildren)
+                    if newlyChildren not in directChildrens:
+                        directChildrens.append(newlyChildren)
 
         return isDescendant
 
