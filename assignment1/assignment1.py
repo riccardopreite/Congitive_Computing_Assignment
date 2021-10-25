@@ -200,6 +200,9 @@ class DGraph(object):
 
     def is_ancestor(self, node_a: str, node_b: str) -> bool:
         isAncestor = False
+        if node_a not in self.nodes or node_b not in self.nodes:
+            return isAncestor
+            
         directParents = self.get_parents(node_b)
         if node_a in directParents:
             isAncestor = True
@@ -217,8 +220,10 @@ class DGraph(object):
 
     def is_descendant(self, node_a: str, node_b: str) -> bool:
         isDescendant = False
+        if node_a not in self.nodes or node_b not in self.nodes:
+            return isDescendant
+
         directChildrens = self.get_children(node_b)
-        
         if node_a in directChildrens:
             isDescendant = True
         else:
