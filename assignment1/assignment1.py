@@ -82,7 +82,8 @@ def analyze(array: Union[List, np.array]) -> Dict:
 # https://realpython.com/python-matplotlib-guide/
 def histogram(array: np.array, bins: Optional[int] = 10):
     plt.hist(x=array,bins=bins)
-    #plt.show()
+    plt.savefig("plot.png")
+    plt.show()
     
     
 ### Exercise 1, Task 5:
