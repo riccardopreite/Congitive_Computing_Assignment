@@ -28,7 +28,6 @@ import matplotlib.pyplot as plt
 # In order to express more complex types some additional imports
 # are needed
 from typing import Union, Optional, List, Tuple, Dict
-import copy
 
 ### Exercise 1, Task 1:
 # Comment: This is a function header in Python.
@@ -38,6 +37,11 @@ import copy
 # If the function is to return a value, you need to
 # specifc this using "return <val>"
 def fibonacci(n: int) -> int:
+    a, b = 0, 1
+    for i in range(0, n):
+        a, b = b, a + b
+    return a
+    """This is the recursive one but it is limited for excessive recursive call"""
     if n < 0:
         return 0
     elif n >=0 and n <=1:
@@ -88,10 +92,10 @@ def histogram(array: np.array, bins: Optional[int] = 10):
     
 ### Exercise 1, Task 5:
 def list_ends(original_list: Union[List, np.array]) -> List:
-    if type(original_list) != np.array:
+    if type(original_list) != np.ndarray:
         return [original_list[0],original_list[-1]]
     elif original_list.ndim > 1:
-        return [original_list[:,0],original_list[:,-1]]
+        return [*original_list[0,:],*original_list[-1,:]]
     else:
         return [original_list[0],original_list[-1]]
     
@@ -238,22 +242,22 @@ class DGraph(object):
 
         return isDescendant
 
+
     def is_acyclic(self) -> bool:
-        copy_graph = copy.deepcopy(self)
-        L = []
-        Q = [ node for node in self.nodes.keys() if len(self.get_parents(node)) == 0]
-        while len(Q) != 0:
-            n = Q.pop(0)
-            L.append(n)
-            for m in self.nodes[n]:
-                copy_graph.remove_edge(n, m)
-                if len(copy_graph.get_parents(m)) == 0:
-                    Q.append(m)
-        
-        for node in copy_graph.nodes.values():
-            if len(node) > 0:
+        visited = {}
+        for node in self.nodes:
+            visited[node] = []
+            self._visit(node, visited[node])
+        for node in visited:
+            if node in visited[node]:
                 return False
         return True
+
+    def _visit(self, starting_node, visited):
+        for reachable_node in self.nodes[starting_node]:
+            if reachable_node not in visited:
+                visited.append(reachable_node)
+                self._visit(reachable_node, visited)
 
 if __name__ == "__main__":
     print("Example calls: ")
@@ -270,26 +274,81 @@ if __name__ == "__main__":
     # Exercise 1, Task 4:
     histogram(array)
     # Exercise 1, Task 5:
+    array = []
     print("First and last item of list {}: {}".format(array, list_ends(array)))
     # print(combine_dictionaries({"S":19,"c":4,"f":"d"},{"S":4,"d":3,"f":"c"}))
     # Exercise 1, Task 6:
+    
     m1 = np.eye(2)
     m2 = np.array([[2,1],[0,2]])
     res = matrix_mul(m1, m2)
     print("Result from the multiplication: {}".format(res))
 
     ### Exercise 2:
-    graph = DGraph()
-    graph.add_node("node_a")
-    graph.add_node("node_b")
-    graph.add_node("node_c")
-    graph.remove_node("node_b")
-    graph.add_edge("node_a", "node_c")
-    graph.add_edge("node_c", "node_a")
-    print("Number of nodes: {}".format(graph.get_number_of_nodes()))
-    print("Number of nodes (properties): {}".format(graph.num_nodes))
-    print("Parents of node_c: {}".format(graph.get_parents("node_c")))
-    print("Is node_c a descendant of node_a? {}".format(graph.is_descendant("node_c","node_a")))
-    print("Is acyclic? {}".format(graph.is_acyclic()))
+    # graph = DGraph()
+    # graph.add_node("node_a")
+    # graph.add_node("node_b")
+    # graph.add_node("node_c")
+    # graph.remove_node("node_b")
+    # graph.add_edge("node_a", "node_c")
+    # graph.add_edge("node_c", "node_a")
+    # print("Number of nodes: {}".format(graph.get_number_of_nodes()))
+    # print("Number of nodes (properties): {}".format(graph.num_nodes))
+    # print("Parents of node_c: {}".format(graph.get_parents("node_c")))
+    # print("Is node_c a descendant of node_a? {}".format(graph.is_descendant("node_c","node_a")))
+    # print("Is acyclic? {}".format(graph.is_acyclic()))
+
+    
+    graph_cycle = DGraph()
+    graph_cycle.add_node("node_a")
+    graph_cycle.add_node("node_d")
+    graph_cycle.add_node("node_b")
+    graph_cycle.add_node("node_c")
+    graph_cycle.add_node("node_e")
+    graph_cycle.add_node("node_f")
+
+    graph_cycle.add_edge("node_a", "node_b")
+    graph_cycle.add_edge("node_a", "node_d")
+    graph_cycle.add_edge("node_b", "node_c")
+    graph_cycle.add_edge("node_b", "node_f")
+    graph_cycle.add_edge("node_b", "node_e")
+    graph_cycle.add_edge("node_c", "node_d")
+    graph_cycle.add_edge("node_d", "node_b")
+    graph_cycle.add_edge("node_e", "node_c")
+
+    print("########Testcase Graph_cycle.is_ancestor########")
+    print("Is node_a a ancestor of node_e? {}".format(graph_cycle.is_ancestor("node_a", "node_e")))
+    print("\n########Testcase Graph_cycle.is_descendant########")
+    print("Is node_e a descendant of node_a? {}".format(graph_cycle.is_descendant("node_e", "node_a")))
+    print("\n########Testcase Graph_cycle.is_ancestor########")
+    print("Is node_e a ancestor of node_f? {}".format(graph_cycle.is_ancestor("node_e", "node_f")))
+    print("\n########Testcase Graph_cycle.is_descendant########")
+    print("Is node_e a descendant of node_f? {}".format(graph_cycle.is_descendant("node_e", "node_f")))
+    print("\n########Testcase Graph_cycle.is_ancestor########")
+    print("Is node_b a descendant of node_d? {}".format(graph_cycle.is_ancestor("node_b", "node_d")))
+    print("\n########Testcase Graph_cycle.is_ancestor########")
+    print("Is node_b a descendant of node_d? {}".format(graph_cycle.is_ancestor("node_b", "node_d")))
+    print("\n########Testcase Graph_cycle.is_acyclic########")
+    print("Is acyclic? {}".format(graph_cycle.is_acyclic()))
+    print("\n########Testcase Graph_cycle.is_acyclic########")
+    print("Number of nodes: {}".format(graph_cycle.get_number_of_nodes()))
+    print("\n########Testcase Graph_cycle.is_acyclic########")
+    print("Number of nodes (properties): {}".format(graph_cycle.num_nodes))
+
+    graph_cycle.remove_node("node_b")
+    graph_cycle.add_edge("node_a", "node_c")
+    graph_cycle.add_edge("node_b", "node_c")
+    graph_cycle.add_edge("node_c", "node_a")
+    
+    graph_cycle.remove_node("schmu")
+
+    print("\n########Testcase Graph_cycle.get_number_of_nodes########")
+    print("Number of nodes: {}".format(graph_cycle.get_number_of_nodes()))
+    print("\n########Testcase Graph_cycle.num_nodes########")
+    print("Number of nodes (properties): {}".format(graph_cycle.num_nodes))
+    print("\n########Testcase Graph_cycle.get_parents########")
+    print("Parents of node_c: {}".format(graph_cycle.get_parents("node_c")))
+    print("\n########Testcase Graph_cycle.get_children########")
+    print("Children of node_a: {}".format(graph_cycle.get_children("node_a")))
 
     
