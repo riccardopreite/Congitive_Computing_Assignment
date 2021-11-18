@@ -35,6 +35,7 @@ from typing import Union, List, Iterable
 ## Exercise 1: Finding basic (causal) structures
 
 def find_forks(dg: Graph) -> List[Union[Node, str]]:
+    
     """
         Finds all forks within the given directed graph.
         
@@ -50,7 +51,12 @@ def find_forks(dg: Graph) -> List[Union[Node, str]]:
             A list containing all Nodes (either object or their name/id) that
             represent forks in the network.
     """
-    raise NotImplementedError("TODO Exercise 1.1")
+    fork_node:list = []
+    for node_name in dg.nodes:
+        node:Node = dg.nodes.get(node_name)
+        if len(node.children) > 1:
+            fork_node.append(node)
+    return fork_node
 
 def find_chains(dg: Graph) -> List[Union[Node, str]]:
     """
@@ -68,8 +74,12 @@ def find_chains(dg: Graph) -> List[Union[Node, str]]:
             A list containing all Nodes (either object or their name/id) that
             represent chains in the network.
     """
-    raise NotImplementedError("TODO Exercise 1.2")
-
+    chain_node:list = []
+    for node_name in dg.nodes:
+        node:Node = dg.nodes.get(node_name)
+        if len(node.children) > 0 and len(node.parents) > 0:
+            chain_node.append(node)
+    return chain_node
 def find_collider(dg: Graph) -> List[Union[Node, str]]:
     """
         Finds all colliders within the given graph.
@@ -86,8 +96,12 @@ def find_collider(dg: Graph) -> List[Union[Node, str]]:
             A list containing all Nodes (either object or their name/id) that
             represent collider in the network.
     """
-    raise NotImplementedError("TODO Exercise 1.3")
-
+    collider_node:list = []
+    for node_name in dg.nodes:
+        node:Node = dg.nodes.get(node_name)
+        if len(node.parents) > 1:
+            collider_node.append(node)
+    return collider_node
 
 ### Exercise 2: Markov Equality
 

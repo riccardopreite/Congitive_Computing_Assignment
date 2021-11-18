@@ -24,6 +24,7 @@ class TestAssignment3(unittest.TestCase):
             forks = [n.name for n in forks]
         except AttributeError:
             pass 
+
         self.assertEqual(set(forks), {"E"}, "Incorrect forks found.")
 
     def test_find_chains(self):
