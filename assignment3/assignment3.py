@@ -51,12 +51,7 @@ def find_forks(dg: Graph) -> List[Union[Node, str]]:
             A list containing all Nodes (either object or their name/id) that
             represent forks in the network.
     """
-    fork_node:list = []
-    for node_name in dg.nodes:
-        node:Node = dg.nodes.get(node_name)
-        if len(node.children) > 1:
-            fork_node.append(node)
-    return fork_node
+    return [node for node in dg.nodes if len(dg.get_children(node)) >= 2]
 
 def find_chains(dg: Graph) -> List[Union[Node, str]]:
     """
@@ -74,12 +69,9 @@ def find_chains(dg: Graph) -> List[Union[Node, str]]:
             A list containing all Nodes (either object or their name/id) that
             represent chains in the network.
     """
-    chain_node:list = []
-    for node_name in dg.nodes:
-        node:Node = dg.nodes.get(node_name)
-        if len(node.children) > 0 and len(node.parents) > 0:
-            chain_node.append(node)
-    return chain_node
+    
+    return [node for node in dg.nodes if len(dg.get_children(node)) > 0 and len(dg.get_parents(node)) >0]
+
 def find_collider(dg: Graph) -> List[Union[Node, str]]:
     """
         Finds all colliders within the given graph.
@@ -96,12 +88,8 @@ def find_collider(dg: Graph) -> List[Union[Node, str]]:
             A list containing all Nodes (either object or their name/id) that
             represent collider in the network.
     """
-    collider_node:list = []
-    for node_name in dg.nodes:
-        node:Node = dg.nodes.get(node_name)
-        if len(node.parents) > 1:
-            collider_node.append(node)
-    return collider_node
+    return [node for node in dg.nodes if len(dg.get_parents(node)) >= 2]
+
 
 ### Exercise 2: Markov Equality
 
@@ -121,7 +109,27 @@ def find_immoralities(graph: Graph) -> List:
             A list of all immoralities contained in the graph. How you
             represent a single immorality is up to you.
     """
-    raise NotImplementedError("TODO Exercise 2.1")
+    colliders: list[Node] = find_collider(graph)
+    immoralities:dict = {}
+    for collider in colliders:
+        immoralities[collider] = []
+        collider_parent = graph.get_parents(collider)
+        ext_parent:Node = None
+        for ext_parent in collider_parent:
+            int_parent:Node = None
+
+            for int_parent in collider_parent:
+                if ext_parent != int_parent:
+
+                    if int_parent not in graph.get_parents(ext_parent) and int_parent not in graph.get_children(ext_parent):
+                        first_tupla = (ext_parent,int_parent)
+                        second_tupla = (int_parent,ext_parent)
+                        
+                        if first_tupla not in immoralities[collider] and second_tupla not in immoralities[collider]:
+                            immoralities[collider].append(first_tupla)
+
+    return immoralities
+
 
 def same_skeleton(graph1: Graph, graph2: Graph) -> bool:
     """
@@ -140,8 +148,22 @@ def same_skeleton(graph1: Graph, graph2: Graph) -> bool:
         bool
             True if the two graphs have the same skeletongs, False otherwise.
     """
-    raise NotImplementedError("TODO Exercise 2.2")
 
+
+    first_indirect = graph1.to_undirected()
+    second_indirect = graph2.to_undirected()
+    if first_indirect.nodes != second_indirect.nodes:
+        print("Nodes structure is different")
+        return False
+    for node in first_indirect.nodes:
+        #  or set(first_indirect.get_parents(node)) != set(second_indirect.get_parents(node))
+
+        """Children and parent have to be the same"""
+        if set(first_indirect.get_children(node)) != set(second_indirect.get_children(node)):
+            print("Different linking")
+            return False
+
+    return True
 def markov_equivalent(graph1: Graph, graph2: Graph) -> bool:
     """
         A function to check whether or not the two given directed graphs are Markov
@@ -159,6 +181,7 @@ def markov_equivalent(graph1: Graph, graph2: Graph) -> bool:
         bool
             True if the two graphs are Markov equivalent, False otherwise.
     """
+    return (find_immoralities(graph1) == find_immoralities(graph2)) and same_skeleton(graph1,graph2)
     raise NotImplementedError("TODO Exercise 2.3")
 
 ## Exercise 3: Paths
@@ -186,8 +209,31 @@ def get_paths(graph: Graph, node_x: Union[Node, str],
             an undirected path from node_x to node_y. These paths should contain
             the starting and end nodes as well.
     """
-    raise NotImplementedError("TODO Exercise 3")
+    paths: list[list] = list()
+    current_path: list[Node]  = list()
+    visited_nodes: dict = dict()
 
+    def undirect_path(node_a, node_b):
+        if visited_nodes.get(node_a, False):
+            return
+
+        visited_nodes[node_a] = True
+        current_path.append(node_a)
+
+        if node_a == node_b and len(current_path) > 2:
+            paths.append(current_path.copy())
+            visited_nodes[node_a] = False
+            current_path.pop()
+            return
+
+        for child in set(graph.get_children(node_a) + graph.get_parents(node_a)):
+            undirect_path(child, node_b)
+
+        visited_nodes[node_a] = False
+        current_path.pop()
+
+    undirect_path(node_x, node_y)
+    return paths
 ## Exercise 4: D-Separation
 
 def is_collider(dg: Graph, node: Union[Node, str], 
@@ -426,6 +472,7 @@ if __name__ == "__main__":
     #Markov Equality Since you determine how to represent immoralities
     # I cannot provide any asserts here.
     print("Immoralities for graph 1: ", find_immoralities(g1))
+    # g2.remove_edge("R","E")
     print("Do g1 and g2 have the same skeleton? ", same_skeleton(g1, g2))
     print("Are g1 and g2 Markov Equivalent? ", markov_equivalent(g1, g2))
 
