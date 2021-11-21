@@ -13,6 +13,7 @@ Last modified on Tue Nov 24 15:33 2020
 # from assignment1.py import DGraph as Graph
 # Also make sure to submit your assignment1.py (or whatever you end up)
 # calling it, alongside this file so that the imports work!
+from typing_extensions import Annotated
 from ccbase.networks import Graph
 from ccbase.nodes import Node
 ###
@@ -150,8 +151,8 @@ def same_skeleton(graph1: Graph, graph2: Graph) -> bool:
     """
 
 
-    first_indirect = graph1.to_undirected()
-    second_indirect = graph2.to_undirected()
+    first_indirect = graph1.copy().to_undirected()
+    second_indirect = graph2.copy().to_undirected()
     if first_indirect.nodes != second_indirect.nodes:
         print("Nodes structure is different")
         return False
@@ -164,6 +165,7 @@ def same_skeleton(graph1: Graph, graph2: Graph) -> bool:
             return False
 
     return True
+
 def markov_equivalent(graph1: Graph, graph2: Graph) -> bool:
     """
         A function to check whether or not the two given directed graphs are Markov
@@ -182,7 +184,6 @@ def markov_equivalent(graph1: Graph, graph2: Graph) -> bool:
             True if the two graphs are Markov equivalent, False otherwise.
     """
     return (find_immoralities(graph1) == find_immoralities(graph2)) and same_skeleton(graph1,graph2)
-    raise NotImplementedError("TODO Exercise 2.3")
 
 ## Exercise 3: Paths
 
@@ -260,7 +261,21 @@ def is_collider(dg: Graph, node: Union[Node, str],
             True if the given node is a collider with respect to the given path
             within the graph, False otherwise.
     """
-    raise NotImplementedError("TODO Exercise 4.1")
+    # Check if node is present in the given graph and path
+    if (node not in dg.nodes) or (node not in path):
+        return False
+    else:
+        node_idx = path.index(node)
+        # First and last node in a path cannot be colliders (they have at most one incoming edge)
+        if node_idx == 0 or node_idx == len(path) - 1:
+            return False
+        else:
+            node_parents = dg.get_parents(node)
+            # A node is a collider if both neighbours in the path have outgoing edges towards it
+            if (path[node_idx - 1] in node_parents) and (path[node_idx + 1] in node_parents):
+                return True
+            else:
+                return False
 
 
 def is_path_open(dg: Graph, path: List[Union[Node,str]], 
@@ -286,7 +301,26 @@ def is_path_open(dg: Graph, path: List[Union[Node,str]],
             False if the path is blocked given given the nodes_z, True otherwise.
         
     """
-    raise NotImplementedError("TODO Exercise 4.2")
+    # Validate arguments
+    if len(path) == 0 or dg is None or len(dg.nodes) == 0:
+        return True
+    else:
+        # Skip first and last node in path
+        for node in path[1:-1]:
+            if is_collider(dg, node, path):
+                # Collider: "closed" if neither node in the center nor any of its descendants are given as evidence
+                collider_closed = True
+                for evidence in nodes_z:
+                    if evidence == node or evidence in dg.get_descendants(node):
+                        collider_closed = False
+                if collider_closed:
+                    return False
+            else:
+                # Non-collider: "closed" if node in the center is given as evidence
+                if node in nodes_z:
+                    return False
+        # Couldn't find a closed node in the given path and set of conditioned nodes
+        return True
 
 
 def unblocked_path_exists(dg: Graph, node_x: Union[Node, str], 
@@ -313,7 +347,14 @@ def unblocked_path_exists(dg: Graph, node_x: Union[Node, str],
             False if all undirected paths between node_x and node_y are blocked 
             given the nodes_z, True otherwise.
     """
-    raise NotImplementedError("TODO Exercise 4.3")
+    # Get all undirected paths between node_x and node_y
+    paths = get_paths(dg, node_x, node_y)
+    # Check every path until an open path is found
+    for path in paths:
+        if is_path_open(dg, path, nodes_z):
+            return True
+    # Couldn't find an open path
+    return False
 
 def check_independence(dg: Graph, nodes_x: Iterable[Union[Node, str]], 
         nodes_y: Iterable[Union[Node, str]], nodes_z: Iterable[Union[Node, str]]) -> bool:
@@ -341,7 +382,14 @@ def check_independence(dg: Graph, nodes_x: Iterable[Union[Node, str]],
             True if all nodes in nodes_x are conditionally independent of all
             nodes in nodes_y given the nodes in nodes_z, False otherwise.
     """
-    raise NotImplementedError("TODO Exercise 4.4")
+    # Iterate over all combinations of nodes in nodes_x and nodes_y
+    for node_x in nodes_x:
+        for node_y in nodes_y:
+            # node_x and node_y are dependent if there is an open path given nodes_z (they are not d-separated)
+            if unblocked_path_exists(dg, node_x, node_y, nodes_z):
+                return False
+    # Could not find a dependence between the two sets of nodes_x and nodes_y given nodes_z
+    return True
 
 
 
@@ -363,7 +411,26 @@ def make_ancestral_graph(graph: Graph, nodes: Iterable[Union[Node, str]]) -> Gra
         ccbase.networks.Graph
             The resulting ancestral graph.
     """
-    raise NotImplementedError("TODO Exercise 5.1")
+    if len(nodes) == 0:
+        return Graph()
+
+    for index in range(0,len(nodes)):
+        nodes[index] = Node(str(nodes[index]))
+
+    ancestor_list: list = nodes
+    ancestor_graph: Graph = graph.copy()
+
+    for node in nodes:
+        ancestor_list = list(set(ancestor_list + list(graph.get_ancestors(node))))
+
+    for node in graph.nodes:
+        if node not in ancestor_list:
+            ancestor_graph.remove_node(node)
+
+    # for node in ancestor_graph.nodes:
+    #     print(node , "->",ancestor_graph.get_children(node))
+    # print("fine ancestor")
+    return ancestor_graph
 
 def make_moral_graph(graph: Graph) -> Graph:
     """
@@ -380,7 +447,18 @@ def make_moral_graph(graph: Graph) -> Graph:
         ccbase.networks.Graph
             The resulting moral graph which is undirected.
     """
-    raise NotImplementedError("TODO Exercise 5.2")
+    morality_graph = graph.copy()
+    immoralties: dict = find_immoralities(morality_graph)
+    for immoralities_vect in immoralties.values():
+        
+        for immorality_tuple in immoralities_vect:
+            morality_graph.add_edge(immorality_tuple[0],immorality_tuple[1])
+    
+    morality_graph = morality_graph.to_undirected()
+    # for node in morality_graph.nodes:
+    #     print(node , "->",morality_graph.get_children(node))
+    # print("fine morality")
+    return morality_graph
 
 def separation(graph: Graph, nodes_z: Iterable[Union[Node, str]]) -> Graph:
     """
@@ -399,7 +477,33 @@ def separation(graph: Graph, nodes_z: Iterable[Union[Node, str]]) -> Graph:
             The resulting graph with all links from the nodes in node_z
             separated.
     """
-    raise NotImplementedError("TODO Exercise 5.3")
+    separeted_graph: Graph = graph.copy()
+    if len(nodes_z) == 0:
+        return graph
+
+    for index in range(0,len(nodes_z)):
+        nodes_z[index] = Node(str(nodes_z[index]))
+    
+    
+    for to_seaparate_node in nodes_z:
+
+        for parent in graph.get_parents(to_seaparate_node):
+            separeted_graph.remove_edge(parent,to_seaparate_node)
+        
+        for children in graph.get_children(to_seaparate_node):
+            separeted_graph.remove_edge(to_seaparate_node,children)
+
+    # for node in separeted_graph.nodes:
+    #     print(node , "->",separeted_graph.get_children(node))
+    # print("fine separeted")
+    
+    return separeted_graph
+
+
+    
+
+
+
 
 def check_independence_general(graph: Graph, nodes_x: Iterable[Union[Node, str]], 
             nodes_y: Iterable[Union[Node, str]], nodes_z: Iterable[Union[Node, str]]) -> bool:
@@ -428,7 +532,14 @@ def check_independence_general(graph: Graph, nodes_x: Iterable[Union[Node, str]]
             True if all nodes in nodes_x are conditionally independent of all
             nodes in nodes_y given the nodes in nodes_z, False otherwise.
     """
-    raise NotImplementedError("TODO Exercise 5.4")
+    for node_x in nodes_x:
+        for node_y in nodes_y:
+            paths = get_paths(graph, node_x, node_y)
+            
+            for path in paths:
+                if not any(path_node in nodes_z for path_node in path):
+                    return False   
+    return True
 
 def create_example_graphs():
     """
@@ -483,7 +594,7 @@ if __name__ == "__main__":
 
     # D-Separation 
     path = ["B","A","E"]
-    print("Is A a collider for the path {}? {}".format(is_collider(g1, "A", path)))
+    print("Is A a collider for the path {}? {}".format(path,is_collider(g1, "A", path)))
     print("Is path {} open? {}".format(path, is_path_open(g1, path, [])))
     nodes_z = ("A","E")
     print("Is there a path from B to R not blocked by {}? {}".format(nodes_z, unblocked_path_exists(g1, "B","R", nodes_z)))
@@ -494,4 +605,6 @@ if __name__ == "__main__":
     # to make it a fair comparison to the D-Separation above.
     g2.add_edge("B","E")
     g2 = g2.to_undirected()
+    # for node in g2.nodes:
+    #     print(node , "->",g2.get_children(node))
     print("Are the nodes B and R independent given nodes {}?: {}".format(nodes_z, check_independence_general(g2, ("B"), ("R"), nodes_z)))
