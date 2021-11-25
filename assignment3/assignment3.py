@@ -123,12 +123,13 @@ def find_immoralities(graph: Graph) -> List:
                 if ext_parent != int_parent:
 
                     if int_parent not in graph.get_parents(ext_parent) and int_parent not in graph.get_children(ext_parent):
-                        first_tupla = (ext_parent,int_parent)
-                        second_tupla = (int_parent,ext_parent)
+                        first_tupla = (str(ext_parent),str(int_parent))
+                        second_tupla = (str(int_parent),str(ext_parent))
                         
                         if first_tupla not in immoralities[collider] and second_tupla not in immoralities[collider]:
                             immoralities[collider].append(first_tupla)
-
+    
+    immoralities = { k: sorted( [sorted(tupl) for tupl in v ] )  for k,v in immoralities.items()  }
     return immoralities
 
 
@@ -582,6 +583,15 @@ if __name__ == "__main__":
 
     #Markov Equality Since you determine how to represent immoralities
     # I cannot provide any asserts here.
+    # gmio = g1.copy()
+    # gmio.remove_edge("B","A")
+    # gmio.add_edge("A","B")
+
+    # gmio.remove_edge("E","A")
+    # gmio.add_edge("A","E")
+
+    # gmio.remove_edge("E","R")
+    # gmio.add_edge("R","E")
     print("Immoralities for graph 1: ", find_immoralities(g1))
     # g2.remove_edge("R","E")
     print("Do g1 and g2 have the same skeleton? ", same_skeleton(g1, g2))

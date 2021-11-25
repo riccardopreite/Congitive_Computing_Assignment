@@ -63,12 +63,28 @@ class TestAssignment3(unittest.TestCase):
         graph2 = graph1.copy()
         graph2.remove_edge("E","R")
         graph2.add_edge("R","E")
-        print("Immoralities of graph1: ", solution.find_immoralities(graph1))
-        print("Immoralities of graph2: ", solution.find_immoralities(graph2))
-        self.assertEqual(solution.find_immoralities(graph1),solution.find_immoralities(graph2), "The graphs have the same immoralities")
+        im1 = solution.find_immoralities(graph1)
+        im2 = solution.find_immoralities(graph2)
+        print("Immoralities of graph1: ", im1)
+        print("Immoralities of graph2: ", im2)
+        self.assertEqual(im1,im2, "The graphs have the same immoralities")
 
-        # You would need to define your own test here since the return
-        # type is up to you!
+        our_graph = graph1.copy()
+        our_graph.remove_edge("B","A")
+        our_graph.add_edge("A","B")
+
+        our_graph.remove_edge("E","A")
+        our_graph.add_edge("A","E")
+
+        our_graph.remove_edge("E","R")
+        our_graph.add_edge("R","E")
+        
+        im_our = solution.find_immoralities(our_graph)
+        
+        print("Other graph test")   
+        print("Immoralities of graph1: ", im1)   
+        print("Immoralities of our_graph: ", im_our)
+        self.assertNotEqual(im1,im_our, "The graphs haven't the same immoralities")
         
 
     def test_same_skeleton(self):

@@ -12,6 +12,7 @@ last modified. 11.11.2021
 
 import unittest
 import assignment3 as solution
+from ccbase.networks import Graph
 
 class TestAssignment3(unittest.TestCase):
 
@@ -62,13 +63,11 @@ class TestAssignment3(unittest.TestCase):
         graph2 = graph1.copy()
         graph2.remove_edge("E","R")
         graph2.add_edge("R","E")
-        print("Immoralities of graph1: ", solution.find_immoralities(graph1))
-        print("Immoralities of graph2: ", solution.find_immoralities(graph2))
-        self.assertEqual(solution.find_immoralities(graph1),solution.find_immoralities(graph2), "The graphs have the same immoralities")
-
-        # You would need to define your own test here since the return
-        # type is up to you!
-        
+        im1 = solution.find_immoralities(graph1)
+        im2 = solution.find_immoralities(graph2)
+        print("Immoralities of graph1: ", im1)
+        print("Immoralities of graph2: ", im2)
+        self.assertEqual(im1,im2, "The graphs have the same immoralities")
 
     def test_same_skeleton(self):
         graph1 = self._create_example_graph()
@@ -117,16 +116,27 @@ class TestAssignment3(unittest.TestCase):
         query_nodes = ["A","I","F","L"]
         ancestral_graph =solution.make_ancestral_graph(graph, query_nodes)
         self.assertFalse("G" in ancestral_graph.nodes, "G is not part of the ancestral graph")
-
+    
     def test_moral_graph(self):
         graph = self._create_lecture_graph()
+
+        # query_nodes = ["A","I","F","L"]
+        # ancestor_graph: Graph = solution.make_ancestral_graph(graph, query_nodes)
+
         moral_graph = solution.make_moral_graph(graph)
         self.assertFalse(moral_graph.is_directed, "The moral graph should no longer be directed.")
         self.assertEqual(set(graph.nodes.keys()), set(moral_graph.nodes.keys()), "A moral graph should not lose any nodes")
 
     def test_separation(self):
         graph = self._create_lecture_graph()
-        res = solution.separation(graph, ["F", "L"])
+        moral_graph = graph
+
+        query_nodes = ["A","I","F","L"]
+        ancestor_graph: Graph = solution.make_ancestral_graph(graph, query_nodes)
+        moral_graph = solution.make_moral_graph(ancestor_graph)
+        
+        res = solution.separation(moral_graph, ["F", "L"])
+
         self.assertFalse("F" in res.nodes["H"].children, "There should no longer be an edge between F and H")
         self.assertFalse("F" in res.nodes["D"].children, "There should no longer be an edge between F and D")
         self.assertFalse("L" in res.nodes["H"].children, "There should no longer be an edge between L and H")
@@ -134,6 +144,10 @@ class TestAssignment3(unittest.TestCase):
     def test_check_independence_general(self):
         graph = self._create_lecture_graph()
         self.assertFalse(solution.check_independence_general(graph, ["A"], ["I"], ["L","F"]), "A and I are conditionnaly dependent given L and F")
+        self.assertTrue(solution.check_independence_general(graph, ["A"], ["B"], ["C"]), "A and B are conditionnaly independent given C")
+        self.assertTrue(solution.check_independence_general(graph, ["A"], ["B"], ["F"]), "A and B are conditionnaly independent given F")
+        self.assertTrue(solution.check_independence_general(graph, ["A"], ["E"], ["C"]), "A and E are conditionnaly independent given C")
+        self.assertFalse(solution.check_independence_general(graph, ["A"], ["B"], ["M"]), "A and E are conditionnaly dependent given M")
 
     def _create_example_graph(self):
         dg = solution.Graph()
