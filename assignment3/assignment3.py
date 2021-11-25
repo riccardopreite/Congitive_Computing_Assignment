@@ -110,25 +110,35 @@ def find_immoralities(graph: Graph) -> List:
             A list of all immoralities contained in the graph. How you
             represent a single immorality is up to you.
     """
+    """Getting the list of colliders"""
     colliders: list[Node] = find_collider(graph)
     immoralities:dict = {}
+
     for collider in colliders:
+        """For each collider create a key:value in immoralities dict starting from an empty list"""
         immoralities[collider] = []
+
+        """Get the collider parent"""
         collider_parent = graph.get_parents(collider)
         ext_parent:Node = None
+
+        """For each parent"""
         for ext_parent in collider_parent:
             int_parent:Node = None
-
+            """For each parent"""
             for int_parent in collider_parent:
+                
+                """If are different and there is not a link between them"""
                 if ext_parent != int_parent:
-
+                    
                     if int_parent not in graph.get_parents(ext_parent) and int_parent not in graph.get_children(ext_parent):
                         first_tupla = (str(ext_parent),str(int_parent))
                         second_tupla = (str(int_parent),str(ext_parent))
                         
+                        """If is not already in the list append it"""
                         if first_tupla not in immoralities[collider] and second_tupla not in immoralities[collider]:
                             immoralities[collider].append(first_tupla)
-    
+    """Sorting dict dict =  {"a":[(4,3)],"b":[(9,8),(5,4)]} -> dict = {"a":[[3,4]],"b":[[4,5],[8,9]]}"""
     immoralities = { k: sorted( [sorted(tupl) for tupl in v ] )  for k,v in immoralities.items()  }
     return immoralities
 
@@ -216,18 +226,21 @@ def get_paths(graph: Graph, node_x: Union[Node, str],
     visited_nodes: dict = dict()
 
     def undirect_path(node_a, node_b):
+        """If already visited return"""
         if visited_nodes.get(node_a, False):
             return
-
+        """Check visited and append it"""
         visited_nodes[node_a] = True
         current_path.append(node_a)
 
-        if node_a == node_b and len(current_path) > 2:
+        """If a==b I'm on the destination node"""
+        if node_a == node_b:
             paths.append(current_path.copy())
             visited_nodes[node_a] = False
+            """Popping the list until next children/parent original caller"""
             current_path.pop()
             return
-
+        """Recursive call to get all undirect path"""
         for child in set(graph.get_children(node_a) + graph.get_parents(node_a)):
             undirect_path(child, node_b)
 
@@ -415,15 +428,16 @@ def make_ancestral_graph(graph: Graph, nodes: Iterable[Union[Node, str]]) -> Gra
     if len(nodes) == 0:
         return Graph()
 
+    """To avoid problem if the list contains also string and Node"""
     for index in range(0,len(nodes)):
         nodes[index] = Node(str(nodes[index]))
-
+    """Copy graph"""
     ancestor_list: list = nodes
     ancestor_graph: Graph = graph.copy()
-
+    """Get ancestor of the nodes"""
     for node in nodes:
         ancestor_list = list(set(ancestor_list + list(graph.get_ancestors(node))))
-
+    """if the node is not in the ancestor list remove it"""
     for node in graph.nodes:
         if node not in ancestor_list:
             ancestor_graph.remove_node(node)
@@ -449,12 +463,13 @@ def make_moral_graph(graph: Graph) -> Graph:
             The resulting moral graph which is undirected.
     """
     morality_graph = graph.copy()
+    """Getting immoralities"""
     immoralties: dict = find_immoralities(morality_graph)
     for immoralities_vect in immoralties.values():
-        
+        """For each parent in immorality add an edge between them"""
         for immorality_tuple in immoralities_vect:
             morality_graph.add_edge(immorality_tuple[0],immorality_tuple[1])
-    
+    """Removing direction from edge"""
     morality_graph = morality_graph.to_undirected()
     # for node in morality_graph.nodes:
     #     print(node , "->",morality_graph.get_children(node))
@@ -479,13 +494,14 @@ def separation(graph: Graph, nodes_z: Iterable[Union[Node, str]]) -> Graph:
             separated.
     """
     separeted_graph: Graph = graph.copy()
+    """If no nodes in nodes_z return the same graph"""
     if len(nodes_z) == 0:
         return graph
 
     for index in range(0,len(nodes_z)):
         nodes_z[index] = Node(str(nodes_z[index]))
     
-    
+    """For each node in nodes_z removing his edge"""
     for to_seaparate_node in nodes_z:
 
         for parent in graph.get_parents(to_seaparate_node):
@@ -533,10 +549,13 @@ def check_independence_general(graph: Graph, nodes_x: Iterable[Union[Node, str]]
             True if all nodes in nodes_x are conditionally independent of all
             nodes in nodes_y given the nodes in nodes_z, False otherwise.
     """
+    """For each node"""
     for node_x in nodes_x:
+        """For each node"""
         for node_y in nodes_y:
+            """Getting every path"""
             paths = get_paths(graph, node_x, node_y)
-            
+            """For each path if it pass from a node in z it is dependent from z"""
             for path in paths:
                 if not any(path_node in nodes_z for path_node in path):
                     return False   
