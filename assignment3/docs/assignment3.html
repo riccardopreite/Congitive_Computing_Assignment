@@ -1,0 +1,1254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>assignment3 API documentation</title>
+<meta name="description" content="Last modified on Tue Nov 24 15:33 2020
+@author: jpoeppel" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>assignment3</code></h1>
+</header>
+<section id="section-intro">
+<p>Last modified on Tue Nov 24 15:33 2020
+@author: jpoeppel</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+Last modified on Tue Nov 24 15:33 2020
+@author: jpoeppel
+&#34;&#34;&#34;
+
+# Import of the provided graph class. You would
+# need to change this line if you plan to use your
+# own graph class!
+
+# If you change this, make sure you also import you Graph
+# with that name, e.g. if you want to use the assignment1.py file
+# directly your import could look like:
+# from assignment1.py import DGraph as Graph
+# Also make sure to submit your assignment1.py (or whatever you end up)
+# calling it, alongside this file so that the imports work!
+from ccbase.networks import Graph
+from ccbase.nodes import Node
+###
+# You should not really require numpy for this assignment, but you are free
+# to use it if you want.
+import numpy as np
+# Imports for type hints
+from typing import Union, List, Iterable
+
+###
+# Note: If you use your own graph implementation, take care
+# that the parameters may be either a node&#39;s name or a node&#39;s
+# object. You do however not need to worry about implementing both
+# return types. It will be enough as long as the functions return either
+# node objects or the node names (or lists thereof). Similarly, when implementing
+# the functions below, it is sufficient if your solutions work with either names
+# or node objects.
+
+
+## Exercise 1: Finding basic (causal) structures
+
+def find_forks(dg: Graph) -&gt; List[Union[Node, str]]:
+    &#34;&#34;&#34;
+        Finds all forks within the given directed graph.
+        
+        Parameters
+        ----------
+        dg: ccbase.networks.Graph
+            The (directed) graph whose forks are to be found.
+            You can assume that the graph will be directed.
+            
+        Returns
+        ----------
+        list of ccbase.nodes.Node or Strings
+            A list containing all Nodes (either object or their name/id) that
+            represent forks in the network.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 1.1&#34;)
+
+def find_chains(dg: Graph) -&gt; List[Union[Node, str]]:
+    &#34;&#34;&#34;
+        Finds all chains within the given directed graph.
+        
+        Parameters
+        ----------
+        dg: ccbase.networks.Graph
+            The (directed) graph whose chains are to be found.
+            You can assume that the graph will be directed.
+            
+        Returns
+        ----------
+        list of ccbase.nodes.Node or Strings
+            A list containing all Nodes (either object or their name/id) that
+            represent chains in the network.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 1.2&#34;)
+
+def find_collider(dg: Graph) -&gt; List[Union[Node, str]]:
+    &#34;&#34;&#34;
+        Finds all colliders within the given graph.
+        
+        Parameters
+        ----------
+        dg: ccbase.networks.Graph
+            The (directed) graph whose colliders are to be found.
+            You can assume that the graph will be directed.
+            
+        Returns
+        ----------
+        list of ccbase.nodes.Node or Strings
+            A list containing all Nodes (either object or their name/id) that
+            represent collider in the network.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 1.3&#34;)
+
+
+### Exercise 2: Markov Equality
+
+def find_immoralities(graph: Graph) -&gt; List:
+    &#34;&#34;&#34;
+        A function to return all immoralities (i.e. two nodes with the same 
+        child but no direct connection) of the given directed graph.
+
+        Parameter
+        ---------
+        graph: ccbase.networks.Graph or equivalent
+            The directed graph to check for immoralities
+
+        Returns
+        -------
+        list
+            A list of all immoralities contained in the graph. How you
+            represent a single immorality is up to you.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 2.1&#34;)
+
+def same_skeleton(graph1: Graph, graph2: Graph) -&gt; bool:
+    &#34;&#34;&#34;
+        A function to check whether or not the two given directed graphs have the
+        same skeleton
+
+        Parameters
+        ----------
+        graph1: ccbase.networks.Graph or equivalent
+            The first directed graph to test.
+        graph2: ccbase.networks.Graph or equivalent
+            The second directed graph to test against the first.
+
+        Returns
+        -------
+        bool
+            True if the two graphs have the same skeletongs, False otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 2.2&#34;)
+
+def markov_equivalent(graph1: Graph, graph2: Graph) -&gt; bool:
+    &#34;&#34;&#34;
+        A function to check whether or not the two given directed graphs are Markov
+        equivalent.
+
+        Parameters
+        ----------
+        graph1: ccbase.networks.Graph or equivalent
+            The first directed graph to test.
+        graph2: ccbase.networks.Graph or equivalent
+            The second directed graph to test against the first.
+
+        Returns
+        -------
+        bool
+            True if the two graphs are Markov equivalent, False otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 2.3&#34;)
+
+## Exercise 3: Paths
+
+def get_paths(graph: Graph, node_x: Union[Node, str], 
+                    node_y: Union[Node, str]) -&gt; List[List[Union[Node, str]]]:
+    &#34;&#34;&#34;
+        Computes all undirected paths between node_x and node_y within
+        the (directed or undirected) graph.
+
+        Parameters
+        ----------
+        graph: ccbase.networks.Graph
+            The graph in which to compute the paths. This may be directed or
+            undirected.
+        node_x: ccbase.nodes.Node or String
+            The node object or name for the first of the two nodes.
+        node_y: ccbase.nodes.Node or String
+            The node object or name for the second of the two nodes.
+
+        Returns
+        --------
+        list of lists of ccbase.nodes.Node or Strings
+            A list of lists of node objects (or node names) that each represent
+            an undirected path from node_x to node_y. These paths should contain
+            the starting and end nodes as well.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 3&#34;)
+
+## Exercise 4: D-Separation
+
+def is_collider(dg: Graph, node: Union[Node, str], 
+                        path: List[Union[str, Node]]) -&gt; bool:
+    &#34;&#34;&#34;
+        Checks whether or not the given node is a collider with respect to the 
+        given path.
+
+        Parameters
+        ----------
+        dg: ccbase.networks.Graph
+            The directed graph that contains at least all the nodes of the given 
+            path and their connections.
+        node: ccbase.nodes.Node or String
+            The node object (or its name) of a node that should be present in the 
+            given path, which is to be checked.
+        path: list of ccbase.nodes.Node or Strings
+            A list of node objects (or node names) that represents
+            an undirected path that contains the given node.
+
+        Returns
+        ----------
+        bool
+            True if the given node is a collider with respect to the given path
+            within the graph, False otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 4.1&#34;)
+
+
+def is_path_open(dg: Graph, path: List[Union[Node,str]], 
+                    nodes_z: Iterable[Union[Node, str]]) -&gt; bool:
+    &#34;&#34;&#34; 
+        Checks whether or not the given path is open conditioned on the given nodes.
+
+        Parameters
+        ---------
+        dg: ccbase.networks.Graph
+            The directed graph that should contain all the nodes and their connections.
+        path: list of ccbase.nodes.Node or Strings
+            A list of node objects (or node names) that represents
+            an undirected path between the first and last node of the path within 
+            the graph.
+        nodes_z: iterable of ccbase.nodes.Node or Strings
+            The set of conditioned nodes (or their names), that might influence the 
+            paths between node_x and node_y
+        
+        Returns
+        --------
+        bool
+            False if the path is blocked given given the nodes_z, True otherwise.
+        
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 4.2&#34;)
+
+
+def unblocked_path_exists(dg: Graph, node_x: Union[Node, str], 
+            node_y: Union[Node, str], nodes_z: Iterable[Union[Node, str]]) -&gt; bool:
+    &#34;&#34;&#34;
+        Computes if there is at least one unblocked undirected path
+        between node_x and node_y when considering the nodes in nodes_z.
+        
+        Parameters
+        ---------
+        dg: ccbase.networks.Graph
+            The directed graph that should contain all the nodes.
+        nodes_x: ccbase.nodes.Node or String
+            The first of the two nodes whose paths are to be checked.
+        nodes_y: ccbase.nodes.Node or String
+            The second of the two nodes whose paths are to be checked.
+        nodes_z: iterable of ccbase.nodes.Node or Strings
+            The set of conditioned nodes, that might influence the paths 
+            between node_x and node_y
+            
+        Returns
+        --------
+        bool
+            False if all undirected paths between node_x and node_y are blocked 
+            given the nodes_z, True otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 4.3&#34;)
+
+def check_independence(dg: Graph, nodes_x: Iterable[Union[Node, str]], 
+        nodes_y: Iterable[Union[Node, str]], nodes_z: Iterable[Union[Node, str]]) -&gt; bool:
+    &#34;&#34;&#34;
+        Computes whether or not nodes in nodes_x are conditionally 
+        independend of nodes in nodes_y given nodes in nodes_z.
+        
+        Parameters
+        ---------
+        dg: ccbase.networks.Graph
+            The directed graph that should contain all the nodes.
+        nodes_x: iterable of ccbase.nodes.Node or String
+            The nodes that should be conditionally independent of the nodes
+            in nodes_y
+        nodes_y: iterable of ccbase.nodes.Node or String
+            The nodes that should be conditionally independent of the nodes
+            in nodes_x                
+        nodes_z: iterable of ccbase.nodes.Node or String
+            The set of nodes that should make nodes_x and nodes_y conditionally
+            independent.
+            
+        Returns
+        ----------
+        bool
+            True if all nodes in nodes_x are conditionally independent of all
+            nodes in nodes_y given the nodes in nodes_z, False otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 4.4&#34;)
+
+
+
+## Exercise 5: General graphical test 
+
+def make_ancestral_graph(graph: Graph, nodes: Iterable[Union[Node, str]]) -&gt; Graph:
+    &#34;&#34;&#34;
+        Computes the ancestral graph of the given graph for the given set of nodes.
+
+        Parameters
+        ----------
+        graph: ccbase.networks.Graph
+            The (directed) graph from which to compute the ancestral graph.
+        nodes: Iterable of ccbase.nodes.Node or String
+            The set of nodes for which to compute the ancestral graph.
+
+        Returns
+        -------
+        ccbase.networks.Graph
+            The resulting ancestral graph.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 5.1&#34;)
+
+def make_moral_graph(graph: Graph) -&gt; Graph:
+    &#34;&#34;&#34;
+        Computes the moral graph of the given graph, i.e., an
+        undirected copy of the given graph with all immoralities removed.
+
+        Parameters
+        ----------
+        graph: ccbase.networks.Graph
+            The (directed) graph from which to compute the moral graph.
+
+        Returns
+        -------
+        ccbase.networks.Graph
+            The resulting moral graph which is undirected.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 5.2&#34;)
+
+def separation(graph: Graph, nodes_z: Iterable[Union[Node, str]]) -&gt; Graph:
+    &#34;&#34;&#34;
+        Separates the given nodes from the graph.
+
+        Parameters
+        ----------
+        graph: ccbase.networks.Graph
+            The (directed) graph from which to separate the given nodes.
+        nodes_z: Iterable of ccbase.nodes.Node or String
+            The set of nodes to separate.
+
+        Returns
+        -------
+        ccbase.networks.Graph
+            The resulting graph with all links from the nodes in node_z
+            separated.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 5.3&#34;)
+
+def check_independence_general(graph: Graph, nodes_x: Iterable[Union[Node, str]], 
+            nodes_y: Iterable[Union[Node, str]], nodes_z: Iterable[Union[Node, str]]) -&gt; bool:
+    &#34;&#34;&#34;
+        Computes whether or not nodes in nodes_x are conditionally 
+        independend of nodes in nodes_y given nodes in nodes_z
+        using the general graphical test.
+        
+        Parameters
+        ---------
+        dg: ccbase.networks.Graph
+            The directed or undirected graph that should contain all the nodes.
+        nodes_x: iterable of ccbase.nodes.Node or String
+            The nodes that should be conditionally independent of the nodes
+            in nodes_y
+        nodes_y: iterable of ccbase.nodes.Node or String
+            The nodes that should be conditionally independent of the nodes
+            in nodes_x                
+        nodes_z: iterable of ccbase.nodes.Node or String
+            The set of nodes that should make nodes_x and nodes_y conditionally
+            independent.
+            
+        Returns
+        ----------
+        bool
+            True if all nodes in nodes_x are conditionally independent of all
+            nodes in nodes_y given the nodes in nodes_z, False otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 5.4&#34;)
+
+def create_example_graphs():
+    &#34;&#34;&#34;
+        A method to create a trivial example graph from the 
+        lecture. Feel free to create your own methods that generate
+        graphs on which you want to test your implementations!
+
+        Returns
+        --------
+        ccbase.networks.Graph
+            A directed graph containing the four nodes A,B,E and R.
+    &#34;&#34;&#34;
+    dg = Graph()
+    dg.add_node(&#34;A&#34;)
+    dg.add_node(&#34;B&#34;)
+    dg.add_node(&#34;E&#34;)
+    dg.add_node(&#34;R&#34;)
+    dg.add_edge(&#34;B&#34;,&#34;A&#34;)
+    dg.add_edge(&#34;E&#34;,&#34;A&#34;)
+    dg.add_edge(&#34;E&#34;,&#34;R&#34;)
+
+    dg2 = dg.copy()
+    dg2.remove_edge(&#34;E&#34;,&#34;R&#34;)
+    dg2.add_edge(&#34;R&#34;,&#34;E&#34;)
+    return dg, dg2
+
+
+if __name__ == &#34;__main__&#34;:
+    # Example calls
+    g1, g2 = create_example_graphs()
+    forks = find_forks(g1)
+    print(&#34;The graph contains the following forks: {}&#34;.format(forks))
+    assert set(forks) == set([&#34;E&#34;])
+    chains = find_chains(g1)
+    print(&#34;The graph contains the following chains: {}&#34;.format(chains))
+    assert set(chains) == set([])
+    colliders = find_collider(g1)
+    print(&#34;The graph contains the following colliders: {}&#34;.format(colliders))
+    assert set(colliders) == set([&#34;A&#34;])
+
+    #Markov Equality Since you determine how to represent immoralities
+    # I cannot provide any asserts here.
+    print(&#34;Immoralities for graph 1: &#34;, find_immoralities(g1))
+    print(&#34;Do g1 and g2 have the same skeleton? &#34;, same_skeleton(g1, g2))
+    print(&#34;Are g1 and g2 Markov Equivalent? &#34;, markov_equivalent(g1, g2))
+
+    # Graphical independence tests
+    # Hint: You may want to test these methods with a more complex graph!
+    paths = get_paths(g1, &#34;B&#34;, &#34;R&#34;)
+    print(&#34;Undirected paths from B to R in the graph: {}&#34;.format(paths))
+
+    # D-Separation 
+    path = [&#34;B&#34;,&#34;A&#34;,&#34;E&#34;]
+    print(&#34;Is A a collider for the path {}? {}&#34;.format(is_collider(g1, &#34;A&#34;, path)))
+    print(&#34;Is path {} open? {}&#34;.format(path, is_path_open(g1, path, [])))
+    nodes_z = (&#34;A&#34;,&#34;E&#34;)
+    print(&#34;Is there a path from B to R not blocked by {}? {}&#34;.format(nodes_z, unblocked_path_exists(g1, &#34;B&#34;,&#34;R&#34;, nodes_z)))
+    print(&#34;Are Nodes B and R independent given nodes {}?: {}&#34;.format(nodes_z, check_independence(g1, (&#34;B&#34;), (&#34;R&#34;), nodes_z)))
+
+    # The general test should also work with undirected graphs:
+    # This basically manually moralizes the graph before making it undirected 
+    # to make it a fair comparison to the D-Separation above.
+    g2.add_edge(&#34;B&#34;,&#34;E&#34;)
+    g2 = g2.to_undirected()
+    print(&#34;Are the nodes B and R independent given nodes {}?: {}&#34;.format(nodes_z, check_independence_general(g2, (&#34;B&#34;), (&#34;R&#34;), nodes_z)))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="assignment3.check_independence"><code class="name flex">
+<span>def <span class="ident">check_independence</span></span>(<span>dg: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>, nodes_x: Iterable[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]], nodes_y: Iterable[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]], nodes_z: Iterable[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]]) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes whether or not nodes in nodes_x are conditionally
+independend of nodes in nodes_y given nodes in nodes_z.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>dg</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The directed graph that should contain all the nodes.</dd>
+<dt><strong><code>nodes_x</code></strong> :&ensp;<code>iterable</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The nodes that should be conditionally independent of the nodes
+in nodes_y</dd>
+<dt><strong><code>nodes_y</code></strong> :&ensp;<code>iterable</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The nodes that should be conditionally independent of the nodes
+in nodes_x</dd>
+<dt><strong><code>nodes_z</code></strong> :&ensp;<code>iterable</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The set of nodes that should make nodes_x and nodes_y conditionally
+independent.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if all nodes in nodes_x are conditionally independent of all
+nodes in nodes_y given the nodes in nodes_z, False otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_independence(dg: Graph, nodes_x: Iterable[Union[Node, str]], 
+        nodes_y: Iterable[Union[Node, str]], nodes_z: Iterable[Union[Node, str]]) -&gt; bool:
+    &#34;&#34;&#34;
+        Computes whether or not nodes in nodes_x are conditionally 
+        independend of nodes in nodes_y given nodes in nodes_z.
+        
+        Parameters
+        ---------
+        dg: ccbase.networks.Graph
+            The directed graph that should contain all the nodes.
+        nodes_x: iterable of ccbase.nodes.Node or String
+            The nodes that should be conditionally independent of the nodes
+            in nodes_y
+        nodes_y: iterable of ccbase.nodes.Node or String
+            The nodes that should be conditionally independent of the nodes
+            in nodes_x                
+        nodes_z: iterable of ccbase.nodes.Node or String
+            The set of nodes that should make nodes_x and nodes_y conditionally
+            independent.
+            
+        Returns
+        ----------
+        bool
+            True if all nodes in nodes_x are conditionally independent of all
+            nodes in nodes_y given the nodes in nodes_z, False otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 4.4&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.check_independence_general"><code class="name flex">
+<span>def <span class="ident">check_independence_general</span></span>(<span>graph: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>, nodes_x: Iterable[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]], nodes_y: Iterable[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]], nodes_z: Iterable[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]]) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes whether or not nodes in nodes_x are conditionally
+independend of nodes in nodes_y given nodes in nodes_z
+using the general graphical test.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>dg</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The directed or undirected graph that should contain all the nodes.</dd>
+<dt><strong><code>nodes_x</code></strong> :&ensp;<code>iterable</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The nodes that should be conditionally independent of the nodes
+in nodes_y</dd>
+<dt><strong><code>nodes_y</code></strong> :&ensp;<code>iterable</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The nodes that should be conditionally independent of the nodes
+in nodes_x</dd>
+<dt><strong><code>nodes_z</code></strong> :&ensp;<code>iterable</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The set of nodes that should make nodes_x and nodes_y conditionally
+independent.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if all nodes in nodes_x are conditionally independent of all
+nodes in nodes_y given the nodes in nodes_z, False otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_independence_general(graph: Graph, nodes_x: Iterable[Union[Node, str]], 
+            nodes_y: Iterable[Union[Node, str]], nodes_z: Iterable[Union[Node, str]]) -&gt; bool:
+    &#34;&#34;&#34;
+        Computes whether or not nodes in nodes_x are conditionally 
+        independend of nodes in nodes_y given nodes in nodes_z
+        using the general graphical test.
+        
+        Parameters
+        ---------
+        dg: ccbase.networks.Graph
+            The directed or undirected graph that should contain all the nodes.
+        nodes_x: iterable of ccbase.nodes.Node or String
+            The nodes that should be conditionally independent of the nodes
+            in nodes_y
+        nodes_y: iterable of ccbase.nodes.Node or String
+            The nodes that should be conditionally independent of the nodes
+            in nodes_x                
+        nodes_z: iterable of ccbase.nodes.Node or String
+            The set of nodes that should make nodes_x and nodes_y conditionally
+            independent.
+            
+        Returns
+        ----------
+        bool
+            True if all nodes in nodes_x are conditionally independent of all
+            nodes in nodes_y given the nodes in nodes_z, False otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 5.4&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.create_example_graphs"><code class="name flex">
+<span>def <span class="ident">create_example_graphs</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A method to create a trivial example graph from the
+lecture. Feel free to create your own methods that generate
+graphs on which you want to test your implementations!</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>A directed graph containing the four nodes A,B,E and R.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_example_graphs():
+    &#34;&#34;&#34;
+        A method to create a trivial example graph from the 
+        lecture. Feel free to create your own methods that generate
+        graphs on which you want to test your implementations!
+
+        Returns
+        --------
+        ccbase.networks.Graph
+            A directed graph containing the four nodes A,B,E and R.
+    &#34;&#34;&#34;
+    dg = Graph()
+    dg.add_node(&#34;A&#34;)
+    dg.add_node(&#34;B&#34;)
+    dg.add_node(&#34;E&#34;)
+    dg.add_node(&#34;R&#34;)
+    dg.add_edge(&#34;B&#34;,&#34;A&#34;)
+    dg.add_edge(&#34;E&#34;,&#34;A&#34;)
+    dg.add_edge(&#34;E&#34;,&#34;R&#34;)
+
+    dg2 = dg.copy()
+    dg2.remove_edge(&#34;E&#34;,&#34;R&#34;)
+    dg2.add_edge(&#34;R&#34;,&#34;E&#34;)
+    return dg, dg2</code></pre>
+</details>
+</dd>
+<dt id="assignment3.find_chains"><code class="name flex">
+<span>def <span class="ident">find_chains</span></span>(<span>dg: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>) ‑> List[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Finds all chains within the given directed graph.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>dg</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The (directed) graph whose chains are to be found.
+You can assume that the graph will be directed.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>Strings</code></dt>
+<dd>A list containing all Nodes (either object or their name/id) that
+represent chains in the network.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def find_chains(dg: Graph) -&gt; List[Union[Node, str]]:
+    &#34;&#34;&#34;
+        Finds all chains within the given directed graph.
+        
+        Parameters
+        ----------
+        dg: ccbase.networks.Graph
+            The (directed) graph whose chains are to be found.
+            You can assume that the graph will be directed.
+            
+        Returns
+        ----------
+        list of ccbase.nodes.Node or Strings
+            A list containing all Nodes (either object or their name/id) that
+            represent chains in the network.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 1.2&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.find_collider"><code class="name flex">
+<span>def <span class="ident">find_collider</span></span>(<span>dg: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>) ‑> List[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Finds all colliders within the given graph.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>dg</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The (directed) graph whose colliders are to be found.
+You can assume that the graph will be directed.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>Strings</code></dt>
+<dd>A list containing all Nodes (either object or their name/id) that
+represent collider in the network.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def find_collider(dg: Graph) -&gt; List[Union[Node, str]]:
+    &#34;&#34;&#34;
+        Finds all colliders within the given graph.
+        
+        Parameters
+        ----------
+        dg: ccbase.networks.Graph
+            The (directed) graph whose colliders are to be found.
+            You can assume that the graph will be directed.
+            
+        Returns
+        ----------
+        list of ccbase.nodes.Node or Strings
+            A list containing all Nodes (either object or their name/id) that
+            represent collider in the network.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 1.3&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.find_forks"><code class="name flex">
+<span>def <span class="ident">find_forks</span></span>(<span>dg: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>) ‑> List[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Finds all forks within the given directed graph.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>dg</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The (directed) graph whose forks are to be found.
+You can assume that the graph will be directed.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>Strings</code></dt>
+<dd>A list containing all Nodes (either object or their name/id) that
+represent forks in the network.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def find_forks(dg: Graph) -&gt; List[Union[Node, str]]:
+    &#34;&#34;&#34;
+        Finds all forks within the given directed graph.
+        
+        Parameters
+        ----------
+        dg: ccbase.networks.Graph
+            The (directed) graph whose forks are to be found.
+            You can assume that the graph will be directed.
+            
+        Returns
+        ----------
+        list of ccbase.nodes.Node or Strings
+            A list containing all Nodes (either object or their name/id) that
+            represent forks in the network.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 1.1&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.find_immoralities"><code class="name flex">
+<span>def <span class="ident">find_immoralities</span></span>(<span>graph: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>) ‑> List</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A function to return all immoralities (i.e. two nodes with the same
+child but no direct connection) of the given directed graph.</p>
+<h2 id="parameter">Parameter</h2>
+<p>graph: ccbase.networks.Graph or equivalent
+The directed graph to check for immoralities</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>A list of all immoralities contained in the graph. How you
+represent a single immorality is up to you.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def find_immoralities(graph: Graph) -&gt; List:
+    &#34;&#34;&#34;
+        A function to return all immoralities (i.e. two nodes with the same 
+        child but no direct connection) of the given directed graph.
+
+        Parameter
+        ---------
+        graph: ccbase.networks.Graph or equivalent
+            The directed graph to check for immoralities
+
+        Returns
+        -------
+        list
+            A list of all immoralities contained in the graph. How you
+            represent a single immorality is up to you.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 2.1&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.get_paths"><code class="name flex">
+<span>def <span class="ident">get_paths</span></span>(<span>graph: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>, node_x: Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str], node_y: Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]) ‑> List[List[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes all undirected paths between node_x and node_y within
+the (directed or undirected) graph.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>graph</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The graph in which to compute the paths. This may be directed or
+undirected.</dd>
+<dt><strong><code>node_x</code></strong> :&ensp;<code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The node object or name for the first of the two nodes.</dd>
+<dt><strong><code>node_y</code></strong> :&ensp;<code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The node object or name for the second of the two nodes.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code> of <code>lists</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>Strings</code></dt>
+<dd>A list of lists of node objects (or node names) that each represent
+an undirected path from node_x to node_y. These paths should contain
+the starting and end nodes as well.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_paths(graph: Graph, node_x: Union[Node, str], 
+                    node_y: Union[Node, str]) -&gt; List[List[Union[Node, str]]]:
+    &#34;&#34;&#34;
+        Computes all undirected paths between node_x and node_y within
+        the (directed or undirected) graph.
+
+        Parameters
+        ----------
+        graph: ccbase.networks.Graph
+            The graph in which to compute the paths. This may be directed or
+            undirected.
+        node_x: ccbase.nodes.Node or String
+            The node object or name for the first of the two nodes.
+        node_y: ccbase.nodes.Node or String
+            The node object or name for the second of the two nodes.
+
+        Returns
+        --------
+        list of lists of ccbase.nodes.Node or Strings
+            A list of lists of node objects (or node names) that each represent
+            an undirected path from node_x to node_y. These paths should contain
+            the starting and end nodes as well.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 3&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.is_collider"><code class="name flex">
+<span>def <span class="ident">is_collider</span></span>(<span>dg: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>, node: Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str], path: List[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]]) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks whether or not the given node is a collider with respect to the
+given path.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>dg</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The directed graph that contains at least all the nodes of the given
+path and their connections.</dd>
+<dt><strong><code>node</code></strong> :&ensp;<code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The node object (or its name) of a node that should be present in the
+given path, which is to be checked.</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>list</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>Strings</code></dt>
+<dd>A list of node objects (or node names) that represents
+an undirected path that contains the given node.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the given node is a collider with respect to the given path
+within the graph, False otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_collider(dg: Graph, node: Union[Node, str], 
+                        path: List[Union[str, Node]]) -&gt; bool:
+    &#34;&#34;&#34;
+        Checks whether or not the given node is a collider with respect to the 
+        given path.
+
+        Parameters
+        ----------
+        dg: ccbase.networks.Graph
+            The directed graph that contains at least all the nodes of the given 
+            path and their connections.
+        node: ccbase.nodes.Node or String
+            The node object (or its name) of a node that should be present in the 
+            given path, which is to be checked.
+        path: list of ccbase.nodes.Node or Strings
+            A list of node objects (or node names) that represents
+            an undirected path that contains the given node.
+
+        Returns
+        ----------
+        bool
+            True if the given node is a collider with respect to the given path
+            within the graph, False otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 4.1&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.is_path_open"><code class="name flex">
+<span>def <span class="ident">is_path_open</span></span>(<span>dg: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>, path: List[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]], nodes_z: Iterable[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]]) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks whether or not the given path is open conditioned on the given nodes.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>dg</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The directed graph that should contain all the nodes and their connections.</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>list</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>Strings</code></dt>
+<dd>A list of node objects (or node names) that represents
+an undirected path between the first and last node of the path within
+the graph.</dd>
+<dt><strong><code>nodes_z</code></strong> :&ensp;<code>iterable</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>Strings</code></dt>
+<dd>The set of conditioned nodes (or their names), that might influence the
+paths between node_x and node_y</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>False if the path is blocked given given the nodes_z, True otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_path_open(dg: Graph, path: List[Union[Node,str]], 
+                    nodes_z: Iterable[Union[Node, str]]) -&gt; bool:
+    &#34;&#34;&#34; 
+        Checks whether or not the given path is open conditioned on the given nodes.
+
+        Parameters
+        ---------
+        dg: ccbase.networks.Graph
+            The directed graph that should contain all the nodes and their connections.
+        path: list of ccbase.nodes.Node or Strings
+            A list of node objects (or node names) that represents
+            an undirected path between the first and last node of the path within 
+            the graph.
+        nodes_z: iterable of ccbase.nodes.Node or Strings
+            The set of conditioned nodes (or their names), that might influence the 
+            paths between node_x and node_y
+        
+        Returns
+        --------
+        bool
+            False if the path is blocked given given the nodes_z, True otherwise.
+        
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 4.2&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.make_ancestral_graph"><code class="name flex">
+<span>def <span class="ident">make_ancestral_graph</span></span>(<span>graph: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>, nodes: Iterable[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]]) ‑> <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes the ancestral graph of the given graph for the given set of nodes.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>graph</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The (directed) graph from which to compute the ancestral graph.</dd>
+<dt><strong><code>nodes</code></strong> :&ensp;<code>Iterable</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The set of nodes for which to compute the ancestral graph.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The resulting ancestral graph.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_ancestral_graph(graph: Graph, nodes: Iterable[Union[Node, str]]) -&gt; Graph:
+    &#34;&#34;&#34;
+        Computes the ancestral graph of the given graph for the given set of nodes.
+
+        Parameters
+        ----------
+        graph: ccbase.networks.Graph
+            The (directed) graph from which to compute the ancestral graph.
+        nodes: Iterable of ccbase.nodes.Node or String
+            The set of nodes for which to compute the ancestral graph.
+
+        Returns
+        -------
+        ccbase.networks.Graph
+            The resulting ancestral graph.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 5.1&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.make_moral_graph"><code class="name flex">
+<span>def <span class="ident">make_moral_graph</span></span>(<span>graph: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>) ‑> <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes the moral graph of the given graph, i.e., an
+undirected copy of the given graph with all immoralities removed.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>graph</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The (directed) graph from which to compute the moral graph.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The resulting moral graph which is undirected.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_moral_graph(graph: Graph) -&gt; Graph:
+    &#34;&#34;&#34;
+        Computes the moral graph of the given graph, i.e., an
+        undirected copy of the given graph with all immoralities removed.
+
+        Parameters
+        ----------
+        graph: ccbase.networks.Graph
+            The (directed) graph from which to compute the moral graph.
+
+        Returns
+        -------
+        ccbase.networks.Graph
+            The resulting moral graph which is undirected.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 5.2&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.markov_equivalent"><code class="name flex">
+<span>def <span class="ident">markov_equivalent</span></span>(<span>graph1: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>, graph2: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A function to check whether or not the two given directed graphs are Markov
+equivalent.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>graph1</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code> or <code>equivalent</code></dt>
+<dd>The first directed graph to test.</dd>
+<dt><strong><code>graph2</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code> or <code>equivalent</code></dt>
+<dd>The second directed graph to test against the first.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the two graphs are Markov equivalent, False otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def markov_equivalent(graph1: Graph, graph2: Graph) -&gt; bool:
+    &#34;&#34;&#34;
+        A function to check whether or not the two given directed graphs are Markov
+        equivalent.
+
+        Parameters
+        ----------
+        graph1: ccbase.networks.Graph or equivalent
+            The first directed graph to test.
+        graph2: ccbase.networks.Graph or equivalent
+            The second directed graph to test against the first.
+
+        Returns
+        -------
+        bool
+            True if the two graphs are Markov equivalent, False otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 2.3&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.same_skeleton"><code class="name flex">
+<span>def <span class="ident">same_skeleton</span></span>(<span>graph1: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>, graph2: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A function to check whether or not the two given directed graphs have the
+same skeleton</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>graph1</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code> or <code>equivalent</code></dt>
+<dd>The first directed graph to test.</dd>
+<dt><strong><code>graph2</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code> or <code>equivalent</code></dt>
+<dd>The second directed graph to test against the first.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the two graphs have the same skeletongs, False otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def same_skeleton(graph1: Graph, graph2: Graph) -&gt; bool:
+    &#34;&#34;&#34;
+        A function to check whether or not the two given directed graphs have the
+        same skeleton
+
+        Parameters
+        ----------
+        graph1: ccbase.networks.Graph or equivalent
+            The first directed graph to test.
+        graph2: ccbase.networks.Graph or equivalent
+            The second directed graph to test against the first.
+
+        Returns
+        -------
+        bool
+            True if the two graphs have the same skeletongs, False otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 2.2&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.separation"><code class="name flex">
+<span>def <span class="ident">separation</span></span>(<span>graph: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>, nodes_z: Iterable[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]]) ‑> <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Separates the given nodes from the graph.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>graph</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The (directed) graph from which to separate the given nodes.</dd>
+<dt><strong><code>nodes_z</code></strong> :&ensp;<code>Iterable</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The set of nodes to separate.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The resulting graph with all links from the nodes in node_z
+separated.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def separation(graph: Graph, nodes_z: Iterable[Union[Node, str]]) -&gt; Graph:
+    &#34;&#34;&#34;
+        Separates the given nodes from the graph.
+
+        Parameters
+        ----------
+        graph: ccbase.networks.Graph
+            The (directed) graph from which to separate the given nodes.
+        nodes_z: Iterable of ccbase.nodes.Node or String
+            The set of nodes to separate.
+
+        Returns
+        -------
+        ccbase.networks.Graph
+            The resulting graph with all links from the nodes in node_z
+            separated.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 5.3&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment3.unblocked_path_exists"><code class="name flex">
+<span>def <span class="ident">unblocked_path_exists</span></span>(<span>dg: <a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a>, node_x: Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str], node_y: Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str], nodes_z: Iterable[Union[<a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a>, str]]) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes if there is at least one unblocked undirected path
+between node_x and node_y when considering the nodes in nodes_z.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>dg</code></strong> :&ensp;<code><a title="ccbase.networks.Graph" href="ccbase/networks.html#ccbase.networks.Graph">Graph</a></code></dt>
+<dd>The directed graph that should contain all the nodes.</dd>
+<dt><strong><code>nodes_x</code></strong> :&ensp;<code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The first of the two nodes whose paths are to be checked.</dd>
+<dt><strong><code>nodes_y</code></strong> :&ensp;<code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>String</code></dt>
+<dd>The second of the two nodes whose paths are to be checked.</dd>
+<dt><strong><code>nodes_z</code></strong> :&ensp;<code>iterable</code> of <code><a title="ccbase.nodes.Node" href="ccbase/nodes.html#ccbase.nodes.Node">Node</a></code> or <code>Strings</code></dt>
+<dd>The set of conditioned nodes, that might influence the paths
+between node_x and node_y</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>False if all undirected paths between node_x and node_y are blocked
+given the nodes_z, True otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def unblocked_path_exists(dg: Graph, node_x: Union[Node, str], 
+            node_y: Union[Node, str], nodes_z: Iterable[Union[Node, str]]) -&gt; bool:
+    &#34;&#34;&#34;
+        Computes if there is at least one unblocked undirected path
+        between node_x and node_y when considering the nodes in nodes_z.
+        
+        Parameters
+        ---------
+        dg: ccbase.networks.Graph
+            The directed graph that should contain all the nodes.
+        nodes_x: ccbase.nodes.Node or String
+            The first of the two nodes whose paths are to be checked.
+        nodes_y: ccbase.nodes.Node or String
+            The second of the two nodes whose paths are to be checked.
+        nodes_z: iterable of ccbase.nodes.Node or Strings
+            The set of conditioned nodes, that might influence the paths 
+            between node_x and node_y
+            
+        Returns
+        --------
+        bool
+            False if all undirected paths between node_x and node_y are blocked 
+            given the nodes_z, True otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 4.3&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="assignment3.check_independence" href="#assignment3.check_independence">check_independence</a></code></li>
+<li><code><a title="assignment3.check_independence_general" href="#assignment3.check_independence_general">check_independence_general</a></code></li>
+<li><code><a title="assignment3.create_example_graphs" href="#assignment3.create_example_graphs">create_example_graphs</a></code></li>
+<li><code><a title="assignment3.find_chains" href="#assignment3.find_chains">find_chains</a></code></li>
+<li><code><a title="assignment3.find_collider" href="#assignment3.find_collider">find_collider</a></code></li>
+<li><code><a title="assignment3.find_forks" href="#assignment3.find_forks">find_forks</a></code></li>
+<li><code><a title="assignment3.find_immoralities" href="#assignment3.find_immoralities">find_immoralities</a></code></li>
+<li><code><a title="assignment3.get_paths" href="#assignment3.get_paths">get_paths</a></code></li>
+<li><code><a title="assignment3.is_collider" href="#assignment3.is_collider">is_collider</a></code></li>
+<li><code><a title="assignment3.is_path_open" href="#assignment3.is_path_open">is_path_open</a></code></li>
+<li><code><a title="assignment3.make_ancestral_graph" href="#assignment3.make_ancestral_graph">make_ancestral_graph</a></code></li>
+<li><code><a title="assignment3.make_moral_graph" href="#assignment3.make_moral_graph">make_moral_graph</a></code></li>
+<li><code><a title="assignment3.markov_equivalent" href="#assignment3.markov_equivalent">markov_equivalent</a></code></li>
+<li><code><a title="assignment3.same_skeleton" href="#assignment3.same_skeleton">same_skeleton</a></code></li>
+<li><code><a title="assignment3.separation" href="#assignment3.separation">separation</a></code></li>
+<li><code><a title="assignment3.unblocked_path_exists" href="#assignment3.unblocked_path_exists">unblocked_path_exists</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
