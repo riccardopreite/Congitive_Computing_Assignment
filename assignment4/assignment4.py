@@ -20,12 +20,14 @@ Skeleton file for exact inference.
     just as you have seen in the previous assignments.
 """
 
+from copy import copy
 from typing import Union, Optional, List, Dict, Iterable, Tuple
 
-from ccbase.networks import BayesianNetwork
-from ccbase.nodes import DiscreteVariable
+from ccbase.networks import BayesianNetwork, Graph
+from ccbase.nodes import DiscreteVariable, Node
 from ccbase.factor import Factor
 import numpy as np
+from math import inf
 
 
 ########
@@ -33,6 +35,7 @@ import numpy as np
 # Ex 1 #
 #      #
 ########
+
 def get_elimination_ordering(bn: BayesianNetwork) -> List[str]:
     """
         Computes an elimination order of all the variables in the network
@@ -55,7 +58,65 @@ def get_elimination_ordering(bn: BayesianNetwork) -> List[str]:
             you should describe another heuristic and explain how it works
             and what the differences are with respect to the MinFillOrder.
     """
-    raise NotImplementedError("TODO Exercise 1.1")
+    def compute_neighbors_edge(g: Graph, node: Union[str,Node])-> int:
+        parents: list = g.get_parents(node)
+        edge_number: int = 0
+
+        ext_neighbor: Node
+        for ext_neighbor in parents:
+            
+            int_neighbor: Node
+            for int_neighbor in parents:
+                if (ext_neighbor != int_neighbor) and (int_neighbor not in ext_neighbor.parents):
+                    
+                    edge_number += 1
+                    g.add_edge(int_neighbor,ext_neighbor)
+                    g.add_edge(ext_neighbor,int_neighbor)
+        
+        g.remove_node(node)
+        return edge_number, g
+
+    graph: Graph = Graph()
+    graph.nodes = copy(bn.nodes)
+    elimination_order: list = []
+
+    graph = graph.to_undirected()
+
+    
+    # for index in range(0,len(graph.nodes)):
+    while (True):
+        """These variables are used to updating the local min"""
+        node_to_remove: str = ""
+        min_adding_edge: int = inf
+        """Making a copy of the working graph so we can physically adding the edges and removing the node"""
+        working_graph = graph.copy()
+        tmp_added_edges_graph = Graph()
+        
+        for node in graph.nodes:
+            
+            if node not in elimination_order:
+                """Computing the number of edges that should be added to the node neighborhood"""
+                (edge_that_should_be_added, editedGraph) = compute_neighbors_edge(working_graph.copy(), node)
+                
+                """Updating local min edge counter and node name that should be removed"""
+                if edge_that_should_be_added < min_adding_edge:
+                    node_to_remove = node
+                    tmp_added_edges_graph = editedGraph
+
+        """
+            When the node that should be removed is computed we can add it to te list
+            And updated the working graph with the edges added in the node 
+            neighborhood and that node removed
+        """
+        elimination_order.append(node_to_remove)
+        working_graph = tmp_added_edges_graph
+
+        if len(elimination_order) == len(graph.nodes):
+            break
+
+    return elimination_order
+        
+
 
 ########
 #      #
@@ -370,7 +431,7 @@ if __name__ == "__main__":
     net1 = get_simple_net()
 
     print("Elimination order: ", get_elimination_ordering(net1))
-    
+    pass
     # Example of how to construct factors from a DiscreteVariables
     node_rain = net1.nodes["rain"]
     # Note that I am using the classmethod here, i.e. I call the method on
