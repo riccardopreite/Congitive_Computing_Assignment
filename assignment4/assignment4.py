@@ -101,6 +101,7 @@ def get_elimination_ordering(bn: BayesianNetwork) -> List[str]:
                 """Updating local min edge counter and node name that should be removed"""
                 if edge_that_should_be_added < min_adding_edge:
                     node_to_remove = node
+                    min_adding_edge = edge_that_should_be_added
                     tmp_added_edges_graph = editedGraph
 
         """
@@ -110,9 +111,9 @@ def get_elimination_ordering(bn: BayesianNetwork) -> List[str]:
         """
         elimination_order.append(node_to_remove)
         working_graph = tmp_added_edges_graph
-
+        
         if len(elimination_order) == len(graph.nodes):
-            break
+            break    
 
     return elimination_order
         
@@ -144,9 +145,15 @@ def initialize_factors(bn: BayesianNetwork, evidence: Optional[Dict[str, str]]) 
             An iterable (e.g. a list or a set) containing a factor for every 
             node in the BayesianNetwork, properly initialized.
     """
-    raise NotImplementedError("TODO Exercise 2.1")
+    # Generate a list of all the Factors in the given Bayesian Network
+    factors_list: list = [Factor.from_node(node) for node in bn.nodes.values()]
+    if evidence:
+        factor: Factor
+        for factor_index, factor in factors_list:   
+            factors_list[factor_index] = factor.reduce(evidence)
+    return factors_list
 
-def sum_product_elim_var(factors: Iterable[Factor], variable: str) -> Iterable[Factor]:
+def sum_product_elim_var(factors: Iterable[Factor], variable: str) -> List[Factor]:
     """
         Eliminates the given variable from the given factors via marginalization.
 
@@ -162,15 +169,38 @@ def sum_product_elim_var(factors: Iterable[Factor], variable: str) -> Iterable[F
         iterable of ccbase.factor.Factor
             The remaining factors that do no longer include the eliminated variable.
     """
-    raise NotImplementedError("TODO Exercise 2.2")
+
+    remaining_factors = list()
+    product = Factor()
+
+    # Check each factor if they include the given variable (which is to be removed)
+    for factor in factors:
+        if variable in factor.variable_order:
+            # Multiply all the factors which contain the given variable to a combined factor
+            product = product.multiply(factor)
+        else:
+            # Include the current factor as is because it does not relate to the given variable
+            remaining_factors.append(factor)
+
+    # Include the combined factor in the result if it is the only remaining factor or if it is a non-trivial factor
+    if len(remaining_factors) == 0 or len(product.variable_order) != 0:
+        # Sum out the given variable from the combined factor
+        product = product.marginalize(variables=[variable])
+        remaining_factors.append(product)
+
+    return remaining_factors
 
 
-def calculate_probabilities(bn: BayesianNetwork, 
-                        variables: Union[str, DiscreteVariable], 
-                        evidence: Optional[Dict[str,str]] = None) -> Factor:
+def calculate_probabilities(bn: BayesianNetwork,
+                            variables: List[str],
+                            evidence: Optional[dict] = None) -> Factor:
     """
+    CHECK IF 
+        query and calculate prior marginals for every variable in the network
+        query and calculate posteriors given evidence observed for one or more other nodes (evidence can be empty)
+        
         Calculates P(variables|evidence) for all outcome combinations of
-        variables  (i.e. you should return a table similar to a cpt, 
+        variables (i.e. you should return a table similar to a cpt,
         only representing a joint distribution in this case.)
         
         Example: Calling calculate_marginals(["rain", "winter"], 
@@ -180,15 +210,13 @@ def calculate_probabilities(bn: BayesianNetwork,
         Parameters
         ----------
         bn: BayesianNetwork
-            The BayesianNetwork for which the elimination order is to be 
-            computed.
-        variables: [str, Node]
+        variables: [Node/Nodename]
             List containing the nodes, or their names of the variables of 
             interest.
             (Hint: Your code can/should assume, that a name is passed and
             simply retrieve the node manually, so that you do not have
             to differentiate these two cases.)
-        evidence: Dict[str, str], optional
+        evidence: {Node/Nodename: Outcome}, optional
             A dictionary containing the evidence variables as keys and their
             observed outcomes as values. If evidence is not given, the prior
             marginals should be computed.
@@ -199,8 +227,33 @@ def calculate_probabilities(bn: BayesianNetwork,
             A Factor over the specified variables, specifying the joint (posterior) probability
             of these variables.
     """
-    raise NotImplementedError("TODO Exercise 2.3")
-            
+
+    result_factor = Factor()
+
+    # Generate a list of all the Factors in the given Bayesian Network
+    factors = [Factor.from_node(node) for node in bn.nodes.values()]
+
+    # Get the elimination ordering for this Bayesian Network and use it for an improved efficiency
+    elimination_ordering = get_elimination_ordering(bn)
+    # print("ELEM ORDER ",elimination_ordering)
+    # Apply the Sum-Product Algorithm as described in Darwiche, 2009 p. 134
+    for variable in elimination_ordering:
+        # Eliminate only the variables we are _not_ interested in
+        if variable not in variables:
+            # Inner step of the algorithm using sum_product_elim_var
+            factors = sum_product_elim_var(factors, variable)
+    # print("factors summed:",[fact.potentials for fact in factors])
+    # Calculate the final product of all the remaining factors
+    for factor in factors:
+        result_factor = result_factor.multiply(factor)
+    # print("factors multiply",result_factor.potentials)
+    # Return the reduced factor using the given evidence
+    if evidence:
+        result_factor = result_factor.reduce(evidence)
+    
+    # print("factors",result_factor.potentials)
+
+    return result_factor
 
 ########
 #      #
@@ -229,9 +282,21 @@ def maximize_out(factor: Factor, variable: str) -> Factor:
             A new factor that results from maximizing out the 
             variable from the initial factor.
     """
-    raise NotImplementedError("TODO Exercise 3.1")
+    if variable not in factor.variable_order:
 
+        return factor
 
+    else:
+        #max out the given variable from factor
+        factor.potentials=factor.potentials.max(axis=factor.variable_order.index(variable))
+
+        #delete factor entries for that variable
+        del factor.outcomes[variable]
+
+        factor.variable_order.remove(variable)
+
+        return factor
+          
 def max_product_elim_var(factors: Iterable[Factor], variable: str) -> Tuple[Iterable[Factor], Factor]:
     """
         Eliminates the given variable from the given factors via maximization.
@@ -254,7 +319,29 @@ def max_product_elim_var(factors: Iterable[Factor], variable: str) -> Tuple[Iter
             The factor combining all factors containing the variable, i.e. the "product-factor"
             before the maximization. This is helpful for traceback function.
     """ 
-    raise NotImplementedError("TODO Exercise 3.2")
+    #resulting factors after max_out variable
+    res_factors=list()
+    #combined factor still containing variable
+    unified_factor=Factor()
+    #tmp_factor for variable-to-factor message
+    tmp_factor=Factor()
+
+    for factor in factors:
+        #calculate variable-to-factor message
+        if variable in factor.variable_order:
+
+            unified_factor*=factor
+            tmp_factor*=factor
+
+        #if var is not in factor 
+        else:
+
+            res_factors.append(factor)
+ 
+    #factor to variable message
+    res_factors.append(maximize_out(tmp_factor,variable)) 
+   
+    return res_factors , unified_factor
 
 def traceback(factors: Dict[str, Factor], order: List[str]) -> Dict[str,str]:
     """
@@ -276,7 +363,21 @@ def traceback(factors: Dict[str, Factor], order: List[str]) -> Dict[str,str]:
             A dictionary containing variable:outcome pairs representing the
             MPE.
     """
-    raise NotImplementedError("TODO Exercise 3.3")
+    #dict for the mpe config
+    mpe_dict={}
+
+    #backtrack elimination-process
+    for variable in reversed(order):
+
+        factor=factors[variable] #get joint_factor corresponding to max_out of var
+
+        factor=factor.reduce(mpe_dict) #reduce this factor to already set evidence
+
+        max_inst=np.unravel_index(factor.potentials.argmax(), factor.potentials.shape) #get index of max_elem
+
+        mpe_dict[variable]=factor.outcomes[variable][max_inst[factor.variable_order.index(variable)]] #get instantiation of current variable that max_out mpe_prob
+
+    return mpe_dict
 
 
 def calculate_MAP(bn: BayesianNetwork, 
@@ -300,7 +401,37 @@ def calculate_MAP(bn: BayesianNetwork,
             A dictionary representing the MPE as Variable:Outcome pairs for all
             variables in the network.
     """
-    raise NotImplementedError("TODO Exercise 3.4")
+    #get elimination order for var_elim
+    elimination_ordering=get_elimination_ordering(bn)
+    #list/dict for mpe_prob/mpe
+    factors_listed=list()
+    joint_factors=dict()
+
+    for node in bn.nodes:
+        factor=Factor.from_node(bn.nodes[node]) #get factor from node
+        if evidence:
+            factor=factor.reduce(evidence) #if evidence given reduce
+        factors_listed.append(factor) #append to factors_list
+
+    #eliminate via max_out
+    for variable in elimination_ordering:
+        maxed_factors , combined_factor =max_product_elim_var(factors_listed,variable) #elimintate var fom factors
+        if combined_factor not in joint_factors: #check if combined_factor already listed
+            joint_factors[variable]=combined_factor #if not add to list
+
+        factors_listed=maxed_factors #remaining factors after maximization
+
+    #just to make sure
+    mpe=0.0
+    for f in factors_listed:
+        tmp_max=f.potentials.max()
+        if tmp_max>mpe:
+            mpe=tmp_max
+
+    #get instantiation for mpe_prob
+    max_inst=traceback(joint_factors,elimination_ordering) #get the mpe
+
+    return mpe,max_inst 
     
 
 
@@ -495,11 +626,11 @@ if __name__ == "__main__":
 
     # Feel free to construct more testcases, e.g. with the non_binary, multivariate network 
 
-    # print("Tests for net 2")
-    # print("===============")
+    print("Tests for net 2")
+    print("===============")
     
-    # net2 =  get_non_binary_net()
+    net2 =  get_non_binary_net()
     
-    # print("Prior for John=Not_calling: ", calculate_probabilities(net2, ["john"])({"john":"Not_calling"}))
-    # print("Prior for burglary=Intruder: ", calculate_probabilities(net2, ["burglary"])({"burglary":"Intruder"}))
-    # print("Prior for alarm=Broken: ", calculate_probabilities(net2, ["alarm"])({"alarm":"Broken"}))
+    print("Prior for John=Not_calling: ", calculate_probabilities(net2, ["john"])({"john":"Not_calling"}))
+    print("Prior for burglary=Intruder: ", calculate_probabilities(net2, ["burglary"])({"burglary":"Intruder"}))
+    print("Prior for alarm=Broken: ", calculate_probabilities(net2, ["alarm"])({"alarm":"Broken"}))
