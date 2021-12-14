@@ -1,0 +1,11 @@
+One heuristic good as Min-Fill-Order is Weighted-Min-Fill.
+
+In Weighted-Min-Fill the cost of removing a node is represented by the sum of all the weights of the edges that need to be added 
+to the graph due to its elimination. 
+
+But the cost for each edge is not only 1, as in Min-Fill-Order, but it is the product of the weights 
+of the constituent nodes of the edge that should be added.
+
+The main difference in these two heuristic is that in Weighted-Min-Fill we consider the weight that actually each neighbor node insert in the 
+elimination of the starting node. We want to minimize this cost because it means that we are pruning the most useless vertex in the graph.This lead to 
+removing heavier nodes, with less cost, in the following iterations.

@@ -1,0 +1,1274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>ccbase.factor API documentation</title>
+<meta name="description" content="Last modified on Tue Nov 23 18:55:37 2021
+A reference implementation of a factor classed used for
+probabilistic inferences in graphical models.
+…" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ccbase.factor</code></h1>
+</header>
+<section id="section-intro">
+<p>Last modified on Tue Nov 23 18:55:37 2021
+A reference implementation of a factor classed used for
+probabilistic inferences in graphical models.
+@author: jpoeppel</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+Last modified on Tue Nov 23 18:55:37 2021
+A reference implementation of a factor classed used for 
+probabilistic inferences in graphical models.
+@author: jpoeppel
+&#34;&#34;&#34;
+from __future__ import annotations
+
+import numpy as np
+from typing import Union, Optional, List, Dict, Iterable
+from .nodes import DiscreteVariable
+
+class Factor(object):
+    
+    def __init__(self, variables: Optional[List[str]] = None, 
+                    outcomes: Optional[Dict[str,List[str]]] = None, 
+                    potentials: Optional[np.array] = None):
+        &#34;&#34;&#34;
+            Constructor for a new factor. Without any parameters a trivial, 
+            empty (unit) factor should be created which does not modify 
+            another factor through multiplication. Otherwise, the factor is 
+            created suitable for the provided variables and confirming to the 
+            provided potentials.
+            
+            Parameters
+            ----------
+            variables: [String,] (optional)
+                A list containing the variable names of all variables this 
+                factor should represent.
+            outcomes: dict (optional)
+                A dictionary containing the variable names as keys and a list
+                containing the possible outcomes of said variable as values.
+            potentials: np.array (optional)
+                A multidimensional array containing the potentials or factor values.
+                The array must be ordered according to the variable and outcome lists.
+                These could be conditional or marginal probabilities of a random variable
+                (see `Factor.from_probabilities` function).
+                
+            Raises
+            -------
+            TypeError
+                If some but not all three arguments were given, as the class requires
+                either no argument or all three to work properly. 
+        &#34;&#34;&#34;
+        parameters_none = [p is None for p in (variables, outcomes, potentials)]
+        if not all(parameters_none):
+            if any(parameters_none):
+                raise TypeError(&#34;Some but not all arguments were given &#34; \
+                    &#34;(variables: {}, outcomes: {}, probabilities: {})&#34;.format(variables, outcomes, potentials))
+        if variables is None:
+            variables = []
+        if outcomes is None:
+            outcomes = {}
+        if potentials is None:
+            potentials = 1
+        #Store the actual potentials as numpy array
+        self.potentials = np.copy(potentials)
+        #Store all contained variables in a list. The index of each variable
+        #corresponds to the dimension of that variable in the array.
+        self.variable_order = list(variables)
+        # Use a dictionary for the outcomes (as tuple) with the variables as keys.
+        self.outcomes = {}
+        for v,o in outcomes.items():
+            self.outcomes[v] = tuple(o)
+    
+    
+    # @classmethod is a decorator, that changes an object&#39;s function, so that
+    # instead of it getting the object instance as the first argument
+    # (usually references as &#34;self&#34;), a reference to the actual class, i.e. 
+    # Factor in this case is passed as first argument (one usually denotes this
+    # as &#34;cls&#34;) instead. cls will therefore be equivalent to &#34;Factor&#34; (i.e. 
+    # the class), which allows one to create a new instance of a factor by using
+    # new_factor = cls(), which can then be returned.
+    # For those interested on this: 
+    # https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods
+    @classmethod
+    def from_probabilities(cls, variables: List[str], 
+                                outcomes: Dict[str, List[str]], 
+                                probabilities: np.array):
+        &#34;&#34;&#34;
+            Classmethod to directly create a new factor from variables, 
+            their outcomes and according conditional or marginal probabilities.
+            
+            Parameters
+            ----------
+            variables: [String,] 
+                A list containing the variable names of all variables this 
+                factor should represent.
+            outcomes: dict 
+                A dictionary containing the variable names as keys and a list
+                containing the possible outcomes of said variable as values.
+            probabilities: np.array 
+                A multidimensional array containing the conditional or marginal
+                probabilities of a random variable. The array should be ordered
+                according to the variable and outcome lists.
+                
+            Returns
+            -------
+            Factor
+                The factor over the specified variables with potentials 
+                initialized to the given probabilities.
+        &#34;&#34;&#34;
+        return cls(variables, outcomes, probabilities)
+    
+    @classmethod
+    def from_node(cls, node: DiscreteVariable):
+        &#34;&#34;&#34;
+            Classmethod to directly create a new factor from a DiscreteVariable
+            
+            Parameters
+            ----------
+            node: ccbase.nodes.DiscreteVariable
+                The DiscreteVariable that should be used to initialize this
+                factor.
+                
+            Returns
+            -------
+            Factor
+                The factor over the specified variables with potentials 
+                initialized to the given probabilities.
+        &#34;&#34;&#34;
+        variables = [node.name] + node.parent_order
+        outcomes = {node.name: node.outcomes}
+        for p in node.parent_order:
+            outcomes[p] = node.parents[p].outcomes
+        return cls(variables, outcomes, node.cpt)
+    
+    def __call__(self, instantiation: Dict[str, str]) -&gt; Union[float, np.array]:
+        &#34;&#34;&#34;
+            Returns the current potential for the specified instantiation of 
+            all contained variables by calling the potential function.
+            
+            Parameters
+            ----------
+            instantiations: dict
+                A dictionary containing the variable names as keys and their
+                desired instantiation as value.
+                
+            Returns
+            -------
+            float or np.array
+                The potential for that specified instantiation. In case of
+                partial instantiations, a np.array is returned instead
+        &#34;&#34;&#34;
+        return self.potential(instantiation)
+        
+    def potential(self, instantiation: Dict[str, str]) -&gt; Union[float, np.array]:
+        &#34;&#34;&#34;
+            Returns the current potential for the specified instantiation of 
+            all contained variables.
+            
+            Parameter
+            --------
+            instantiation: dict
+                A dictionary containing the variable names as keys and their
+                desired instantiation as value.
+                
+            Returns
+            -------
+            float or np.array
+                The potential for that specified instantiation. In case of
+                partial instantiations, a np.array is returned instead.
+        &#34;&#34;&#34;
+        
+        #Construct the index for the desired potential
+        index = []        
+        for v in self.variable_order:
+            if v in instantiation:
+                try:
+                    index.append([self.outcomes[v].index(instantiation[v])])
+                except ValueError:
+                    raise ValueError(&#34;There is no potential for variable {} &#34; + \
+                                     &#34;with outcomes {} in this factor.&#34;.format(v, instantiation[v]))
+            else:
+                index.append(range(len(self.outcomes[v])))
+                    
+        #np.ix_ constructs an access mask which allows efficient access
+        #to the desired cells. This approach allows underspecification of the
+        #instantiation (i.e. not all variables are specified) which will
+        #result in returning a matrix for the remaining variables
+        return np.squeeze(np.copy(self.potentials[np.ix_(*index)]))
+        
+    def marginalize(self, variables: List[str]) -&gt; Factor:
+        &#34;&#34;&#34;
+            Creates a new factor where the specified variables are summed out.
+            
+            Parameters
+            ----------
+            variables: [String,]
+                A list containing the names of all the variables that should be
+                summed out.
+                
+            Returns
+            -------
+            Factor
+                A factor where the specified variables have been summed out 
+                from this factor.
+        &#34;&#34;&#34;
+        if not isinstance(variables, (list,set)):
+            variables = [variables]
+            
+        res = self.copy()
+        for v in variables:
+            #Simply sum out the corresponding dimension for each variable
+            res.potentials = np.sum(res.potentials, axis=res.variable_order.index(v))
+            #Make sure to upadte the outcome dictionary and variable_order list
+            # as to not mess up the next iteration.
+            del res.outcomes[v]
+            res.variable_order.remove(v)
+            
+        return res
+
+    def multiply(self, other_factor: Factor) -&gt; Factor:
+        &#34;&#34;&#34;
+            Creates a new factor, which is the resulting product of multiplying
+            this factor with the given other factor. The initial factors are
+            not modified.
+
+            Parameters
+            ----------
+                other: Factor
+                    The factor to multiply this factor with.
+
+            Returns
+            -------
+            Factor
+                The resulting factor.
+        &#34;&#34;&#34;
+        # Shortcuts for trivial factors
+        if len(self.variable_order) == 0:
+            res = other_factor.copy()
+            res.potentials = self.potentials * res.potentials
+            return res
+            
+        if len(other_factor.variable_order) == 0:
+            res = self.copy()
+            res.potentials = res.potentials * other_factor.potentials
+            return res
+        
+        res = Factor()
+        res.variable_order = list(self.variable_order)
+        res.outcomes = dict(self.outcomes)
+        
+        # Compute the variables that are not yet contained in this factor
+        extra_vars = set(other_factor.variable_order) - set(self.variable_order)
+        #Setup res factor based on self, extended by the missing variables from other
+        if extra_vars:
+            #Create new dimensions for each missing variable, using slice-objects
+            #and np.newaxis
+            slice_ = [slice(None)] * len(self.variable_order)
+            slice_.extend([np.newaxis] * len(extra_vars))
+            res.potentials = self.potentials[tuple(slice_)]
+            
+            res.variable_order.extend(extra_vars)
+            
+            #Update the outcome dictionary for the new variables!
+            for var in extra_vars:
+                res.outcomes[var] = tuple(other_factor.outcomes[var])
+                
+        else:
+            #This view is ok, since we will overwrite res.potentials below 
+            #when we compute the actual multiplication!
+            res.potentials = self.potentials[:]
+            
+        #modify other_factor:
+        #In the end we simply want to multiply to matrices cell wise, for that
+        #these matrices need to have the same shape!
+        f2 = other_factor.copy()
+        extra_vars = set(res.variable_order) - set(f2.variable_order)
+        if extra_vars:
+            slice_ = [slice(None)] * len(f2.variable_order)
+            slice_.extend([np.newaxis] * len(extra_vars))
+            f2.potentials = f2.potentials[tuple(slice_)]
+            #We update the variable order here because we need the swap indices
+            #next
+            f2.variable_order.extend(extra_vars)
+            
+        #Rearrange f2 potentials so that dimensions align to the order in res
+        swaparray = [f2.variable_order.index(var) for var in res.variable_order]
+        f2.potentials = np.transpose(f2.potentials, swaparray)
+        
+        # Pointwise multiplication which results in a factor where all instantiations
+        # are compatible to the instantiations of res and factor2
+        # See Definition 6.3 in &#34;Modeling and Reasoning with Bayesian Networks&#34; - Adnan Darwiche Chapter 6    
+        res.potentials = res.potentials * f2.potentials
+        
+        return res
+
+    def __mul__(self, other: Factor) -&gt; Factor:
+        &#34;&#34;&#34;
+            Overwrite the internal __mul__ operator to allow using special
+            character &#34;*&#34;, as in f1 * f2 instead of f1.multiply(f2).
+            This does not change the initial factors but creates a new factor
+            as the resulting product.
+
+            Parameters
+            ----------
+            other: Factor
+                The factor to multiply this factor with.
+
+            Returns
+            -------
+            Factor
+                The resulting factor.
+        &#34;&#34;&#34;
+        return self.multiply(other)
+
+    def reduce(self, evidence: Dict[str, str]) -&gt; Factor:
+        &#34;&#34;&#34;
+            Creates a new factor which has been reduced to conform to the 
+            provided evidence.
+            
+            Parameters
+            ----------
+            evidence: dict
+                A dictionary containing variable:outcome pairs specifying the
+                evidence.
+                
+            Returns
+            -------
+            Factor
+                A factor that has been reduced to conform to the given 
+                evidence.
+        &#34;&#34;&#34;
+        #Note: There are multiple ways to represent a reduced factor, make 
+        # sure that all other functions can still be used, even on reduced 
+        # factors.
+        
+        # This solution is a somewhat inefficient solution, where reduced 
+        # computations are not more efficient then non-reduced computations
+        # since we do not prune empty cells from the matrix, thus not changing
+        # the actual size.
+        
+        #Construct the index for the desired potential
+        res = self.copy()
+        index = []        
+        for v in self.variable_order:
+            if v in evidence:
+                try:
+                    index.append([self.outcomes[v].index(evidence[v])])
+                except ValueError:
+                    raise ValueError(&#34;There is no potential for variable {} &#34; + \
+                                     &#34;with outcomes {} in this factor.&#34;.format(v, evidence[v]))
+            else:
+                index.append(range(len(self.outcomes[v])))
+                    
+        #We use here the same logic as in the potential function, as this already
+        #allows partial instantiations, as is the case with the evidence here.
+        #We use the access mask provided by np.ix_ to prevent the cells conforming
+        #to the evidence from being multiplied by 0.
+        tmp = np.zeros(res.potentials.shape)
+        tmp[np.ix_(*index)] = 1
+        res.potentials *= tmp
+        return res
+        
+    def copy(self) -&gt; Factor:
+        &#34;&#34;&#34;
+            Creates a (deep) copy of this factor.
+            
+            Returns
+            -------
+            Factor
+                An exact copy of self.
+        &#34;&#34;&#34;
+        res = Factor()
+        res.potentials = np.copy(self.potentials)
+        #Creating a shallow copy with dict() is enough here as factors
+        #should convert the value lists to tuples upon creation, which makes
+        #modification of these lists impossible.
+        res.outcomes = dict(self.outcomes)
+        res.variable_order = list(self.variable_order)
+        return res</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ccbase.factor.Factor"><code class="flex name class">
+<span>class <span class="ident">Factor</span></span>
+<span>(</span><span>variables: Optional[List[str]] = None, outcomes: Optional[Dict[str, List[str]]] = None, potentials: Optional[np.array] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Constructor for a new factor. Without any parameters a trivial,
+empty (unit) factor should be created which does not modify
+another factor through multiplication. Otherwise, the factor is
+created suitable for the provided variables and confirming to the
+provided potentials.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>variables</code></strong> :&ensp;<code>[String,] (optional)</code></dt>
+<dd>A list containing the variable names of all variables this
+factor should represent.</dd>
+<dt><strong><code>outcomes</code></strong> :&ensp;<code>dict (optional)</code></dt>
+<dd>A dictionary containing the variable names as keys and a list
+containing the possible outcomes of said variable as values.</dd>
+<dt><strong><code>potentials</code></strong> :&ensp;<code>np.array (optional)</code></dt>
+<dd>A multidimensional array containing the potentials or factor values.
+The array must be ordered according to the variable and outcome lists.
+These could be conditional or marginal probabilities of a random variable
+(see <code><a title="ccbase.factor.Factor.from_probabilities" href="#ccbase.factor.Factor.from_probabilities">Factor.from_probabilities()</a></code> function).</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>TypeError</code></dt>
+<dd>If some but not all three arguments were given, as the class requires
+either no argument or all three to work properly.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Factor(object):
+    
+    def __init__(self, variables: Optional[List[str]] = None, 
+                    outcomes: Optional[Dict[str,List[str]]] = None, 
+                    potentials: Optional[np.array] = None):
+        &#34;&#34;&#34;
+            Constructor for a new factor. Without any parameters a trivial, 
+            empty (unit) factor should be created which does not modify 
+            another factor through multiplication. Otherwise, the factor is 
+            created suitable for the provided variables and confirming to the 
+            provided potentials.
+            
+            Parameters
+            ----------
+            variables: [String,] (optional)
+                A list containing the variable names of all variables this 
+                factor should represent.
+            outcomes: dict (optional)
+                A dictionary containing the variable names as keys and a list
+                containing the possible outcomes of said variable as values.
+            potentials: np.array (optional)
+                A multidimensional array containing the potentials or factor values.
+                The array must be ordered according to the variable and outcome lists.
+                These could be conditional or marginal probabilities of a random variable
+                (see `Factor.from_probabilities` function).
+                
+            Raises
+            -------
+            TypeError
+                If some but not all three arguments were given, as the class requires
+                either no argument or all three to work properly. 
+        &#34;&#34;&#34;
+        parameters_none = [p is None for p in (variables, outcomes, potentials)]
+        if not all(parameters_none):
+            if any(parameters_none):
+                raise TypeError(&#34;Some but not all arguments were given &#34; \
+                    &#34;(variables: {}, outcomes: {}, probabilities: {})&#34;.format(variables, outcomes, potentials))
+        if variables is None:
+            variables = []
+        if outcomes is None:
+            outcomes = {}
+        if potentials is None:
+            potentials = 1
+        #Store the actual potentials as numpy array
+        self.potentials = np.copy(potentials)
+        #Store all contained variables in a list. The index of each variable
+        #corresponds to the dimension of that variable in the array.
+        self.variable_order = list(variables)
+        # Use a dictionary for the outcomes (as tuple) with the variables as keys.
+        self.outcomes = {}
+        for v,o in outcomes.items():
+            self.outcomes[v] = tuple(o)
+    
+    
+    # @classmethod is a decorator, that changes an object&#39;s function, so that
+    # instead of it getting the object instance as the first argument
+    # (usually references as &#34;self&#34;), a reference to the actual class, i.e. 
+    # Factor in this case is passed as first argument (one usually denotes this
+    # as &#34;cls&#34;) instead. cls will therefore be equivalent to &#34;Factor&#34; (i.e. 
+    # the class), which allows one to create a new instance of a factor by using
+    # new_factor = cls(), which can then be returned.
+    # For those interested on this: 
+    # https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods
+    @classmethod
+    def from_probabilities(cls, variables: List[str], 
+                                outcomes: Dict[str, List[str]], 
+                                probabilities: np.array):
+        &#34;&#34;&#34;
+            Classmethod to directly create a new factor from variables, 
+            their outcomes and according conditional or marginal probabilities.
+            
+            Parameters
+            ----------
+            variables: [String,] 
+                A list containing the variable names of all variables this 
+                factor should represent.
+            outcomes: dict 
+                A dictionary containing the variable names as keys and a list
+                containing the possible outcomes of said variable as values.
+            probabilities: np.array 
+                A multidimensional array containing the conditional or marginal
+                probabilities of a random variable. The array should be ordered
+                according to the variable and outcome lists.
+                
+            Returns
+            -------
+            Factor
+                The factor over the specified variables with potentials 
+                initialized to the given probabilities.
+        &#34;&#34;&#34;
+        return cls(variables, outcomes, probabilities)
+    
+    @classmethod
+    def from_node(cls, node: DiscreteVariable):
+        &#34;&#34;&#34;
+            Classmethod to directly create a new factor from a DiscreteVariable
+            
+            Parameters
+            ----------
+            node: ccbase.nodes.DiscreteVariable
+                The DiscreteVariable that should be used to initialize this
+                factor.
+                
+            Returns
+            -------
+            Factor
+                The factor over the specified variables with potentials 
+                initialized to the given probabilities.
+        &#34;&#34;&#34;
+        variables = [node.name] + node.parent_order
+        outcomes = {node.name: node.outcomes}
+        for p in node.parent_order:
+            outcomes[p] = node.parents[p].outcomes
+        return cls(variables, outcomes, node.cpt)
+    
+    def __call__(self, instantiation: Dict[str, str]) -&gt; Union[float, np.array]:
+        &#34;&#34;&#34;
+            Returns the current potential for the specified instantiation of 
+            all contained variables by calling the potential function.
+            
+            Parameters
+            ----------
+            instantiations: dict
+                A dictionary containing the variable names as keys and their
+                desired instantiation as value.
+                
+            Returns
+            -------
+            float or np.array
+                The potential for that specified instantiation. In case of
+                partial instantiations, a np.array is returned instead
+        &#34;&#34;&#34;
+        return self.potential(instantiation)
+        
+    def potential(self, instantiation: Dict[str, str]) -&gt; Union[float, np.array]:
+        &#34;&#34;&#34;
+            Returns the current potential for the specified instantiation of 
+            all contained variables.
+            
+            Parameter
+            --------
+            instantiation: dict
+                A dictionary containing the variable names as keys and their
+                desired instantiation as value.
+                
+            Returns
+            -------
+            float or np.array
+                The potential for that specified instantiation. In case of
+                partial instantiations, a np.array is returned instead.
+        &#34;&#34;&#34;
+        
+        #Construct the index for the desired potential
+        index = []        
+        for v in self.variable_order:
+            if v in instantiation:
+                try:
+                    index.append([self.outcomes[v].index(instantiation[v])])
+                except ValueError:
+                    raise ValueError(&#34;There is no potential for variable {} &#34; + \
+                                     &#34;with outcomes {} in this factor.&#34;.format(v, instantiation[v]))
+            else:
+                index.append(range(len(self.outcomes[v])))
+                    
+        #np.ix_ constructs an access mask which allows efficient access
+        #to the desired cells. This approach allows underspecification of the
+        #instantiation (i.e. not all variables are specified) which will
+        #result in returning a matrix for the remaining variables
+        return np.squeeze(np.copy(self.potentials[np.ix_(*index)]))
+        
+    def marginalize(self, variables: List[str]) -&gt; Factor:
+        &#34;&#34;&#34;
+            Creates a new factor where the specified variables are summed out.
+            
+            Parameters
+            ----------
+            variables: [String,]
+                A list containing the names of all the variables that should be
+                summed out.
+                
+            Returns
+            -------
+            Factor
+                A factor where the specified variables have been summed out 
+                from this factor.
+        &#34;&#34;&#34;
+        if not isinstance(variables, (list,set)):
+            variables = [variables]
+            
+        res = self.copy()
+        for v in variables:
+            #Simply sum out the corresponding dimension for each variable
+            res.potentials = np.sum(res.potentials, axis=res.variable_order.index(v))
+            #Make sure to upadte the outcome dictionary and variable_order list
+            # as to not mess up the next iteration.
+            del res.outcomes[v]
+            res.variable_order.remove(v)
+            
+        return res
+
+    def multiply(self, other_factor: Factor) -&gt; Factor:
+        &#34;&#34;&#34;
+            Creates a new factor, which is the resulting product of multiplying
+            this factor with the given other factor. The initial factors are
+            not modified.
+
+            Parameters
+            ----------
+                other: Factor
+                    The factor to multiply this factor with.
+
+            Returns
+            -------
+            Factor
+                The resulting factor.
+        &#34;&#34;&#34;
+        # Shortcuts for trivial factors
+        if len(self.variable_order) == 0:
+            res = other_factor.copy()
+            res.potentials = self.potentials * res.potentials
+            return res
+            
+        if len(other_factor.variable_order) == 0:
+            res = self.copy()
+            res.potentials = res.potentials * other_factor.potentials
+            return res
+        
+        res = Factor()
+        res.variable_order = list(self.variable_order)
+        res.outcomes = dict(self.outcomes)
+        
+        # Compute the variables that are not yet contained in this factor
+        extra_vars = set(other_factor.variable_order) - set(self.variable_order)
+        #Setup res factor based on self, extended by the missing variables from other
+        if extra_vars:
+            #Create new dimensions for each missing variable, using slice-objects
+            #and np.newaxis
+            slice_ = [slice(None)] * len(self.variable_order)
+            slice_.extend([np.newaxis] * len(extra_vars))
+            res.potentials = self.potentials[tuple(slice_)]
+            
+            res.variable_order.extend(extra_vars)
+            
+            #Update the outcome dictionary for the new variables!
+            for var in extra_vars:
+                res.outcomes[var] = tuple(other_factor.outcomes[var])
+                
+        else:
+            #This view is ok, since we will overwrite res.potentials below 
+            #when we compute the actual multiplication!
+            res.potentials = self.potentials[:]
+            
+        #modify other_factor:
+        #In the end we simply want to multiply to matrices cell wise, for that
+        #these matrices need to have the same shape!
+        f2 = other_factor.copy()
+        extra_vars = set(res.variable_order) - set(f2.variable_order)
+        if extra_vars:
+            slice_ = [slice(None)] * len(f2.variable_order)
+            slice_.extend([np.newaxis] * len(extra_vars))
+            f2.potentials = f2.potentials[tuple(slice_)]
+            #We update the variable order here because we need the swap indices
+            #next
+            f2.variable_order.extend(extra_vars)
+            
+        #Rearrange f2 potentials so that dimensions align to the order in res
+        swaparray = [f2.variable_order.index(var) for var in res.variable_order]
+        f2.potentials = np.transpose(f2.potentials, swaparray)
+        
+        # Pointwise multiplication which results in a factor where all instantiations
+        # are compatible to the instantiations of res and factor2
+        # See Definition 6.3 in &#34;Modeling and Reasoning with Bayesian Networks&#34; - Adnan Darwiche Chapter 6    
+        res.potentials = res.potentials * f2.potentials
+        
+        return res
+
+    def __mul__(self, other: Factor) -&gt; Factor:
+        &#34;&#34;&#34;
+            Overwrite the internal __mul__ operator to allow using special
+            character &#34;*&#34;, as in f1 * f2 instead of f1.multiply(f2).
+            This does not change the initial factors but creates a new factor
+            as the resulting product.
+
+            Parameters
+            ----------
+            other: Factor
+                The factor to multiply this factor with.
+
+            Returns
+            -------
+            Factor
+                The resulting factor.
+        &#34;&#34;&#34;
+        return self.multiply(other)
+
+    def reduce(self, evidence: Dict[str, str]) -&gt; Factor:
+        &#34;&#34;&#34;
+            Creates a new factor which has been reduced to conform to the 
+            provided evidence.
+            
+            Parameters
+            ----------
+            evidence: dict
+                A dictionary containing variable:outcome pairs specifying the
+                evidence.
+                
+            Returns
+            -------
+            Factor
+                A factor that has been reduced to conform to the given 
+                evidence.
+        &#34;&#34;&#34;
+        #Note: There are multiple ways to represent a reduced factor, make 
+        # sure that all other functions can still be used, even on reduced 
+        # factors.
+        
+        # This solution is a somewhat inefficient solution, where reduced 
+        # computations are not more efficient then non-reduced computations
+        # since we do not prune empty cells from the matrix, thus not changing
+        # the actual size.
+        
+        #Construct the index for the desired potential
+        res = self.copy()
+        index = []        
+        for v in self.variable_order:
+            if v in evidence:
+                try:
+                    index.append([self.outcomes[v].index(evidence[v])])
+                except ValueError:
+                    raise ValueError(&#34;There is no potential for variable {} &#34; + \
+                                     &#34;with outcomes {} in this factor.&#34;.format(v, evidence[v]))
+            else:
+                index.append(range(len(self.outcomes[v])))
+                    
+        #We use here the same logic as in the potential function, as this already
+        #allows partial instantiations, as is the case with the evidence here.
+        #We use the access mask provided by np.ix_ to prevent the cells conforming
+        #to the evidence from being multiplied by 0.
+        tmp = np.zeros(res.potentials.shape)
+        tmp[np.ix_(*index)] = 1
+        res.potentials *= tmp
+        return res
+        
+    def copy(self) -&gt; Factor:
+        &#34;&#34;&#34;
+            Creates a (deep) copy of this factor.
+            
+            Returns
+            -------
+            Factor
+                An exact copy of self.
+        &#34;&#34;&#34;
+        res = Factor()
+        res.potentials = np.copy(self.potentials)
+        #Creating a shallow copy with dict() is enough here as factors
+        #should convert the value lists to tuples upon creation, which makes
+        #modification of these lists impossible.
+        res.outcomes = dict(self.outcomes)
+        res.variable_order = list(self.variable_order)
+        return res</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="ccbase.factor.Factor.from_node"><code class="name flex">
+<span>def <span class="ident">from_node</span></span>(<span>node: DiscreteVariable)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Classmethod to directly create a new factor from a DiscreteVariable</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>node</code></strong> :&ensp;<code><a title="ccbase.nodes.DiscreteVariable" href="nodes.html#ccbase.nodes.DiscreteVariable">DiscreteVariable</a></code></dt>
+<dd>The DiscreteVariable that should be used to initialize this
+factor.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a></code></dt>
+<dd>The factor over the specified variables with potentials
+initialized to the given probabilities.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_node(cls, node: DiscreteVariable):
+    &#34;&#34;&#34;
+        Classmethod to directly create a new factor from a DiscreteVariable
+        
+        Parameters
+        ----------
+        node: ccbase.nodes.DiscreteVariable
+            The DiscreteVariable that should be used to initialize this
+            factor.
+            
+        Returns
+        -------
+        Factor
+            The factor over the specified variables with potentials 
+            initialized to the given probabilities.
+    &#34;&#34;&#34;
+    variables = [node.name] + node.parent_order
+    outcomes = {node.name: node.outcomes}
+    for p in node.parent_order:
+        outcomes[p] = node.parents[p].outcomes
+    return cls(variables, outcomes, node.cpt)</code></pre>
+</details>
+</dd>
+<dt id="ccbase.factor.Factor.from_probabilities"><code class="name flex">
+<span>def <span class="ident">from_probabilities</span></span>(<span>variables: List[str], outcomes: Dict[str, List[str]], probabilities: np.array)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Classmethod to directly create a new factor from variables,
+their outcomes and according conditional or marginal probabilities.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>variables</code></strong> :&ensp;<code>[String,] </code></dt>
+<dd>A list containing the variable names of all variables this
+factor should represent.</dd>
+<dt><strong><code>outcomes</code></strong> :&ensp;<code>dict </code></dt>
+<dd>A dictionary containing the variable names as keys and a list
+containing the possible outcomes of said variable as values.</dd>
+<dt><strong><code>probabilities</code></strong> :&ensp;<code>np.array </code></dt>
+<dd>A multidimensional array containing the conditional or marginal
+probabilities of a random variable. The array should be ordered
+according to the variable and outcome lists.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a></code></dt>
+<dd>The factor over the specified variables with potentials
+initialized to the given probabilities.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_probabilities(cls, variables: List[str], 
+                            outcomes: Dict[str, List[str]], 
+                            probabilities: np.array):
+    &#34;&#34;&#34;
+        Classmethod to directly create a new factor from variables, 
+        their outcomes and according conditional or marginal probabilities.
+        
+        Parameters
+        ----------
+        variables: [String,] 
+            A list containing the variable names of all variables this 
+            factor should represent.
+        outcomes: dict 
+            A dictionary containing the variable names as keys and a list
+            containing the possible outcomes of said variable as values.
+        probabilities: np.array 
+            A multidimensional array containing the conditional or marginal
+            probabilities of a random variable. The array should be ordered
+            according to the variable and outcome lists.
+            
+        Returns
+        -------
+        Factor
+            The factor over the specified variables with potentials 
+            initialized to the given probabilities.
+    &#34;&#34;&#34;
+    return cls(variables, outcomes, probabilities)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ccbase.factor.Factor.copy"><code class="name flex">
+<span>def <span class="ident">copy</span></span>(<span>self) ‑> <a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a (deep) copy of this factor.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a></code></dt>
+<dd>An exact copy of self.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy(self) -&gt; Factor:
+    &#34;&#34;&#34;
+        Creates a (deep) copy of this factor.
+        
+        Returns
+        -------
+        Factor
+            An exact copy of self.
+    &#34;&#34;&#34;
+    res = Factor()
+    res.potentials = np.copy(self.potentials)
+    #Creating a shallow copy with dict() is enough here as factors
+    #should convert the value lists to tuples upon creation, which makes
+    #modification of these lists impossible.
+    res.outcomes = dict(self.outcomes)
+    res.variable_order = list(self.variable_order)
+    return res</code></pre>
+</details>
+</dd>
+<dt id="ccbase.factor.Factor.marginalize"><code class="name flex">
+<span>def <span class="ident">marginalize</span></span>(<span>self, variables: List[str]) ‑> <a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a new factor where the specified variables are summed out.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>variables</code></strong> :&ensp;<code>[String,]</code></dt>
+<dd>A list containing the names of all the variables that should be
+summed out.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a></code></dt>
+<dd>A factor where the specified variables have been summed out
+from this factor.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def marginalize(self, variables: List[str]) -&gt; Factor:
+    &#34;&#34;&#34;
+        Creates a new factor where the specified variables are summed out.
+        
+        Parameters
+        ----------
+        variables: [String,]
+            A list containing the names of all the variables that should be
+            summed out.
+            
+        Returns
+        -------
+        Factor
+            A factor where the specified variables have been summed out 
+            from this factor.
+    &#34;&#34;&#34;
+    if not isinstance(variables, (list,set)):
+        variables = [variables]
+        
+    res = self.copy()
+    for v in variables:
+        #Simply sum out the corresponding dimension for each variable
+        res.potentials = np.sum(res.potentials, axis=res.variable_order.index(v))
+        #Make sure to upadte the outcome dictionary and variable_order list
+        # as to not mess up the next iteration.
+        del res.outcomes[v]
+        res.variable_order.remove(v)
+        
+    return res</code></pre>
+</details>
+</dd>
+<dt id="ccbase.factor.Factor.multiply"><code class="name flex">
+<span>def <span class="ident">multiply</span></span>(<span>self, other_factor: <a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a>) ‑> <a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a new factor, which is the resulting product of multiplying
+this factor with the given other factor. The initial factors are
+not modified.</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>other: Factor
+    The factor to multiply this factor with.
+</code></pre>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a></code></dt>
+<dd>The resulting factor.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def multiply(self, other_factor: Factor) -&gt; Factor:
+    &#34;&#34;&#34;
+        Creates a new factor, which is the resulting product of multiplying
+        this factor with the given other factor. The initial factors are
+        not modified.
+
+        Parameters
+        ----------
+            other: Factor
+                The factor to multiply this factor with.
+
+        Returns
+        -------
+        Factor
+            The resulting factor.
+    &#34;&#34;&#34;
+    # Shortcuts for trivial factors
+    if len(self.variable_order) == 0:
+        res = other_factor.copy()
+        res.potentials = self.potentials * res.potentials
+        return res
+        
+    if len(other_factor.variable_order) == 0:
+        res = self.copy()
+        res.potentials = res.potentials * other_factor.potentials
+        return res
+    
+    res = Factor()
+    res.variable_order = list(self.variable_order)
+    res.outcomes = dict(self.outcomes)
+    
+    # Compute the variables that are not yet contained in this factor
+    extra_vars = set(other_factor.variable_order) - set(self.variable_order)
+    #Setup res factor based on self, extended by the missing variables from other
+    if extra_vars:
+        #Create new dimensions for each missing variable, using slice-objects
+        #and np.newaxis
+        slice_ = [slice(None)] * len(self.variable_order)
+        slice_.extend([np.newaxis] * len(extra_vars))
+        res.potentials = self.potentials[tuple(slice_)]
+        
+        res.variable_order.extend(extra_vars)
+        
+        #Update the outcome dictionary for the new variables!
+        for var in extra_vars:
+            res.outcomes[var] = tuple(other_factor.outcomes[var])
+            
+    else:
+        #This view is ok, since we will overwrite res.potentials below 
+        #when we compute the actual multiplication!
+        res.potentials = self.potentials[:]
+        
+    #modify other_factor:
+    #In the end we simply want to multiply to matrices cell wise, for that
+    #these matrices need to have the same shape!
+    f2 = other_factor.copy()
+    extra_vars = set(res.variable_order) - set(f2.variable_order)
+    if extra_vars:
+        slice_ = [slice(None)] * len(f2.variable_order)
+        slice_.extend([np.newaxis] * len(extra_vars))
+        f2.potentials = f2.potentials[tuple(slice_)]
+        #We update the variable order here because we need the swap indices
+        #next
+        f2.variable_order.extend(extra_vars)
+        
+    #Rearrange f2 potentials so that dimensions align to the order in res
+    swaparray = [f2.variable_order.index(var) for var in res.variable_order]
+    f2.potentials = np.transpose(f2.potentials, swaparray)
+    
+    # Pointwise multiplication which results in a factor where all instantiations
+    # are compatible to the instantiations of res and factor2
+    # See Definition 6.3 in &#34;Modeling and Reasoning with Bayesian Networks&#34; - Adnan Darwiche Chapter 6    
+    res.potentials = res.potentials * f2.potentials
+    
+    return res</code></pre>
+</details>
+</dd>
+<dt id="ccbase.factor.Factor.potential"><code class="name flex">
+<span>def <span class="ident">potential</span></span>(<span>self, instantiation: Dict[str, str]) ‑> Union[float, <built-in function array>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the current potential for the specified instantiation of
+all contained variables.</p>
+<h2 id="parameter">Parameter</h2>
+<p>instantiation: dict
+A dictionary containing the variable names as keys and their
+desired instantiation as value.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code> or <code>np.array</code></dt>
+<dd>The potential for that specified instantiation. In case of
+partial instantiations, a np.array is returned instead.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def potential(self, instantiation: Dict[str, str]) -&gt; Union[float, np.array]:
+    &#34;&#34;&#34;
+        Returns the current potential for the specified instantiation of 
+        all contained variables.
+        
+        Parameter
+        --------
+        instantiation: dict
+            A dictionary containing the variable names as keys and their
+            desired instantiation as value.
+            
+        Returns
+        -------
+        float or np.array
+            The potential for that specified instantiation. In case of
+            partial instantiations, a np.array is returned instead.
+    &#34;&#34;&#34;
+    
+    #Construct the index for the desired potential
+    index = []        
+    for v in self.variable_order:
+        if v in instantiation:
+            try:
+                index.append([self.outcomes[v].index(instantiation[v])])
+            except ValueError:
+                raise ValueError(&#34;There is no potential for variable {} &#34; + \
+                                 &#34;with outcomes {} in this factor.&#34;.format(v, instantiation[v]))
+        else:
+            index.append(range(len(self.outcomes[v])))
+                
+    #np.ix_ constructs an access mask which allows efficient access
+    #to the desired cells. This approach allows underspecification of the
+    #instantiation (i.e. not all variables are specified) which will
+    #result in returning a matrix for the remaining variables
+    return np.squeeze(np.copy(self.potentials[np.ix_(*index)]))</code></pre>
+</details>
+</dd>
+<dt id="ccbase.factor.Factor.reduce"><code class="name flex">
+<span>def <span class="ident">reduce</span></span>(<span>self, evidence: Dict[str, str]) ‑> <a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a new factor which has been reduced to conform to the
+provided evidence.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>evidence</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary containing variable:outcome pairs specifying the
+evidence.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a></code></dt>
+<dd>A factor that has been reduced to conform to the given
+evidence.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reduce(self, evidence: Dict[str, str]) -&gt; Factor:
+    &#34;&#34;&#34;
+        Creates a new factor which has been reduced to conform to the 
+        provided evidence.
+        
+        Parameters
+        ----------
+        evidence: dict
+            A dictionary containing variable:outcome pairs specifying the
+            evidence.
+            
+        Returns
+        -------
+        Factor
+            A factor that has been reduced to conform to the given 
+            evidence.
+    &#34;&#34;&#34;
+    #Note: There are multiple ways to represent a reduced factor, make 
+    # sure that all other functions can still be used, even on reduced 
+    # factors.
+    
+    # This solution is a somewhat inefficient solution, where reduced 
+    # computations are not more efficient then non-reduced computations
+    # since we do not prune empty cells from the matrix, thus not changing
+    # the actual size.
+    
+    #Construct the index for the desired potential
+    res = self.copy()
+    index = []        
+    for v in self.variable_order:
+        if v in evidence:
+            try:
+                index.append([self.outcomes[v].index(evidence[v])])
+            except ValueError:
+                raise ValueError(&#34;There is no potential for variable {} &#34; + \
+                                 &#34;with outcomes {} in this factor.&#34;.format(v, evidence[v]))
+        else:
+            index.append(range(len(self.outcomes[v])))
+                
+    #We use here the same logic as in the potential function, as this already
+    #allows partial instantiations, as is the case with the evidence here.
+    #We use the access mask provided by np.ix_ to prevent the cells conforming
+    #to the evidence from being multiplied by 0.
+    tmp = np.zeros(res.potentials.shape)
+    tmp[np.ix_(*index)] = 1
+    res.potentials *= tmp
+    return res</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ccbase" href="index.html">ccbase</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ccbase.factor.Factor" href="#ccbase.factor.Factor">Factor</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ccbase.factor.Factor.copy" href="#ccbase.factor.Factor.copy">copy</a></code></li>
+<li><code><a title="ccbase.factor.Factor.from_node" href="#ccbase.factor.Factor.from_node">from_node</a></code></li>
+<li><code><a title="ccbase.factor.Factor.from_probabilities" href="#ccbase.factor.Factor.from_probabilities">from_probabilities</a></code></li>
+<li><code><a title="ccbase.factor.Factor.marginalize" href="#ccbase.factor.Factor.marginalize">marginalize</a></code></li>
+<li><code><a title="ccbase.factor.Factor.multiply" href="#ccbase.factor.Factor.multiply">multiply</a></code></li>
+<li><code><a title="ccbase.factor.Factor.potential" href="#ccbase.factor.Factor.potential">potential</a></code></li>
+<li><code><a title="ccbase.factor.Factor.reduce" href="#ccbase.factor.Factor.reduce">reduce</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
