@@ -10,8 +10,10 @@ approximate inference and some initial decision making.
 from typing import Union, Optional, List, Dict, Iterable, Tuple
 
 import numpy as np
-
+import copy
 import random
+
+from numpy.core.numeric import base_repr
 
 from ccbase.networks import BayesianNetwork
 from ccbase.nodes import DiscreteVariable
@@ -64,8 +66,26 @@ def sample(distribution: Dict[str, float]) -> str:
         -------
         String
             The sampled outcome
+    Hint: Make use of python’s inbuilt random-lib, e.g. using random.random(), to obtain random numbers in the interval [0,1], or
+    numpy’s equivalent.
     """
-    raise NotImplementedError("TODO, Exercise 1")
+    keys_number:list = list(distribution.keys())
+    cumulate_list: list = list()
+    cumulate_list.append(0)
+
+    for key_index in range(1,len(keys_number)+1):
+        sub_keys = keys_number[:key_index]
+        cumulate_list.append(sum(
+            [distribution[sub_key] for sub_key in sub_keys]
+        ))
+    
+    probability_generated: float = random.random()
+    
+    for cumulative_index in range(1,len(cumulate_list)):
+        if probability_generated > cumulate_list[cumulative_index-1] and probability_generated <= cumulate_list[cumulative_index]:
+            # return distribution[keys_number[cumulative_index-1]]
+            return keys_number[cumulative_index-1]
+    raise Exception("Unexpected state not found")
     
 
 
@@ -92,8 +112,37 @@ def get_ancestral_ordering(bayesnet: BayesianNetwork) -> List[str]:
             ancestral ordering (i.e. all parents of a node appear before that
             node in the list)
     """
+    def add_child(root_nodes: list, bn: BayesianNetwork, ancestral_order: dict) -> dict:
+        root_children = {root:list(bayesnet.get_children(root)) for root in root_nodes}
+        for root in root_nodes:
+            actual_children = root_children[root]
+
+            for child in actual_children:
+                for int_child in actual_children:
+                    if int_child != child and bn.is_descendant(int_child,child):
+                        root_children[root].remove(int_child)
+
+            for children in root_children[root]:
+                if str(children) not in ancestral_order.values():
+                    ancestral_order[len(ancestral_order.keys())] = str(children)
+
+        return ancestral_order
     
-    raise NotImplementedError("TODO, Exercise 2.1")
+    node_ancestor: dict = dict()
+    ancestral_order:dict = dict()
+    for node in bayesnet.nodes:
+        node_ancestor[node] = list(bayesnet.get_ancestors(node))
+
+    root_nodes: list = [node for node in node_ancestor.keys() if len(node_ancestor[node]) == 0]
+    ancestral_order = {index:str(root) for index, root in enumerate(root_nodes)}
+
+    
+    ancestral_order = add_child(root_nodes, bayesnet, ancestral_order)
+    roots =  list(ancestral_order.values())
+    for root in roots:
+        ancestral_order = add_child(bayesnet.get_children(root), bayesnet, ancestral_order)
+
+    return list(ancestral_order.values())
     
     
 ######
@@ -129,7 +178,27 @@ def do_forward_sampling(bayesnet: BayesianNetwork, var_name: str, num_samples: O
             A dictionary containing the outcomes of the variable var_name
             as keys and those outcomes marginal probabilities as values.
     """    
-    raise NotImplementedError("TODO, Exercise 2.2")
+    ancestral_order: list = get_ancestral_ordering(bayesnet)
+    sample_list: list = []
+    query: DiscreteVariable = bayesnet.nodes.get(var_name)
+    outcomes:list = query.outcomes
+    forward_sampling: dict = {}
+
+    for sample_index in range(0, num_samples):
+        outcome: dict = {}
+        for sample_name in ancestral_order:
+            next: DiscreteVariable = bayesnet.nodes.get(sample_name)
+            distribution = next.get_distribution(outcome)
+            sampled = sample(distribution)
+            outcome[next] = sampled
+
+        sample_list.append(outcome[var_name])
+
+    forward_sampling: dict = {}
+    for outcome in outcomes:
+        forward_sampling[outcome] = sample_list.count(outcome) / num_samples
+
+    return forward_sampling
 
 
 ######
@@ -156,7 +225,13 @@ def create_initial_sample(bayesnet: BayesianNetwork, evidence: Dict[str, str]) -
             A dictionary containing node-name:outcome pairs for all nodes in the
             network required for Gibbs sampling.
     """
-    raise NotImplementedError("TODO, Exercise 3.1")
+    outcome = evidence
+    for sample_name in bayesnet.nodes:
+        next: DiscreteVariable = bayesnet.nodes.get(sample_name)
+        distribution = next.get_distribution(outcome)
+        sampled = sample(distribution)
+        outcome[next] = sampled
+    return outcome
 
 
 ######
@@ -186,7 +261,8 @@ def get_markov_distr(node: DiscreteVariable, evidence: Dict[str, str]) -> Dict[s
             A dictionary representation of a probability distribution with the outcomes
             of node as keys and their probabilities as values.  
     """
-    raise NotImplementedError("TODO, Exercise 3.2")
+    distribution = node.get_distribution(evidence)
+    return distribution
 
 ######
 #
@@ -227,8 +303,45 @@ def do_gibbs_sampling(bayesnet: BayesianNetwork, var_name: str, evidence: Dict[s
             as keys and those outcomes marginal probabilities as values
             obtained by gibbs sampling.
     """
+    # if burn_in_period_length > num_samples:
+    #     raise Exception("burn_in_period_length that has to be discarded is higher than num_samples")
+
+    initial_sample: dict = create_initial_sample(bayesnet,evidence)
+    state_sample = []
+    state_sample.append(initial_sample)
+    prev_state:dict = initial_sample
+    i = 0
+    while len(state_sample) < num_samples:
+        
+        for node_name in bayesnet.nodes:
+            node: DiscreteVariable = bayesnet.nodes.get(node_name)
+            parental_state = {key:value for key, value in prev_state.items() if key != node_name}
+
+            distribution = get_markov_distr(node, parental_state)
+            actual_sample = sample(distribution)
+
+            parental_state[node_name] = actual_sample
+            prev_state = parental_state
+            if i >= burn_in_period_length:
+                if i % thinning == 0:
+                    state_sample.append(prev_state)
+                # else:
+                    # print("skipping thinnin")
+            # else:    
+                # print("skipping burn_in_period_length")
+            i+=1
+
+    outcomes = []
+    for state in state_sample:
+        outcomes.append(state[var_name])
+    gibbs_sampling: dict = {}
     
-    raise NotImplementedError("TODO, Exercise 3.3")
+    for outcome in outcomes:
+        gibbs_sampling[outcome] = outcomes.count(outcome) / num_samples
+        
+    return gibbs_sampling
+
+
 
 
 ######
@@ -305,28 +418,27 @@ def get_wetgrass_network():
     net.add_edge(node_sprinkler, node_grass)
     net.add_edge(node_rain, node_grass)
     net.add_edge(node_rain, node_fields)
-    
-    
+
+
     # This corresponds to P(winter=True) = 0.6 and P(winter=False) = 0.4
     node_winter.set_probability_table(np.array([0.6, 0.4]))
-    
+
     # As sprinkler has 1 parent (winter) this corresponds to:
     # P(sprinkler=True|winter=True) = 0.2
     # P(sprinkler=True|winter=False) = 0.75
     # P(sprinkler=False|winter=True) = 0.8
     # P(sprinkler=False|winter=False) = 0.25
     node_sprinkler.set_probability_table(np.array([[0.2, 0.75], 
-                                                   [0.8, 0.25]]))
-    
-    
+                                                    [0.8, 0.25]]))
+
     # Analogue to the sprinkler node
     node_rain.set_probability_table(np.array([[0.8, 0.1], 
-                                              [0.2, 0.9]]))
-    
+                                                [0.2, 0.9]]))
+
     # Analogue to the sprinkler node, just with rain as parent
     node_fields.set_probability_table(np.array([[0.01, 0.8], 
-                                              [0.99, 0.2]]))
-    
+                                                [0.99, 0.2]]))
+
     # Grass has 2 parents, sprinkler and rain (in that order as specified above!)
     # Accordingly this corresponds to:
     # P(grass=True|sprinkler=True, rain=True)= 0.99
@@ -346,15 +458,15 @@ def get_wetgrass_network():
                                                 [0.01, 0.3], #sprinkler=True
                                                 [0.1, 0.9] #sprinkler=False
                                             ]]))
-    
+
     return net
 
 if __name__ == "__main__":
 
     # Example call for exercise 1
     exampleNode = DiscreteVariable("color", 
-                               ["red","green", "blue"], 
-                               np.array([0.15,0.55,0.3]))
+                                ["red","green", "blue"], 
+                                np.array([0.15,0.55,0.3]))
 
     print("Sample drawn from sample distribution: {}".format(
                             sample(exampleNode.get_distribution())))
@@ -374,10 +486,10 @@ if __name__ == "__main__":
     # Example call for exercise 3
     print("gibbs sampling variable wet_grass given slippery_road=True: {}".format( 
         do_gibbs_sampling(get_wetgrass_network(), "wet_grass", 
-                          {"slippery_road": "True"}, 1000, 100, 1) ))
-    print("Exact result for that marginal: ", get_wetgrass_network().marginals("wet_grass", {"slippery_road": "True"}))
+                            {"slippery_road": "True"}, 1000, 100, 1) ))
+    print("Exact result for that marginal: ", get_wetgrass_network().marginals("wet_grass", {"dry_fields": "True"}))
 
 
     print("gibbs sampling variable alarm given john=Calling: {}".format( 
         do_gibbs_sampling(get_wetgrass_network(), "alarm", 
-                          {"john": "Calling"}, 1000, 100, 1) ))
+                            {"john": "Calling"}, 1000, 100, 1) ))
