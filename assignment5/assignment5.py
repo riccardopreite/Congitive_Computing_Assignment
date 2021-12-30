@@ -303,13 +303,11 @@ def do_gibbs_sampling(bayesnet: BayesianNetwork, var_name: str, evidence: Dict[s
             as keys and those outcomes marginal probabilities as values
             obtained by gibbs sampling.
     """
-    # if burn_in_period_length > num_samples:
-    #     raise Exception("burn_in_period_length that has to be discarded is higher than num_samples")
-
+    
     initial_sample: dict = create_initial_sample(bayesnet,evidence)
     state_sample = []
     state_sample.append(initial_sample)
-    prev_state:dict = initial_sample
+    prev_state: dict = initial_sample
     i = 0
     while len(state_sample) < num_samples:
         
@@ -385,7 +383,43 @@ def expected_utility(net: BayesianNetwork, actions: Dict[str, str],
             The EU for the given action considering the evidence, utilities and potentially the Do-operator.
     
     """
-    raise NotImplementedError("TODO, Exercise 4.1")
+
+    '''
+    In utility theory, the expected utility of an action is the weighted sum
+    of the utilities of the action's outcomes, weighted with the probability
+    of those outcomes.
+    In the case of the exercise you are given utilities for 2 binary nodes,
+    thus you could consider the 4 possible outcomes for these two nodes,
+    compute their probability (using what you already learned about
+    inference in Bayesian Networks and the reference implementation) and
+    combine that with the given utilities.
+    '''
+    copied_net = net.copy(True)
+    if not use_do:
+        evidence.update(actions)
+    else:
+        action = list(actions.keys())
+        name = action[0]
+        node: DiscreteVariable = copied_net.nodes.get(name)
+        parents = node.parents.copy()
+        # for parent in parents:
+            # copied_net.remove_edge(parent, node)
+        
+    EU = 0
+    
+    index = 0 if "True" in actions.values() else 1
+    label = "True" if "True" in actions.values() else "False"
+    for key, outcomes in utilities.items():
+        sub_dict = {key:label}
+        print("sub",sub_dict,"ev",evidence)
+        probability: float = copied_net.get_probability(sub_dict,evidence)
+        EU += (probability*outcomes[index])
+    
+    return EU
+    '''utilities = {"wet_grass": [20,-10], "dry_fields": [-20, 10]}'''
+    '''action = {"sprinkler":"True"}'''
+    '''action = {"sprinkler":"False"}'''
+    '''evidence = {}'''
 
 
 ######
@@ -490,6 +524,6 @@ if __name__ == "__main__":
     print("Exact result for that marginal: ", get_wetgrass_network().marginals("wet_grass", {"dry_fields": "True"}))
 
 
-    print("gibbs sampling variable alarm given john=Calling: {}".format( 
-        do_gibbs_sampling(get_wetgrass_network(), "alarm", 
-                            {"john": "Calling"}, 1000, 100, 1) ))
+    # print("gibbs sampling variable alarm given john=Calling: {}".format( 
+    #     do_gibbs_sampling(get_wetgrass_network(), "alarm", 
+    #                         {"john": "Calling"}, 1000, 100, 1) ))
