@@ -102,26 +102,26 @@ class TestAssignment5(unittest.TestCase):
     def test_expected_utility(self):
         utilities = {"wet_grass": [20,-10], "dry_fields": [-20, 10]}
         net = solution.get_wetgrass_network()
-        # eu_sprinkler_no_do_no_winter_False = solution.expected_utility(net, {"sprinkler":"True"}, {}, utilities, use_do=False)
-        # eu_sprinkler_no_do_winter_False = solution.expected_utility(net, {"sprinkler":"True"}, {"winter":"False"}, utilities, use_do=False)
-        # print("eu_sprinkler_no_do_no_winter_False:",eu_sprinkler_no_do_no_winter_False)
-        # print("eu_sprinkler_no_do_winter_False:",eu_sprinkler_no_do_winter_False)
+        eu_sprinkler_no_do_no_winter_False = solution.expected_utility(net, {"sprinkler":"True"}, {}, utilities, use_do=False)
+        print("sprinkler=True,  use_do=False,  evidence={''}:",eu_sprinkler_no_do_no_winter_False)
+        eu_sprinkler_no_do_winter_False = solution.expected_utility(net, {"sprinkler":"True"}, {"winter":"False"}, utilities, use_do=False)
+        print("sprinkler=True,  use_do=False,  evidence={'winter:false'}:",eu_sprinkler_no_do_winter_False)
 
 
-        # eu_not_sprinkler_no_do_no_winter_False = solution.expected_utility(net, {"sprinkler":"False"}, {}, utilities, use_do=False)
-        # eu_not_sprinkler_no_do_winter_False = solution.expected_utility(net, {"sprinkler":"False"}, {"winter":"False"}, utilities, use_do=False)
-        # print("eu_not_sprinkler_no_do_no_winter_False:",eu_not_sprinkler_no_do_no_winter_False)
-        # print("eu_not_sprinkler_no_do_winter_False:",eu_not_sprinkler_no_do_winter_False)
+        eu_not_sprinkler_no_do_no_winter_False = solution.expected_utility(net, {"sprinkler":"False"}, {}, utilities, use_do=False)
+        print("sprinkler=False,  use_do=False,  evidence={''}:",eu_not_sprinkler_no_do_no_winter_False)
+        eu_not_sprinkler_no_do_winter_False = solution.expected_utility(net, {"sprinkler":"False"}, {"winter":"False"}, utilities, use_do=False)
+        print("sprinkler=False,  use_do=False,  evidence={'winter:false'}:",eu_not_sprinkler_no_do_winter_False)
 
-        # eu_sprinkler_do_no_winter_False = solution.expected_utility(net, {"sprinkler":"True"}, {}, utilities, use_do=True)
-        # eu_sprinkler_do_winter_False = solution.expected_utility(net, {"sprinkler":"True"}, {"winter":"False"}, utilities, use_do=True)
-        # print("eu_sprinkler_do_no_winter_False:",eu_sprinkler_do_no_winter_False)
-        # print("eu_sprinkler_do_winter_False:",eu_sprinkler_do_winter_False)
+        eu_sprinkler_do_no_winter_False = solution.expected_utility(net, {"sprinkler":"True"}, {}, utilities, use_do=True)
+        print("sprinkler=True,  use_do=True,  evidence={''}:",eu_sprinkler_do_no_winter_False)
+        eu_sprinkler_do_winter_False = solution.expected_utility(net, {"sprinkler":"True"}, {"winter":"False"}, utilities, use_do=True)
+        print("sprinkler=True,  use_do=True,  evidence={'winter:false'}:",eu_sprinkler_do_winter_False)
 
-        # eu_not_sprinkler_do_no_winter_False = solution.expected_utility(net, {"sprinkler":"False"}, {}, utilities, use_do=True)
-        # eu_not_sprinkler_do_winter_False = solution.expected_utility(net, {"sprinkler":"False"}, {"winter":"False"}, utilities, use_do=True)
-        # print("eu_not_sprinkler_do_no_winter_False:",eu_not_sprinkler_do_no_winter_False)
-        # print("eu_not_sprinkler_do_winter_False:",eu_not_sprinkler_do_winter_False)
+        eu_not_sprinkler_do_no_winter_False = solution.expected_utility(net, {"sprinkler":"False"}, {}, utilities, use_do=True)
+        print("sprinkler=False,  use_do=True,  evidence={''}:",eu_not_sprinkler_do_no_winter_False)
+        eu_not_sprinkler_do_winter_False = solution.expected_utility(net, {"sprinkler":"False"}, {"winter":"False"}, utilities, use_do=True)
+        print("sprinkler=False,  use_do=True,  evidence={'winter:false'}:",eu_not_sprinkler_do_winter_False)
         
         self.assertTrue(True, "I will not provide the correct result here, as this is part of the assignment.")
 

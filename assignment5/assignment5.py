@@ -19,6 +19,8 @@ from ccbase.networks import BayesianNetwork
 from ccbase.nodes import DiscreteVariable
 
 
+import itertools as it
+from collections import Counter
 """
     For this assignment you can again use the BayesianNetwork implementation
     that you already saw in assignment4. The class was slightly extended
@@ -69,6 +71,8 @@ def sample(distribution: Dict[str, float]) -> str:
     Hint: Make use of python’s inbuilt random-lib, e.g. using random.random(), to obtain random numbers in the interval [0,1], or
     numpy’s equivalent.
     """
+
+    '''Generating simple sample as saw in the slides by generating a random value and taking the value in that distribution'''
     keys_number:list = list(distribution.keys())
     cumulate_list: list = list()
     cumulate_list.append(0)
@@ -132,13 +136,14 @@ def get_ancestral_ordering(bayesnet: BayesianNetwork) -> List[str]:
     ancestral_order:dict = dict()
     for node in bayesnet.nodes:
         node_ancestor[node] = list(bayesnet.get_ancestors(node))
-
+    '''First root node'''
     root_nodes: list = [node for node in node_ancestor.keys() if len(node_ancestor[node]) == 0]
     ancestral_order = {index:str(root) for index, root in enumerate(root_nodes)}
 
-    
+    '''Adding direct child of the root'''
     ancestral_order = add_child(root_nodes, bayesnet, ancestral_order)
     roots =  list(ancestral_order.values())
+    '''For each node remaining getting his child'''
     for root in roots:
         ancestral_order = add_child(bayesnet.get_children(root), bayesnet, ancestral_order)
 
@@ -183,7 +188,7 @@ def do_forward_sampling(bayesnet: BayesianNetwork, var_name: str, num_samples: O
     query: DiscreteVariable = bayesnet.nodes.get(var_name)
     outcomes:list = query.outcomes
     forward_sampling: dict = {}
-
+    '''Generating sample by ancestral order distribution'''
     for sample_index in range(0, num_samples):
         outcome: dict = {}
         for sample_name in ancestral_order:
@@ -225,6 +230,8 @@ def create_initial_sample(bayesnet: BayesianNetwork, evidence: Dict[str, str]) -
             A dictionary containing node-name:outcome pairs for all nodes in the
             network required for Gibbs sampling.
     """
+
+    '''Generatinf initial sample for each node given an evidence'''
     outcome = evidence
     for sample_name in bayesnet.nodes:
         next: DiscreteVariable = bayesnet.nodes.get(sample_name)
@@ -261,9 +268,26 @@ def get_markov_distr(node: DiscreteVariable, evidence: Dict[str, str]) -> Dict[s
             A dictionary representation of a probability distribution with the outcomes
             of node as keys and their probabilities as values.  
     """
-    distribution = node.get_distribution(evidence)
-    return distribution
 
+    '''Calculating markov distribution from markov blanket'''
+    parents_evidence = {key:value for key, value in evidence.items() if key in node.parents}
+    node_probability = node.get_distribution(parents_evidence)
+    children = node.children
+    child: DiscreteVariable
+    productory = node_probability
+    
+    '''Second part of markov blanket, node's children with their parents'''
+    for child in children.values():
+        child_parent_evidence = {key:value for key, value in evidence.items() if key in child.parents}
+        if node in child_parent_evidence:
+            for value in node.outcomes:
+                child_parent_evidence[node] = value
+                productory[value] = productory[value] * child.get_distribution(child_parent_evidence)[value]
+
+    normalization = sum(productory.values())
+    productory = {k:v/normalization for k,v in productory.items()}    
+    return productory
+    
 ######
 #
 # Ex 3.3
@@ -309,38 +333,41 @@ def do_gibbs_sampling(bayesnet: BayesianNetwork, var_name: str, evidence: Dict[s
     state_sample.append(initial_sample)
     prev_state: dict = initial_sample
     i = 0
+    '''Generating sample until number asked'''
     while len(state_sample) < num_samples:
-        
+        '''For each node I calculate the distribution by using the parental state from the prev state'''
         for node_name in bayesnet.nodes:
             node: DiscreteVariable = bayesnet.nodes.get(node_name)
             parental_state = {key:value for key, value in prev_state.items() if key != node_name}
 
             distribution = get_markov_distr(node, parental_state)
-            actual_sample = sample(distribution)
 
+            '''Generate the sample and updating prev_state'''
+            actual_sample = sample(distribution)
             parental_state[node_name] = actual_sample
             prev_state = parental_state
+            '''Skipping burn_in_period_length and thinning'''
             if i >= burn_in_period_length:
                 if i % thinning == 0:
                     state_sample.append(prev_state)
+                    if len(state_sample) == num_samples:
+                        break
                 # else:
                     # print("skipping thinnin")
             # else:    
                 # print("skipping burn_in_period_length")
             i+=1
-
     outcomes = []
+    '''Create outcomes for the var requested'''
     for state in state_sample:
         outcomes.append(state[var_name])
     gibbs_sampling: dict = {}
     
+    '''Normalize outcomes'''
     for outcome in outcomes:
         gibbs_sampling[outcome] = outcomes.count(outcome) / num_samples
         
     return gibbs_sampling
-
-
-
 
 ######
 #
@@ -394,34 +421,79 @@ def expected_utility(net: BayesianNetwork, actions: Dict[str, str],
     inference in Bayesian Networks and the reference implementation) and
     combine that with the given utilities.
     '''
-    copied_net = net.copy(True)
+        
+    
+    copied_net: BayesianNetwork = net.copy()
+    '''Applying do operator'''
+    evidence, new_net = do(evidence, copied_net, actions, use_do)
+    '''Calculating probability'''
+    EU: float = expected_probability(evidence, new_net, utilities)            
+    
+    return EU
+def expected_probability(evidence: Dict[str, str], net: BayesianNetwork, utilities: Dict[str, List[float]]):
+    
+    keys = list(utilities.keys())
+    values = list(utilities.values())
+
+    value_list = utilities_value_states(values)
+    keys_outcomes = utilities_keys_states(keys,net.nodes[keys[0]])
+    if len(value_list) != len(keys_outcomes):
+        raise Exception("Length of permutation is different.")
+    EU = 0
+    '''Sum probability for each possible state given the evidence'''
+    for index in range(0,len(value_list)):
+        outcome = value_list[index]
+        sub_istantation = keys_outcomes[index]
+        prob = net.get_probability(sub_istantation, evidence)
+        EU = EU + (prob*outcome)
+        
+    return EU
+
+def do(evidence: Dict[str, str], net: BayesianNetwork, actions: Dict[str, str], use_do: Optional[bool]=True):
+    '''
+        Applying do operator as said in slide by updating evidence or removing edges.
+    '''
     if not use_do:
         evidence.update(actions)
     else:
         action = list(actions.keys())
-        name = action[0]
-        node: DiscreteVariable = copied_net.nodes.get(name)
-        parents = node.parents.copy()
-        # for parent in parents:
-            # copied_net.remove_edge(parent, node)
-        
-    EU = 0
-    
-    index = 0 if "True" in actions.values() else 1
-    label = "True" if "True" in actions.values() else "False"
-    for key, outcomes in utilities.items():
-        sub_dict = {key:label}
-        print("sub",sub_dict,"ev",evidence)
-        probability: float = copied_net.get_probability(sub_dict,evidence)
-        EU += (probability*outcomes[index])
-    
-    return EU
-    '''utilities = {"wet_grass": [20,-10], "dry_fields": [-20, 10]}'''
-    '''action = {"sprinkler":"True"}'''
-    '''action = {"sprinkler":"False"}'''
-    '''evidence = {}'''
+        for act in action:
+            node_act: DiscreteVariable = net.nodes.get(act)
+            parents = node_act.parents.copy()
+            for  parent in parents.values():
+                net.remove_edge(parent, node_act)
+                net.remove_edge(node_act, parent)
+            outcome = node_act.outcomes
+            '''Rebuild cpt'''
+            cpt = [ 1.0 if out == actions[act] else 0.0 for out in outcome ]
+            node_act.set_probability_table(cpt)
 
+    return evidence, net
 
+def utilities_value_states(values):
+    '''Calculating outcome state for all possible combination of the outcome'''
+    product = list(it.product(*values))
+    unique_values = []
+    for state in product:
+        unique_values.append(sum(state))
+    return unique_values
+    
+def utilities_keys_states(keys: list, node: DiscreteVariable):
+    '''Calculating state for all possible combination of the utilities'''
+    keys_outcomes = []
+    possible_outcomes = node.outcomes
+
+    product = list(it.product(keys, possible_outcomes))
+    combinations = list(it.combinations(product, len(keys)))
+    for combination in combinations:
+
+        names_list = [tupl[0] for tupl in combination]
+        count = dict(Counter(names_list))
+        if all(value == 1 for value in count.values()):
+            keys_outcomes.append({sub_tupl[0]:sub_tupl[1] for sub_tupl in combination})       
+
+    return keys_outcomes
+    
 ######
 #
 # An example network useable for all exercises.
