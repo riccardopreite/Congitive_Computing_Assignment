@@ -148,9 +148,12 @@ def initialize_factors(bn: BayesianNetwork, evidence: Optional[Dict[str, str]]) 
     # Generate a list of all the Factors in the given Bayesian Network
     factors_list: list = [Factor.from_node(node) for node in bn.nodes.values()]
     if evidence:
-        factor: Factor
-        for factor_index, factor in factors_list:   
+        for factor_index in range(len(factors_list)):   
+            factor = factors_list[factor_index]
             factors_list[factor_index] = factor.reduce(evidence)
+        #factor: Factor
+        #for factor_index, factor in factors_list:   
+           # factors_list[factor_index] = factor.reduce(evidence)
     return factors_list
 
 def sum_product_elim_var(factors: Iterable[Factor], variable: str) -> List[Factor]:

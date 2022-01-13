@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>assignment5 API documentation</title>
+<meta name="description" content="Created on Tue, 07.12.2021.
+Skeleton file for assignment5 about
+approximate inference and some initial decision making …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>assignment5</code></h1>
+</header>
+<section id="section-intro">
+<p>Created on Tue, 07.12.2021.
+Skeleton file for assignment5 about
+approximate inference and some initial decision making.</p>
+<p>@author: jpoeppel</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+Created on Tue, 07.12.2021.
+Skeleton file for assignment5 about 
+approximate inference and some initial decision making.
+
+@author: jpoeppel
+&#34;&#34;&#34;
+from typing import Union, Optional, List, Dict, Iterable, Tuple
+
+import numpy as np
+
+import random
+
+from ccbase.networks import BayesianNetwork
+from ccbase.nodes import DiscreteVariable
+
+
+&#34;&#34;&#34;
+    For this assignment you can again use the BayesianNetwork implementation
+    that you already saw in assignment4. The class was slightly extended
+    by now including reference implementations for exact inference, primarily
+    useable to compare your approximate results to the exact solutions and 
+    the last exercise.
+    You may want to consider DiscreteVariable&#39;s get_distribution function,
+    which can be used for sampling (see 
+    DiscreteVariable.get_distribution(self, evidence=None) or the example
+    below). The function works similar to the factor&#39;s potential function
+    in that it selects the appropraite elements of the numpy-array but 
+    will create a dictionary as used by the sample-function in exercise 1.
+    
+    As always feel free to add tests of your own to check your code&#39;s functionality.
+    Especially concerning the approximate inference methods, you can always compare
+    their results with your exact results from the last assignment as they should
+    be very close once you increase the number of samples.
+
+    Automatic testing for these approximate solutions will consider certain margains that 
+    your solutions should get close to the true probability/distribution, but I will also
+    manually go over the different solutions in order to reduce the number of &#34;false negatives&#34;.
+&#34;&#34;&#34;
+
+
+######
+#
+# Ex 1
+#
+######
+
+
+def sample(distribution: Dict[str, float]) -&gt; str:
+    &#34;&#34;&#34;
+        Sample an outcome from a given probability distribution using the
+        univariate sampling (also called roulette wheel selection) mentioned
+        in the lecture.
+        
+        Parameters
+        ----------
+        distribution: dict
+            A dictionary containing the possible outcomes of a random
+            variable as keys and their respective probabilities as values.
+        
+        Returns
+        -------
+        String
+            The sampled outcome
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO, Exercise 1&#34;)
+    
+
+
+######
+#
+# Ex 2.1
+#
+######
+
+
+def get_ancestral_ordering(bayesnet: BayesianNetwork) -&gt; List[str]:
+    &#34;&#34;&#34;
+        Generate an ancestral ordering for nodes of the given network.
+        
+        Parameters
+        ----------
+        bayesnet: ccbase.networks.BayesianNetwork
+            The network whose nodes are to be ordered.
+            
+        Returns
+        -------
+        List[str]
+            A list containing the names of the network&#39;s nodes in
+            ancestral ordering (i.e. all parents of a node appear before that
+            node in the list)
+    &#34;&#34;&#34;
+    
+    raise NotImplementedError(&#34;TODO, Exercise 2.1&#34;)
+    
+    
+######
+#
+# Ex 2.2
+# In case you are struggeling with exercise 2.1 you can still implemenet this
+# function just using &#34;get_ancestral_ordering&#34; at the appropriate position.
+# If you want to test the sampling, you could overwrite the result of 
+# &#34;get_ancestral_ordering&#34; with an order you compute by hand for an example
+# network. That way you can still complete this task without completing
+# the previous one.
+#
+######
+
+def do_forward_sampling(bayesnet: BayesianNetwork, var_name: str, num_samples: Optional[int]=1000) -&gt; Dict[str, float]:
+    &#34;&#34;&#34;
+        Calculate marginals using Forward Sampling without worrying about
+        dealing with evidence.
+        
+        Parameters
+        -----------
+        bayesnet: ccbase.networks.BayesianNetwork
+            The network to be sampled.
+        var_name: string
+            The name of the variable whose marginal is to be approximated.
+        num_samples: int (optional)
+            The number of samples to be generated to estimate the marginal. Default
+            1000.
+            
+        Returns
+        --------
+        Dict[str, float]
+            A dictionary containing the outcomes of the variable var_name
+            as keys and those outcomes marginal probabilities as values.
+    &#34;&#34;&#34;    
+    raise NotImplementedError(&#34;TODO, Exercise 2.2&#34;)
+
+
+######
+#
+# Ex 3.1
+#
+######
+
+def create_initial_sample(bayesnet: BayesianNetwork, evidence: Dict[str, str]) -&gt; Dict[str,str]:
+    &#34;&#34;&#34;
+        Create an initial sample useable for Gibbs sampling for the given network that
+        takes the given evidence into account.
+
+        Parameters
+        ----------
+        bayesnet: ccbase.networks.BayesianNetwork
+            The network in which to sample.
+        evidence: Dict[str,str]
+            Node-name:outcome pairs specifying the observed evidence.
+
+        Returns
+        -------
+        Dict[str,str]
+            A dictionary containing node-name:outcome pairs for all nodes in the
+            network required for Gibbs sampling.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO, Exercise 3.1&#34;)
+
+
+######
+#
+# Ex 3.2
+#
+######
+
+def get_markov_distr(node: DiscreteVariable, evidence: Dict[str, str]) -&gt; Dict[str, float]:
+    &#34;&#34;&#34;
+        Computes the local probability distribution for the random variable represented
+        by the given node, given the provided evidence. 
+
+        Parameters
+        ----------
+        node: ccbase.nodes.DiscreteVariable
+            The DiscreteVariable from a BayesianNetwork for which the distribution
+            is to be computed. 
+        evidence: dict
+            A dictionary containing node names as keys and their observed outcomes
+            as values. You may assume that this dictionary contains key-value
+            pairs for all nodes in the Bayesian network from which &#34;node&#34; came. 
+        
+        Returns
+        -------
+        Dict[str, float]
+            A dictionary representation of a probability distribution with the outcomes
+            of node as keys and their probabilities as values.  
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO, Exercise 3.2&#34;)
+
+######
+#
+# Ex 3.3
+#
+######
+
+def do_gibbs_sampling(bayesnet: BayesianNetwork, var_name: str, evidence: Dict[str, str], 
+                        num_samples: Optional[int] =1000, 
+                        burn_in_period_length: Optional[int] =100, thinning: Optional[int] =1) -&gt; Dict[str, float]:
+    &#34;&#34;&#34;
+        Calculate marginals using Gibbs Sampling.
+        Hint: Remember that you will have to sample from the local probability
+        according to a node&#39;s MarkovBlanket instead of its local cpt!
+        
+        Parameters
+        ---------
+        bayesnet: ccbase.networks.BayesianNetwork
+            The network from which the samples should be created.
+        var_name: str
+            The variable to calculate marginals for
+        evidence: Dict[str, str]
+            A dictionary containing node_name: outcome pairs to specify the
+            evidence.
+        num_samples: int (optional)
+            Number of samples to be used for the marginal computation after the burn_in_period. 
+            Default 1000.
+        burn_in_period_length: int (optional) 
+            Number of samples that are discarded at the beginning. Default 100.
+        thinning: int (optional)
+            Only take every nth sample for the calculation of the marginal. 
+            Default 1.
+         
+        Returns
+        -------
+        Dict[str, float]
+            A dictionary containing the outcome of the variable var_name
+            as keys and those outcomes marginal probabilities as values
+            obtained by gibbs sampling.
+    &#34;&#34;&#34;
+    
+    raise NotImplementedError(&#34;TODO, Exercise 3.3&#34;)
+
+
+######
+#
+# Exercise 4
+#
+######
+
+def expected_utility(net: BayesianNetwork, actions: Dict[str, str], 
+                    evidence: Dict[str, str], utilities: Dict[str, List[float]], 
+                    use_do: Optional[bool]=True) -&gt; float:
+    &#34;&#34;&#34;
+        Computes the expected utility of the given action in the given network, taking into account the given 
+        evidence and utilities while applying the Do-Operator or not.
+
+        Parameters
+        ----------
+        net: ccbase.networks.BayesianNetwork
+            The BayesianNetwork in which to compute the expected utility.
+        action: dict[str,str]
+            A dictionary containing only 1 key-value pair specifying the intervention for 
+            which the EU is to be computed. This pair represents a node-name: outcome
+            pair for a node in the network.
+        evidence: dict[str,str]
+            A dictionary containing node-name: outcome pairs for observed evidence that
+            should be considered when computed the EU.
+        utilities: dict[str, List[float]]
+            A dictionary specifying the utilities for different outcomes. The dictionary
+            containes node-name: List pairs, where the list contains the utilities for
+            the outcomes. You may assume that the order matches the outcome ordering of 
+            the graph, i.e. if the node has outcomes [True, False], the first index in
+            the utility list corresponds to the outcome &#34;True&#34; and the 2nd to &#34;False.
+        use_do: bool, Optional 
+            If True, the Do-operator should be used to compute the EU.
+            If False, the intervention/action should be considered as an additional
+            observed evidence.
+
+        Returns
+        -------
+        float
+            The EU for the given action considering the evidence, utilities and potentially the Do-operator.
+    
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO, Exercise 4.1&#34;)
+
+
+######
+#
+# An example network useable for all exercises.
+#
+######
+
+
+def get_wetgrass_network():
+    net = BayesianNetwork()
+
+    #Create the discrete variables that should be contained in the network
+    node_winter = DiscreteVariable(&#34;winter&#34;, [&#34;True&#34;, &#34;False&#34;])
+    node_sprinkler = DiscreteVariable(&#34;sprinkler&#34;, [&#34;True&#34;, &#34;False&#34;])
+    node_rain = DiscreteVariable(&#34;rain&#34;, [&#34;True&#34;, &#34;False&#34;])
+    node_grass = DiscreteVariable(&#34;wet_grass&#34;, [&#34;True&#34;, &#34;False&#34;])
+    node_fields = DiscreteVariable(&#34;dry_fields&#34;, [&#34;True&#34;, &#34;False&#34;])
+
+    #Add the nodes to the network
+    net.add_node(node_winter)
+    net.add_node(node_sprinkler)
+    net.add_node(node_rain)
+    net.add_node(node_grass)
+    net.add_node(node_fields)
+
+    #Setup the relationships between the variables
+    net.add_edge(node_winter, node_sprinkler)
+    net.add_edge(node_winter, node_rain)
+    net.add_edge(node_sprinkler, node_grass)
+    net.add_edge(node_rain, node_grass)
+    net.add_edge(node_rain, node_fields)
+    
+    
+    # This corresponds to P(winter=True) = 0.6 and P(winter=False) = 0.4
+    node_winter.set_probability_table(np.array([0.6, 0.4]))
+    
+    # As sprinkler has 1 parent (winter) this corresponds to:
+    # P(sprinkler=True|winter=True) = 0.2
+    # P(sprinkler=True|winter=False) = 0.75
+    # P(sprinkler=False|winter=True) = 0.8
+    # P(sprinkler=False|winter=False) = 0.25
+    node_sprinkler.set_probability_table(np.array([[0.2, 0.75], 
+                                                   [0.8, 0.25]]))
+    
+    
+    # Analogue to the sprinkler node
+    node_rain.set_probability_table(np.array([[0.8, 0.1], 
+                                              [0.2, 0.9]]))
+    
+    # Analogue to the sprinkler node, just with rain as parent
+    node_fields.set_probability_table(np.array([[0.01, 0.8], 
+                                              [0.99, 0.2]]))
+    
+    # Grass has 2 parents, sprinkler and rain (in that order as specified above!)
+    # Accordingly this corresponds to:
+    # P(grass=True|sprinkler=True, rain=True)= 0.99
+    # P(grass=True|sprinkler=True, rain=False)= 0.7
+    # P(grass=True|sprinkler=False, rain=True)= 0.9
+    # P(grass=True|sprinkler=False, rain=False)= 0.1
+    # P(grass=False|sprinkler=True, rain=True)= 0.01
+    # P(grass=False|sprinkler=True, rain=False)= 0.3
+    # P(grass=False|sprinkler=False, rain=True)= 0.1
+    # P(grass=False|sprinkler=False, rain=False)= 0.9
+    node_grass.set_probability_table(np.array([
+                                            [ #Block for wet_grass=True 
+                                                [0.99, 0.7], #sprinkler=True
+                                                [0.9, 0.1 ] #sprinkler = False
+                                            ], 
+                                            [ # Block for wet_grass=False
+                                                [0.01, 0.3], #sprinkler=True
+                                                [0.1, 0.9] #sprinkler=False
+                                            ]]))
+    
+    return net
+
+if __name__ == &#34;__main__&#34;:
+
+    # Example call for exercise 1
+    exampleNode = DiscreteVariable(&#34;color&#34;, 
+                               [&#34;red&#34;,&#34;green&#34;, &#34;blue&#34;], 
+                               np.array([0.15,0.55,0.3]))
+
+    print(&#34;Sample drawn from sample distribution: {}&#34;.format(
+                            sample(exampleNode.get_distribution())))
+
+    # Example call for exercise 2.1
+    print(&#34;nodes in ancestral ordering: {}&#34;.format( 
+                                    get_ancestral_ordering(get_wetgrass_network()) ))
+
+
+
+    # Example call for exercise 2.2
+    print(&#34;forward sampling variable wet_grass: {}&#34;.format(
+                                do_forward_sampling(get_wetgrass_network(), 
+                                                    &#34;wet_grass&#34;, 10000 ) ))
+
+
+    # Example call for exercise 3
+    print(&#34;gibbs sampling variable wet_grass given slippery_road=True: {}&#34;.format( 
+        do_gibbs_sampling(get_wetgrass_network(), &#34;wet_grass&#34;, 
+                          {&#34;slippery_road&#34;: &#34;True&#34;}, 1000, 100, 1) ))
+    print(&#34;Exact result for that marginal: &#34;, get_wetgrass_network().marginals(&#34;wet_grass&#34;, {&#34;slippery_road&#34;: &#34;True&#34;}))
+
+
+    print(&#34;gibbs sampling variable alarm given john=Calling: {}&#34;.format( 
+        do_gibbs_sampling(get_wetgrass_network(), &#34;alarm&#34;, 
+                          {&#34;john&#34;: &#34;Calling&#34;}, 1000, 100, 1) ))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="assignment5.create_initial_sample"><code class="name flex">
+<span>def <span class="ident">create_initial_sample</span></span>(<span>bayesnet: <a title="ccbase.networks.BayesianNetwork" href="ccbase/networks.html#ccbase.networks.BayesianNetwork">BayesianNetwork</a>, evidence: Dict[str, str]) ‑> Dict[str, str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create an initial sample useable for Gibbs sampling for the given network that
+takes the given evidence into account.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>bayesnet</code></strong> :&ensp;<code><a title="ccbase.networks.BayesianNetwork" href="ccbase/networks.html#ccbase.networks.BayesianNetwork">BayesianNetwork</a></code></dt>
+<dd>The network in which to sample.</dd>
+<dt><strong><code>evidence</code></strong> :&ensp;<code>Dict[str,str]</code></dt>
+<dd>Node-name:outcome pairs specifying the observed evidence.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict[str,str]</code></dt>
+<dd>A dictionary containing node-name:outcome pairs for all nodes in the
+network required for Gibbs sampling.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_initial_sample(bayesnet: BayesianNetwork, evidence: Dict[str, str]) -&gt; Dict[str,str]:
+    &#34;&#34;&#34;
+        Create an initial sample useable for Gibbs sampling for the given network that
+        takes the given evidence into account.
+
+        Parameters
+        ----------
+        bayesnet: ccbase.networks.BayesianNetwork
+            The network in which to sample.
+        evidence: Dict[str,str]
+            Node-name:outcome pairs specifying the observed evidence.
+
+        Returns
+        -------
+        Dict[str,str]
+            A dictionary containing node-name:outcome pairs for all nodes in the
+            network required for Gibbs sampling.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO, Exercise 3.1&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment5.do_forward_sampling"><code class="name flex">
+<span>def <span class="ident">do_forward_sampling</span></span>(<span>bayesnet: <a title="ccbase.networks.BayesianNetwork" href="ccbase/networks.html#ccbase.networks.BayesianNetwork">BayesianNetwork</a>, var_name: str, num_samples: Optional[int] = 1000) ‑> Dict[str, float]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculate marginals using Forward Sampling without worrying about
+dealing with evidence.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>bayesnet</code></strong> :&ensp;<code><a title="ccbase.networks.BayesianNetwork" href="ccbase/networks.html#ccbase.networks.BayesianNetwork">BayesianNetwork</a></code></dt>
+<dd>The network to be sampled.</dd>
+<dt><strong><code>var_name</code></strong> :&ensp;<code>string</code></dt>
+<dd>The name of the variable whose marginal is to be approximated.</dd>
+<dt><strong><code>num_samples</code></strong> :&ensp;<code>int (optional)</code></dt>
+<dd>The number of samples to be generated to estimate the marginal. Default
+1000.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict[str, float]</code></dt>
+<dd>A dictionary containing the outcomes of the variable var_name
+as keys and those outcomes marginal probabilities as values.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def do_forward_sampling(bayesnet: BayesianNetwork, var_name: str, num_samples: Optional[int]=1000) -&gt; Dict[str, float]:
+    &#34;&#34;&#34;
+        Calculate marginals using Forward Sampling without worrying about
+        dealing with evidence.
+        
+        Parameters
+        -----------
+        bayesnet: ccbase.networks.BayesianNetwork
+            The network to be sampled.
+        var_name: string
+            The name of the variable whose marginal is to be approximated.
+        num_samples: int (optional)
+            The number of samples to be generated to estimate the marginal. Default
+            1000.
+            
+        Returns
+        --------
+        Dict[str, float]
+            A dictionary containing the outcomes of the variable var_name
+            as keys and those outcomes marginal probabilities as values.
+    &#34;&#34;&#34;    
+    raise NotImplementedError(&#34;TODO, Exercise 2.2&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment5.do_gibbs_sampling"><code class="name flex">
+<span>def <span class="ident">do_gibbs_sampling</span></span>(<span>bayesnet: <a title="ccbase.networks.BayesianNetwork" href="ccbase/networks.html#ccbase.networks.BayesianNetwork">BayesianNetwork</a>, var_name: str, evidence: Dict[str, str], num_samples: Optional[int] = 1000, burn_in_period_length: Optional[int] = 100, thinning: Optional[int] = 1) ‑> Dict[str, float]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculate marginals using Gibbs Sampling.
+Hint: Remember that you will have to sample from the local probability
+according to a node's MarkovBlanket instead of its local cpt!</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>bayesnet</code></strong> :&ensp;<code><a title="ccbase.networks.BayesianNetwork" href="ccbase/networks.html#ccbase.networks.BayesianNetwork">BayesianNetwork</a></code></dt>
+<dd>The network from which the samples should be created.</dd>
+<dt><strong><code>var_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The variable to calculate marginals for</dd>
+<dt><strong><code>evidence</code></strong> :&ensp;<code>Dict[str, str]</code></dt>
+<dd>A dictionary containing node_name: outcome pairs to specify the
+evidence.</dd>
+<dt><strong><code>num_samples</code></strong> :&ensp;<code>int (optional)</code></dt>
+<dd>Number of samples to be used for the marginal computation after the burn_in_period.
+Default 1000.</dd>
+<dt><strong><code>burn_in_period_length</code></strong> :&ensp;<code>int (optional) </code></dt>
+<dd>Number of samples that are discarded at the beginning. Default 100.</dd>
+<dt><strong><code>thinning</code></strong> :&ensp;<code>int (optional)</code></dt>
+<dd>Only take every nth sample for the calculation of the marginal.
+Default 1.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict[str, float]</code></dt>
+<dd>A dictionary containing the outcome of the variable var_name
+as keys and those outcomes marginal probabilities as values
+obtained by gibbs sampling.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def do_gibbs_sampling(bayesnet: BayesianNetwork, var_name: str, evidence: Dict[str, str], 
+                        num_samples: Optional[int] =1000, 
+                        burn_in_period_length: Optional[int] =100, thinning: Optional[int] =1) -&gt; Dict[str, float]:
+    &#34;&#34;&#34;
+        Calculate marginals using Gibbs Sampling.
+        Hint: Remember that you will have to sample from the local probability
+        according to a node&#39;s MarkovBlanket instead of its local cpt!
+        
+        Parameters
+        ---------
+        bayesnet: ccbase.networks.BayesianNetwork
+            The network from which the samples should be created.
+        var_name: str
+            The variable to calculate marginals for
+        evidence: Dict[str, str]
+            A dictionary containing node_name: outcome pairs to specify the
+            evidence.
+        num_samples: int (optional)
+            Number of samples to be used for the marginal computation after the burn_in_period. 
+            Default 1000.
+        burn_in_period_length: int (optional) 
+            Number of samples that are discarded at the beginning. Default 100.
+        thinning: int (optional)
+            Only take every nth sample for the calculation of the marginal. 
+            Default 1.
+         
+        Returns
+        -------
+        Dict[str, float]
+            A dictionary containing the outcome of the variable var_name
+            as keys and those outcomes marginal probabilities as values
+            obtained by gibbs sampling.
+    &#34;&#34;&#34;
+    
+    raise NotImplementedError(&#34;TODO, Exercise 3.3&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment5.expected_utility"><code class="name flex">
+<span>def <span class="ident">expected_utility</span></span>(<span>net: <a title="ccbase.networks.BayesianNetwork" href="ccbase/networks.html#ccbase.networks.BayesianNetwork">BayesianNetwork</a>, actions: Dict[str, str], evidence: Dict[str, str], utilities: Dict[str, List[float]], use_do: Optional[bool] = True) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes the expected utility of the given action in the given network, taking into account the given
+evidence and utilities while applying the Do-Operator or not.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>net</code></strong> :&ensp;<code><a title="ccbase.networks.BayesianNetwork" href="ccbase/networks.html#ccbase.networks.BayesianNetwork">BayesianNetwork</a></code></dt>
+<dd>The BayesianNetwork in which to compute the expected utility.</dd>
+<dt><strong><code>action</code></strong> :&ensp;<code>dict[str,str]</code></dt>
+<dd>A dictionary containing only 1 key-value pair specifying the intervention for
+which the EU is to be computed. This pair represents a node-name: outcome
+pair for a node in the network.</dd>
+<dt><strong><code>evidence</code></strong> :&ensp;<code>dict[str,str]</code></dt>
+<dd>A dictionary containing node-name: outcome pairs for observed evidence that
+should be considered when computed the EU.</dd>
+<dt><strong><code>utilities</code></strong> :&ensp;<code>dict[str, List[float]]</code></dt>
+<dd>A dictionary specifying the utilities for different outcomes. The dictionary
+containes node-name: List pairs, where the list contains the utilities for
+the outcomes. You may assume that the order matches the outcome ordering of
+the graph, i.e. if the node has outcomes [True, False], the first index in
+the utility list corresponds to the outcome "True" and the 2nd to "False.</dd>
+<dt><strong><code>use_do</code></strong> :&ensp;<code>bool, Optional </code></dt>
+<dd>If True, the Do-operator should be used to compute the EU.
+If False, the intervention/action should be considered as an additional
+observed evidence.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>The EU for the given action considering the evidence, utilities and potentially the Do-operator.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def expected_utility(net: BayesianNetwork, actions: Dict[str, str], 
+                    evidence: Dict[str, str], utilities: Dict[str, List[float]], 
+                    use_do: Optional[bool]=True) -&gt; float:
+    &#34;&#34;&#34;
+        Computes the expected utility of the given action in the given network, taking into account the given 
+        evidence and utilities while applying the Do-Operator or not.
+
+        Parameters
+        ----------
+        net: ccbase.networks.BayesianNetwork
+            The BayesianNetwork in which to compute the expected utility.
+        action: dict[str,str]
+            A dictionary containing only 1 key-value pair specifying the intervention for 
+            which the EU is to be computed. This pair represents a node-name: outcome
+            pair for a node in the network.
+        evidence: dict[str,str]
+            A dictionary containing node-name: outcome pairs for observed evidence that
+            should be considered when computed the EU.
+        utilities: dict[str, List[float]]
+            A dictionary specifying the utilities for different outcomes. The dictionary
+            containes node-name: List pairs, where the list contains the utilities for
+            the outcomes. You may assume that the order matches the outcome ordering of 
+            the graph, i.e. if the node has outcomes [True, False], the first index in
+            the utility list corresponds to the outcome &#34;True&#34; and the 2nd to &#34;False.
+        use_do: bool, Optional 
+            If True, the Do-operator should be used to compute the EU.
+            If False, the intervention/action should be considered as an additional
+            observed evidence.
+
+        Returns
+        -------
+        float
+            The EU for the given action considering the evidence, utilities and potentially the Do-operator.
+    
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO, Exercise 4.1&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment5.get_ancestral_ordering"><code class="name flex">
+<span>def <span class="ident">get_ancestral_ordering</span></span>(<span>bayesnet: <a title="ccbase.networks.BayesianNetwork" href="ccbase/networks.html#ccbase.networks.BayesianNetwork">BayesianNetwork</a>) ‑> List[str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate an ancestral ordering for nodes of the given network.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>bayesnet</code></strong> :&ensp;<code><a title="ccbase.networks.BayesianNetwork" href="ccbase/networks.html#ccbase.networks.BayesianNetwork">BayesianNetwork</a></code></dt>
+<dd>The network whose nodes are to be ordered.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[str]</code></dt>
+<dd>A list containing the names of the network's nodes in
+ancestral ordering (i.e. all parents of a node appear before that
+node in the list)</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_ancestral_ordering(bayesnet: BayesianNetwork) -&gt; List[str]:
+    &#34;&#34;&#34;
+        Generate an ancestral ordering for nodes of the given network.
+        
+        Parameters
+        ----------
+        bayesnet: ccbase.networks.BayesianNetwork
+            The network whose nodes are to be ordered.
+            
+        Returns
+        -------
+        List[str]
+            A list containing the names of the network&#39;s nodes in
+            ancestral ordering (i.e. all parents of a node appear before that
+            node in the list)
+    &#34;&#34;&#34;
+    
+    raise NotImplementedError(&#34;TODO, Exercise 2.1&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment5.get_markov_distr"><code class="name flex">
+<span>def <span class="ident">get_markov_distr</span></span>(<span>node: <a title="ccbase.nodes.DiscreteVariable" href="ccbase/nodes.html#ccbase.nodes.DiscreteVariable">DiscreteVariable</a>, evidence: Dict[str, str]) ‑> Dict[str, float]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes the local probability distribution for the random variable represented
+by the given node, given the provided evidence. </p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>node</code></strong> :&ensp;<code><a title="ccbase.nodes.DiscreteVariable" href="ccbase/nodes.html#ccbase.nodes.DiscreteVariable">DiscreteVariable</a></code></dt>
+<dd>The DiscreteVariable from a BayesianNetwork for which the distribution
+is to be computed.</dd>
+<dt><strong><code>evidence</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary containing node names as keys and their observed outcomes
+as values. You may assume that this dictionary contains key-value
+pairs for all nodes in the Bayesian network from which "node" came.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict[str, float]</code></dt>
+<dd>A dictionary representation of a probability distribution with the outcomes
+of node as keys and their probabilities as values.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_markov_distr(node: DiscreteVariable, evidence: Dict[str, str]) -&gt; Dict[str, float]:
+    &#34;&#34;&#34;
+        Computes the local probability distribution for the random variable represented
+        by the given node, given the provided evidence. 
+
+        Parameters
+        ----------
+        node: ccbase.nodes.DiscreteVariable
+            The DiscreteVariable from a BayesianNetwork for which the distribution
+            is to be computed. 
+        evidence: dict
+            A dictionary containing node names as keys and their observed outcomes
+            as values. You may assume that this dictionary contains key-value
+            pairs for all nodes in the Bayesian network from which &#34;node&#34; came. 
+        
+        Returns
+        -------
+        Dict[str, float]
+            A dictionary representation of a probability distribution with the outcomes
+            of node as keys and their probabilities as values.  
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO, Exercise 3.2&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment5.get_wetgrass_network"><code class="name flex">
+<span>def <span class="ident">get_wetgrass_network</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_wetgrass_network():
+    net = BayesianNetwork()
+
+    #Create the discrete variables that should be contained in the network
+    node_winter = DiscreteVariable(&#34;winter&#34;, [&#34;True&#34;, &#34;False&#34;])
+    node_sprinkler = DiscreteVariable(&#34;sprinkler&#34;, [&#34;True&#34;, &#34;False&#34;])
+    node_rain = DiscreteVariable(&#34;rain&#34;, [&#34;True&#34;, &#34;False&#34;])
+    node_grass = DiscreteVariable(&#34;wet_grass&#34;, [&#34;True&#34;, &#34;False&#34;])
+    node_fields = DiscreteVariable(&#34;dry_fields&#34;, [&#34;True&#34;, &#34;False&#34;])
+
+    #Add the nodes to the network
+    net.add_node(node_winter)
+    net.add_node(node_sprinkler)
+    net.add_node(node_rain)
+    net.add_node(node_grass)
+    net.add_node(node_fields)
+
+    #Setup the relationships between the variables
+    net.add_edge(node_winter, node_sprinkler)
+    net.add_edge(node_winter, node_rain)
+    net.add_edge(node_sprinkler, node_grass)
+    net.add_edge(node_rain, node_grass)
+    net.add_edge(node_rain, node_fields)
+    
+    
+    # This corresponds to P(winter=True) = 0.6 and P(winter=False) = 0.4
+    node_winter.set_probability_table(np.array([0.6, 0.4]))
+    
+    # As sprinkler has 1 parent (winter) this corresponds to:
+    # P(sprinkler=True|winter=True) = 0.2
+    # P(sprinkler=True|winter=False) = 0.75
+    # P(sprinkler=False|winter=True) = 0.8
+    # P(sprinkler=False|winter=False) = 0.25
+    node_sprinkler.set_probability_table(np.array([[0.2, 0.75], 
+                                                   [0.8, 0.25]]))
+    
+    
+    # Analogue to the sprinkler node
+    node_rain.set_probability_table(np.array([[0.8, 0.1], 
+                                              [0.2, 0.9]]))
+    
+    # Analogue to the sprinkler node, just with rain as parent
+    node_fields.set_probability_table(np.array([[0.01, 0.8], 
+                                              [0.99, 0.2]]))
+    
+    # Grass has 2 parents, sprinkler and rain (in that order as specified above!)
+    # Accordingly this corresponds to:
+    # P(grass=True|sprinkler=True, rain=True)= 0.99
+    # P(grass=True|sprinkler=True, rain=False)= 0.7
+    # P(grass=True|sprinkler=False, rain=True)= 0.9
+    # P(grass=True|sprinkler=False, rain=False)= 0.1
+    # P(grass=False|sprinkler=True, rain=True)= 0.01
+    # P(grass=False|sprinkler=True, rain=False)= 0.3
+    # P(grass=False|sprinkler=False, rain=True)= 0.1
+    # P(grass=False|sprinkler=False, rain=False)= 0.9
+    node_grass.set_probability_table(np.array([
+                                            [ #Block for wet_grass=True 
+                                                [0.99, 0.7], #sprinkler=True
+                                                [0.9, 0.1 ] #sprinkler = False
+                                            ], 
+                                            [ # Block for wet_grass=False
+                                                [0.01, 0.3], #sprinkler=True
+                                                [0.1, 0.9] #sprinkler=False
+                                            ]]))
+    
+    return net</code></pre>
+</details>
+</dd>
+<dt id="assignment5.sample"><code class="name flex">
+<span>def <span class="ident">sample</span></span>(<span>distribution: Dict[str, float]) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sample an outcome from a given probability distribution using the
+univariate sampling (also called roulette wheel selection) mentioned
+in the lecture.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>distribution</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary containing the possible outcomes of a random
+variable as keys and their respective probabilities as values.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>String</code></dt>
+<dd>The sampled outcome</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sample(distribution: Dict[str, float]) -&gt; str:
+    &#34;&#34;&#34;
+        Sample an outcome from a given probability distribution using the
+        univariate sampling (also called roulette wheel selection) mentioned
+        in the lecture.
+        
+        Parameters
+        ----------
+        distribution: dict
+            A dictionary containing the possible outcomes of a random
+            variable as keys and their respective probabilities as values.
+        
+        Returns
+        -------
+        String
+            The sampled outcome
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO, Exercise 1&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="assignment5.create_initial_sample" href="#assignment5.create_initial_sample">create_initial_sample</a></code></li>
+<li><code><a title="assignment5.do_forward_sampling" href="#assignment5.do_forward_sampling">do_forward_sampling</a></code></li>
+<li><code><a title="assignment5.do_gibbs_sampling" href="#assignment5.do_gibbs_sampling">do_gibbs_sampling</a></code></li>
+<li><code><a title="assignment5.expected_utility" href="#assignment5.expected_utility">expected_utility</a></code></li>
+<li><code><a title="assignment5.get_ancestral_ordering" href="#assignment5.get_ancestral_ordering">get_ancestral_ordering</a></code></li>
+<li><code><a title="assignment5.get_markov_distr" href="#assignment5.get_markov_distr">get_markov_distr</a></code></li>
+<li><code><a title="assignment5.get_wetgrass_network" href="#assignment5.get_wetgrass_network">get_wetgrass_network</a></code></li>
+<li><code><a title="assignment5.sample" href="#assignment5.sample">sample</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
