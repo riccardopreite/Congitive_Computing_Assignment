@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>mdp.gridworld API documentation</title>
+<meta name="description" content="Created on Thu Jul
+6 10:59:58 2017
+A module containing two classes to represent a simple 2D gridworld.
+@author: jpoeppel
+Last modified: January, 12th …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>mdp.gridworld</code></h1>
+</header>
+<section id="section-intro">
+<p>Created on Thu Jul
+6 10:59:58 2017
+A module containing two classes to represent a simple 2D gridworld.
+@author: jpoeppel
+Last modified: January, 12th 2022</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+Created on Thu Jul  6 10:59:58 2017
+A module containing two classes to represent a simple 2D gridworld.
+@author: jpoeppel
+Last modified: January, 12th 2022
+&#34;&#34;&#34;
+from __future__ import annotations
+from typing import Union, Optional, List, Tuple, Set
+
+PASSABLES = {&#34;g&#34;: True, &#34;#&#34;: False}
+
+WALL = -2
+GROUND = 0
+
+class Tile(object):
+    &#34;&#34;&#34;
+        Minimal class representing a grid/tile in the gridworld.
+        Consists of a position in the 2d grid, a flag specifying if it is 
+        passable or not as well as a set of neighbours.
+    &#34;&#34;&#34;
+    
+    def __init__(self):
+        self.pos = (0,0)
+        self.passable = True
+        self.neighbours = set([])
+        
+    @classmethod
+    def get_wall(cls) -&gt; Tile:
+        &#34;&#34;&#34;
+            Classmethod to return a dummy tile which is not passable. Is used
+            as default value in the gridworld, when someone tries to access
+            a tile position, which is out of bounds.
+        &#34;&#34;&#34;
+        res= cls()
+        res.passable = False
+        return res
+
+class Gridworld(object):
+    &#34;&#34;&#34;
+        A simple class representing 2D gridworlds consisiting of different
+        tiles which can be passable or not.
+    &#34;&#34;&#34;
+    
+    def __init__(self):
+        self.tiles = {}
+        self.size = 0
+        
+    def parse_environment(self, env_string: str, get_passable_states: Optional[bool] = False) -&gt; Union[None, List[Tuple(int)]]:
+        r&#34;&#34;&#34;
+            Parses an environment string, containing &#34;#&#34; for walls and &#34;g&#34;
+            for ground/free space. Rows are separated by &#34;\n&#34;. Although it
+            is not checked, but the provided world string should have a 
+            rectangular shape.
+            
+            
+            Parameters
+            ---------
+            env_string: str
+                A string representation of the gridworld containing &#39;#&#39;,&#39;g&#39; and
+                &#39;\n&#39;.
+            get_passable_states: bool, optional
+                If given, a list of all parsed passable states is returned, 
+                which can be used as state-space for an MDP. Default: False
+                
+            Returns
+            -------
+            list
+                A list of passable states (as position tuples) if get_passable_states
+                 was specified, otherwise returns None.
+        &#34;&#34;&#34;
+        states = []
+        for j, row in enumerate(env_string.split(&#34;\n&#34;)[::-1]):
+            for i, element in enumerate(row):
+                tile = Tile()
+                tile.pos = (i,j)
+                tile.passable = PASSABLES[element]
+                self.tiles[tile.pos] = tile
+                if tile.passable:
+                    states.append(tile.pos)
+        
+        #Pretty bad hack, but should work since the string represents
+        #the world from top left to bottom right
+        maxPos = (i,j)
+        #Add all neighbours
+        for tile in self.tiles.values():
+            for i,j in [(-1,0),(1,0),(0,-1),(0,1)]:
+                newPos = (min(max(tile.pos[0]+i,0), maxPos[0]), 
+                          min(max(tile.pos[1]+j,0),maxPos[1]))
+                tile.neighbours.add(self.tiles[newPos])
+        self.size = (maxPos[0]+1,maxPos[1]+1)
+        if get_passable_states:
+            return states
+        
+    def get_neighbour_states(self, pos: Tuple[int,int]) -&gt; Set[Tuple[int,int]]:
+        &#34;&#34;&#34;
+            Computes all reachable positions of the given position.
+            If a neighbour is of the given position is not passable (i.e.
+            it is an obstacle/wall), the current position will be added to the
+            resulting set.
+            
+            Parameters
+            ----------
+            pos: tuple
+                The current state
+        
+            Returns
+            --------
+            set(tuple)
+                All reachable neighbour positions/states.
+        &#34;&#34;&#34;
+        res = set([])
+        for n in self.tiles[pos].neighbours:
+            if not n.passable:
+                res.add(pos)
+            else:
+                res.add(n.pos)
+        return res
+    
+    
+    def get_grid_representation(self, add_outer: Optional[bool] = False) -&gt; List[List[int]]:
+        &#34;&#34;&#34;
+            Creates a grid representation of the world in the form
+            of a list of lists. Walls will be represented by -1 and free
+            spaces by 0s.
+            
+            Parameters
+            ----------
+            add_outer: bool, optional
+                If true, will add an outer ring of walls around the environment.
+                
+            Returns
+            -------
+            list of lists
+                WALL/GROUND (-2/0) representation of the world in a 2d list.
+        &#34;&#34;&#34;
+        res = []
+        if add_outer:
+            res.append([WALL]*(self.size[0]+2))
+        for j in range(self.size[1]):
+            tmp = []
+            
+            if add_outer:
+                tmp.append(WALL)
+                
+            for i in range(self.size[0]):
+                if self.tiles[(i,j)].passable:
+                    tmp.append(GROUND)
+                else:
+                    tmp.append(WALL)
+            
+            if add_outer:
+                tmp.append(WALL)
+            res.append(tmp)
+        
+        if add_outer:
+            res.append([WALL]*(self.size[0]+2))
+        return res
+    
+    def check_passable(self, position: Tuple[int,int]) -&gt; bool:
+        &#34;&#34;&#34;
+            Will check if the given position is a passable tile or not.
+            For positions out of bounds this will return False.
+            
+            Parameters
+            ---------
+            position: tuple
+                The position to be checked
+                
+            Returns
+            -------
+            bool
+                True, if the position is contained in this gridworld and the 
+                corresponding tile is passable, False otherwise
+        &#34;&#34;&#34;
+        return self.tiles.get(position, Tile.get_wall()).passable
+    
+    def act(self, start_pos: Tuple[int,int], action: str) -&gt; Tuple[int,int]:
+        &#34;&#34;&#34;
+            Computes the action of an agent that performs the given action from
+            the given start position. This will be the new position according
+            to the action as long as the agent can reach the new position (i.e.
+            there is no wall), otherwise this will be the start position.
+
+            Parameters
+            ---------
+            start_pos: tuple
+                The position from which to perform the given action.
+
+            action: str
+                The action to be performed.
+
+            Returns
+            -------
+            tuple
+                The resulting position when executing the action from the
+                given position.
+        &#34;&#34;&#34;
+        if action == &#34;N&#34;:
+            dif= (0,1)
+        if action == &#34;S&#34;:
+            dif = (0,-1)
+        if action == &#34;E&#34;:
+            dif = (1,0)
+        if action == &#34;W&#34;:
+            dif = (-1,0)
+        new_pos = (start_pos[0]+dif[0], start_pos[1]+dif[1])
+        if self.check_passable(new_pos):
+            return new_pos 
+        else:
+            return start_pos</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="mdp.gridworld.Gridworld"><code class="flex name class">
+<span>class <span class="ident">Gridworld</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A simple class representing 2D gridworlds consisiting of different
+tiles which can be passable or not.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Gridworld(object):
+    &#34;&#34;&#34;
+        A simple class representing 2D gridworlds consisiting of different
+        tiles which can be passable or not.
+    &#34;&#34;&#34;
+    
+    def __init__(self):
+        self.tiles = {}
+        self.size = 0
+        
+    def parse_environment(self, env_string: str, get_passable_states: Optional[bool] = False) -&gt; Union[None, List[Tuple(int)]]:
+        r&#34;&#34;&#34;
+            Parses an environment string, containing &#34;#&#34; for walls and &#34;g&#34;
+            for ground/free space. Rows are separated by &#34;\n&#34;. Although it
+            is not checked, but the provided world string should have a 
+            rectangular shape.
+            
+            
+            Parameters
+            ---------
+            env_string: str
+                A string representation of the gridworld containing &#39;#&#39;,&#39;g&#39; and
+                &#39;\n&#39;.
+            get_passable_states: bool, optional
+                If given, a list of all parsed passable states is returned, 
+                which can be used as state-space for an MDP. Default: False
+                
+            Returns
+            -------
+            list
+                A list of passable states (as position tuples) if get_passable_states
+                 was specified, otherwise returns None.
+        &#34;&#34;&#34;
+        states = []
+        for j, row in enumerate(env_string.split(&#34;\n&#34;)[::-1]):
+            for i, element in enumerate(row):
+                tile = Tile()
+                tile.pos = (i,j)
+                tile.passable = PASSABLES[element]
+                self.tiles[tile.pos] = tile
+                if tile.passable:
+                    states.append(tile.pos)
+        
+        #Pretty bad hack, but should work since the string represents
+        #the world from top left to bottom right
+        maxPos = (i,j)
+        #Add all neighbours
+        for tile in self.tiles.values():
+            for i,j in [(-1,0),(1,0),(0,-1),(0,1)]:
+                newPos = (min(max(tile.pos[0]+i,0), maxPos[0]), 
+                          min(max(tile.pos[1]+j,0),maxPos[1]))
+                tile.neighbours.add(self.tiles[newPos])
+        self.size = (maxPos[0]+1,maxPos[1]+1)
+        if get_passable_states:
+            return states
+        
+    def get_neighbour_states(self, pos: Tuple[int,int]) -&gt; Set[Tuple[int,int]]:
+        &#34;&#34;&#34;
+            Computes all reachable positions of the given position.
+            If a neighbour is of the given position is not passable (i.e.
+            it is an obstacle/wall), the current position will be added to the
+            resulting set.
+            
+            Parameters
+            ----------
+            pos: tuple
+                The current state
+        
+            Returns
+            --------
+            set(tuple)
+                All reachable neighbour positions/states.
+        &#34;&#34;&#34;
+        res = set([])
+        for n in self.tiles[pos].neighbours:
+            if not n.passable:
+                res.add(pos)
+            else:
+                res.add(n.pos)
+        return res
+    
+    
+    def get_grid_representation(self, add_outer: Optional[bool] = False) -&gt; List[List[int]]:
+        &#34;&#34;&#34;
+            Creates a grid representation of the world in the form
+            of a list of lists. Walls will be represented by -1 and free
+            spaces by 0s.
+            
+            Parameters
+            ----------
+            add_outer: bool, optional
+                If true, will add an outer ring of walls around the environment.
+                
+            Returns
+            -------
+            list of lists
+                WALL/GROUND (-2/0) representation of the world in a 2d list.
+        &#34;&#34;&#34;
+        res = []
+        if add_outer:
+            res.append([WALL]*(self.size[0]+2))
+        for j in range(self.size[1]):
+            tmp = []
+            
+            if add_outer:
+                tmp.append(WALL)
+                
+            for i in range(self.size[0]):
+                if self.tiles[(i,j)].passable:
+                    tmp.append(GROUND)
+                else:
+                    tmp.append(WALL)
+            
+            if add_outer:
+                tmp.append(WALL)
+            res.append(tmp)
+        
+        if add_outer:
+            res.append([WALL]*(self.size[0]+2))
+        return res
+    
+    def check_passable(self, position: Tuple[int,int]) -&gt; bool:
+        &#34;&#34;&#34;
+            Will check if the given position is a passable tile or not.
+            For positions out of bounds this will return False.
+            
+            Parameters
+            ---------
+            position: tuple
+                The position to be checked
+                
+            Returns
+            -------
+            bool
+                True, if the position is contained in this gridworld and the 
+                corresponding tile is passable, False otherwise
+        &#34;&#34;&#34;
+        return self.tiles.get(position, Tile.get_wall()).passable
+    
+    def act(self, start_pos: Tuple[int,int], action: str) -&gt; Tuple[int,int]:
+        &#34;&#34;&#34;
+            Computes the action of an agent that performs the given action from
+            the given start position. This will be the new position according
+            to the action as long as the agent can reach the new position (i.e.
+            there is no wall), otherwise this will be the start position.
+
+            Parameters
+            ---------
+            start_pos: tuple
+                The position from which to perform the given action.
+
+            action: str
+                The action to be performed.
+
+            Returns
+            -------
+            tuple
+                The resulting position when executing the action from the
+                given position.
+        &#34;&#34;&#34;
+        if action == &#34;N&#34;:
+            dif= (0,1)
+        if action == &#34;S&#34;:
+            dif = (0,-1)
+        if action == &#34;E&#34;:
+            dif = (1,0)
+        if action == &#34;W&#34;:
+            dif = (-1,0)
+        new_pos = (start_pos[0]+dif[0], start_pos[1]+dif[1])
+        if self.check_passable(new_pos):
+            return new_pos 
+        else:
+            return start_pos</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="mdp.gridworld.Gridworld.act"><code class="name flex">
+<span>def <span class="ident">act</span></span>(<span>self, start_pos: Tuple[int, int], action: str) ‑> Tuple[int, int]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes the action of an agent that performs the given action from
+the given start position. This will be the new position according
+to the action as long as the agent can reach the new position (i.e.
+there is no wall), otherwise this will be the start position.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>start_pos</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The position from which to perform the given action.</dd>
+<dt><strong><code>action</code></strong> :&ensp;<code>str</code></dt>
+<dd>The action to be performed.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>tuple</code></dt>
+<dd>The resulting position when executing the action from the
+given position.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def act(self, start_pos: Tuple[int,int], action: str) -&gt; Tuple[int,int]:
+    &#34;&#34;&#34;
+        Computes the action of an agent that performs the given action from
+        the given start position. This will be the new position according
+        to the action as long as the agent can reach the new position (i.e.
+        there is no wall), otherwise this will be the start position.
+
+        Parameters
+        ---------
+        start_pos: tuple
+            The position from which to perform the given action.
+
+        action: str
+            The action to be performed.
+
+        Returns
+        -------
+        tuple
+            The resulting position when executing the action from the
+            given position.
+    &#34;&#34;&#34;
+    if action == &#34;N&#34;:
+        dif= (0,1)
+    if action == &#34;S&#34;:
+        dif = (0,-1)
+    if action == &#34;E&#34;:
+        dif = (1,0)
+    if action == &#34;W&#34;:
+        dif = (-1,0)
+    new_pos = (start_pos[0]+dif[0], start_pos[1]+dif[1])
+    if self.check_passable(new_pos):
+        return new_pos 
+    else:
+        return start_pos</code></pre>
+</details>
+</dd>
+<dt id="mdp.gridworld.Gridworld.check_passable"><code class="name flex">
+<span>def <span class="ident">check_passable</span></span>(<span>self, position: Tuple[int, int]) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Will check if the given position is a passable tile or not.
+For positions out of bounds this will return False.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>position</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The position to be checked</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True, if the position is contained in this gridworld and the
+corresponding tile is passable, False otherwise</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_passable(self, position: Tuple[int,int]) -&gt; bool:
+    &#34;&#34;&#34;
+        Will check if the given position is a passable tile or not.
+        For positions out of bounds this will return False.
+        
+        Parameters
+        ---------
+        position: tuple
+            The position to be checked
+            
+        Returns
+        -------
+        bool
+            True, if the position is contained in this gridworld and the 
+            corresponding tile is passable, False otherwise
+    &#34;&#34;&#34;
+    return self.tiles.get(position, Tile.get_wall()).passable</code></pre>
+</details>
+</dd>
+<dt id="mdp.gridworld.Gridworld.get_grid_representation"><code class="name flex">
+<span>def <span class="ident">get_grid_representation</span></span>(<span>self, add_outer: Optional[bool] = False) ‑> List[List[int]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a grid representation of the world in the form
+of a list of lists. Walls will be represented by -1 and free
+spaces by 0s.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>add_outer</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If true, will add an outer ring of walls around the environment.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code> of <code>lists</code></dt>
+<dd>WALL/GROUND (-2/0) representation of the world in a 2d list.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_grid_representation(self, add_outer: Optional[bool] = False) -&gt; List[List[int]]:
+    &#34;&#34;&#34;
+        Creates a grid representation of the world in the form
+        of a list of lists. Walls will be represented by -1 and free
+        spaces by 0s.
+        
+        Parameters
+        ----------
+        add_outer: bool, optional
+            If true, will add an outer ring of walls around the environment.
+            
+        Returns
+        -------
+        list of lists
+            WALL/GROUND (-2/0) representation of the world in a 2d list.
+    &#34;&#34;&#34;
+    res = []
+    if add_outer:
+        res.append([WALL]*(self.size[0]+2))
+    for j in range(self.size[1]):
+        tmp = []
+        
+        if add_outer:
+            tmp.append(WALL)
+            
+        for i in range(self.size[0]):
+            if self.tiles[(i,j)].passable:
+                tmp.append(GROUND)
+            else:
+                tmp.append(WALL)
+        
+        if add_outer:
+            tmp.append(WALL)
+        res.append(tmp)
+    
+    if add_outer:
+        res.append([WALL]*(self.size[0]+2))
+    return res</code></pre>
+</details>
+</dd>
+<dt id="mdp.gridworld.Gridworld.get_neighbour_states"><code class="name flex">
+<span>def <span class="ident">get_neighbour_states</span></span>(<span>self, pos: Tuple[int, int]) ‑> Set[Tuple[int, int]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes all reachable positions of the given position.
+If a neighbour is of the given position is not passable (i.e.
+it is an obstacle/wall), the current position will be added to the
+resulting set.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pos</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The current state</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>set(tuple)</code></dt>
+<dd>All reachable neighbour positions/states.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_neighbour_states(self, pos: Tuple[int,int]) -&gt; Set[Tuple[int,int]]:
+    &#34;&#34;&#34;
+        Computes all reachable positions of the given position.
+        If a neighbour is of the given position is not passable (i.e.
+        it is an obstacle/wall), the current position will be added to the
+        resulting set.
+        
+        Parameters
+        ----------
+        pos: tuple
+            The current state
+    
+        Returns
+        --------
+        set(tuple)
+            All reachable neighbour positions/states.
+    &#34;&#34;&#34;
+    res = set([])
+    for n in self.tiles[pos].neighbours:
+        if not n.passable:
+            res.add(pos)
+        else:
+            res.add(n.pos)
+    return res</code></pre>
+</details>
+</dd>
+<dt id="mdp.gridworld.Gridworld.parse_environment"><code class="name flex">
+<span>def <span class="ident">parse_environment</span></span>(<span>self, env_string: str, get_passable_states: Optional[bool] = False) ‑> Union[None, List[Tuple(int)]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parses an environment string, containing "#" for walls and "g"
+for ground/free space. Rows are separated by "\n". Although it
+is not checked, but the provided world string should have a
+rectangular shape.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>env_string</code></strong> :&ensp;<code>str</code></dt>
+<dd>A string representation of the gridworld containing '#','g' and
+'\n'.</dd>
+<dt><strong><code>get_passable_states</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If given, a list of all parsed passable states is returned,
+which can be used as state-space for an MDP. Default: False</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>A list of passable states (as position tuples) if get_passable_states
+was specified, otherwise returns None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse_environment(self, env_string: str, get_passable_states: Optional[bool] = False) -&gt; Union[None, List[Tuple(int)]]:
+    r&#34;&#34;&#34;
+        Parses an environment string, containing &#34;#&#34; for walls and &#34;g&#34;
+        for ground/free space. Rows are separated by &#34;\n&#34;. Although it
+        is not checked, but the provided world string should have a 
+        rectangular shape.
+        
+        
+        Parameters
+        ---------
+        env_string: str
+            A string representation of the gridworld containing &#39;#&#39;,&#39;g&#39; and
+            &#39;\n&#39;.
+        get_passable_states: bool, optional
+            If given, a list of all parsed passable states is returned, 
+            which can be used as state-space for an MDP. Default: False
+            
+        Returns
+        -------
+        list
+            A list of passable states (as position tuples) if get_passable_states
+             was specified, otherwise returns None.
+    &#34;&#34;&#34;
+    states = []
+    for j, row in enumerate(env_string.split(&#34;\n&#34;)[::-1]):
+        for i, element in enumerate(row):
+            tile = Tile()
+            tile.pos = (i,j)
+            tile.passable = PASSABLES[element]
+            self.tiles[tile.pos] = tile
+            if tile.passable:
+                states.append(tile.pos)
+    
+    #Pretty bad hack, but should work since the string represents
+    #the world from top left to bottom right
+    maxPos = (i,j)
+    #Add all neighbours
+    for tile in self.tiles.values():
+        for i,j in [(-1,0),(1,0),(0,-1),(0,1)]:
+            newPos = (min(max(tile.pos[0]+i,0), maxPos[0]), 
+                      min(max(tile.pos[1]+j,0),maxPos[1]))
+            tile.neighbours.add(self.tiles[newPos])
+    self.size = (maxPos[0]+1,maxPos[1]+1)
+    if get_passable_states:
+        return states</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="mdp.gridworld.Tile"><code class="flex name class">
+<span>class <span class="ident">Tile</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Minimal class representing a grid/tile in the gridworld.
+Consists of a position in the 2d grid, a flag specifying if it is
+passable or not as well as a set of neighbours.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Tile(object):
+    &#34;&#34;&#34;
+        Minimal class representing a grid/tile in the gridworld.
+        Consists of a position in the 2d grid, a flag specifying if it is 
+        passable or not as well as a set of neighbours.
+    &#34;&#34;&#34;
+    
+    def __init__(self):
+        self.pos = (0,0)
+        self.passable = True
+        self.neighbours = set([])
+        
+    @classmethod
+    def get_wall(cls) -&gt; Tile:
+        &#34;&#34;&#34;
+            Classmethod to return a dummy tile which is not passable. Is used
+            as default value in the gridworld, when someone tries to access
+            a tile position, which is out of bounds.
+        &#34;&#34;&#34;
+        res= cls()
+        res.passable = False
+        return res</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="mdp.gridworld.Tile.get_wall"><code class="name flex">
+<span>def <span class="ident">get_wall</span></span>(<span>) ‑> <a title="mdp.gridworld.Tile" href="#mdp.gridworld.Tile">Tile</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Classmethod to return a dummy tile which is not passable. Is used
+as default value in the gridworld, when someone tries to access
+a tile position, which is out of bounds.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def get_wall(cls) -&gt; Tile:
+    &#34;&#34;&#34;
+        Classmethod to return a dummy tile which is not passable. Is used
+        as default value in the gridworld, when someone tries to access
+        a tile position, which is out of bounds.
+    &#34;&#34;&#34;
+    res= cls()
+    res.passable = False
+    return res</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="mdp" href="index.html">mdp</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="mdp.gridworld.Gridworld" href="#mdp.gridworld.Gridworld">Gridworld</a></code></h4>
+<ul class="">
+<li><code><a title="mdp.gridworld.Gridworld.act" href="#mdp.gridworld.Gridworld.act">act</a></code></li>
+<li><code><a title="mdp.gridworld.Gridworld.check_passable" href="#mdp.gridworld.Gridworld.check_passable">check_passable</a></code></li>
+<li><code><a title="mdp.gridworld.Gridworld.get_grid_representation" href="#mdp.gridworld.Gridworld.get_grid_representation">get_grid_representation</a></code></li>
+<li><code><a title="mdp.gridworld.Gridworld.get_neighbour_states" href="#mdp.gridworld.Gridworld.get_neighbour_states">get_neighbour_states</a></code></li>
+<li><code><a title="mdp.gridworld.Gridworld.parse_environment" href="#mdp.gridworld.Gridworld.parse_environment">parse_environment</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mdp.gridworld.Tile" href="#mdp.gridworld.Tile">Tile</a></code></h4>
+<ul class="">
+<li><code><a title="mdp.gridworld.Tile.get_wall" href="#mdp.gridworld.Tile.get_wall">get_wall</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

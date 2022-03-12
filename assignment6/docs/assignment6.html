@@ -1,0 +1,2556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>assignment6 API documentation</title>
+<meta name="description" content="Created on Wed Jan 12 2022
+This is the skeleton file for assignment6.
+This assignment contains a lot of provided code since
+it covers different …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>assignment6</code></h1>
+</header>
+<section id="section-intro">
+<p>Created on Wed Jan 12 2022
+This is the skeleton file for assignment6.
+This assignment contains a lot of provided code since
+it covers different topics (DecisionTrees and Markov Decision Processes).
+Do not be scared by the amount of code as you will not need to understand
+most of it if you do not want to. The comments should highlight which parts
+are important, which could be helpful to have a look at and which are just
+helper/visualisation functions you can use with example calls at the end.
+Let me know if anything is unclear or confusing when we go over this in the
+tutorial sessions.</p>
+<p>@author: jpoeppel</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+Created on Wed Jan 12 2022
+This is the skeleton file for assignment6. 
+This assignment contains a lot of provided code since 
+it covers different topics (DecisionTrees and Markov Decision Processes).
+Do not be scared by the amount of code as you will not need to understand
+most of it if you do not want to. The comments should highlight which parts
+are important, which could be helpful to have a look at and which are just
+helper/visualisation functions you can use with example calls at the end.
+Let me know if anything is unclear or confusing when we go over this in the
+tutorial sessions.
+
+@author: jpoeppel
+&#34;&#34;&#34;
+from __future__ import annotations
+from typing import Optional, List, Dict, Tuple
+
+import numpy as np
+
+# I provide quite a lot of code for this assignment. First for decision trees
+# but even more for MDPs to get you going. The code for MDPs ranges from a basic
+# environment implementation in Gridworld, the transition model you know
+# from the lecture but which is also explained on the assignment itself
+# to some basic renderers (console and matplotlib) to visualize 
+# the MDP and its solutions. The MDP class itself also contains a lot of
+# helper code within this file but the rest is moved to the mdp package.
+# You do not necessarily need to worry about the 
+# renderer or the gridworld beyond the functions described below as you should
+# not need to worry about their implementation details. You should, however,
+# look at the __call__ method of the SimpleTransitionModel!
+# What may be important is that the gridworld has its origin in the bottom left.
+# Coordinations (x,y) represent the horizontal (x) shift towards the right
+# and vertical (y) shift up from there.
+
+import mdp.renderer as renderer
+from mdp.gridworld import Gridworld
+from mdp.transitionModels import SimpleTransitionModel  
+
+
+# =============================================================================
+# Exercise 1
+# =============================================================================
+
+## In case you want to implement representations and functions for exercise 1
+## you should to this here.
+
+# =============================================================================
+# Exercise 2 - DecisionTrees
+# =============================================================================
+    
+# You should look at this base class, as it determines the attributes shared
+# by the different TreeNode types you need to work with.
+class TreeNode(object):
+    &#34;&#34;&#34;
+        Base class for nodes in a simple decision tree. Each node in the tree 
+        is either a root (no parent), a leave (no branches and no children)
+        or an intermediate node, with a parent and named branches with child 
+        nodes.
+    &#34;&#34;&#34;
+    
+    def __init__(self, name: str, branches: Optional[List[str]] =None, 
+                        parent: Optional[TreeNode] =None):
+        &#34;&#34;&#34;
+            Constructor of the base TreeNode. Should not be called directly but only by the 
+            implementing classes (ActionNode, ChanceNode, UtilityNode).
+
+            Parameters
+            ----------
+            name: str
+                The name of the node.
+
+            branches: List[str], optional
+                A list of named branches. These names usually represent possible actions coming from
+                ActionNodes or outcomes coming from UtilityNodes. These branches can represent possible
+                children, that still need to be added with add_child.
+
+            parent: TreeNode, optional
+                The parent of the current node in the tree.
+        &#34;&#34;&#34;
+        self.name = name
+        self.parent = parent
+        self.children = {}
+        self.branches = branches
+        
+    def add_child(self, branch: str, child: TreeNode):
+        &#34;&#34;&#34;
+            Adds a child to one of the branches of this TreeNode.
+            A child can only be added to already existing branches.
+
+            Parameters
+            ----------
+            branch: str
+                The branch to add the child to.
+
+            child: TreeNode
+                A reference of the TreeNode that should be added as child.
+
+            Raises
+            ------
+            AttributeError
+                If the given branch was not initially specified when creating the TreeNode.
+        &#34;&#34;&#34;
+        if branch in self.branches:
+            self.children[branch] = child
+        else:
+            raise AttributeError(&#34;Node {} does not have branch {}&#34;.format(self, branch))
+            
+    def get_eu(self) -&gt; float:
+        &#34;&#34;&#34;
+            Need to be implemented by the inheriting classes. Should
+            return the exptected utility for this node which is different
+            depending on the node type.
+        &#34;&#34;&#34;
+        raise NotImplementedError(&#34;Needs to be implemented by inheriting classes!&#34;)
+        
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;
+            Overwrites the default string representation of this class to just
+            return it&#39;s name.
+        &#34;&#34;&#34;
+        return self.name
+    
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;
+            Overwrites the default string representation of this class to just
+            return it&#39;s name.
+        &#34;&#34;&#34;
+        return self.name
+
+# Relevant for exercise 2.1
+class UtilityNode(TreeNode):
+    
+    def __init__(self, name: str, utility: float, parent: Optional[TreeNode] =None):
+        &#34;&#34;&#34;
+        Constructor for a UtilityNode. These nodes represent the leave nodes
+        of a decision tree, i.e. their utilities need to contain the sum
+        of all partial utilities.
+        
+        Parameters
+        ----------
+        name: str
+            A unique name for this UtilityNode.
+            
+        utility: float
+            The utility associated with this node.
+            
+        parent: TreeNode (optional)
+            The parent node of this node, usually not needed, as the add_child
+            method of the dt will set the parent attribute correctly.
+        &#34;&#34;&#34;
+        self.utility = utility
+        super(UtilityNode,self).__init__(name, parent)
+    
+    def get_eu(self) -&gt; float:
+        &#34;&#34;&#34;
+            Returns the expected utility of this UtilityNode. 
+
+            Returns
+            -------
+            float
+                The EU of the UtilityNode.
+        &#34;&#34;&#34;
+        raise NotImplementedError(&#34;TODO - Exercise 2 Task 1&#34;)
+
+# Relevant for exercise 2.2
+class ChanceNode(TreeNode):
+    
+    def __init__(self, name: str, probs: Dict[str, float], parent: Optional[TreeNode] =None):
+        &#34;&#34;&#34;
+        Constructor for a ChanceNode. This is similar to our DiscreteVariables
+        of a Bayesian network, but is simplyfied here for the sake of decision
+        trees.
+        
+        Parameters
+        ----------
+        name: str
+            A unique name for this ChanceNode.
+            
+        probs: dict
+            A dictionary containing the possible outcomes as keys and their
+            respective probabilities as values.
+            
+        parent: TreeNode (optional)
+            The parent node of this node, usually not needed, as the add_child
+            method of the DT will set the parent attribute correctly.
+        &#34;&#34;&#34;
+        self.probs = dict(probs)
+        super(ChanceNode, self).__init__(name, list(probs.keys()), parent)
+        
+    def get_eu(self) -&gt; float:
+        &#34;&#34;&#34;
+            Computes the expected utility of this ChanceNode. The EU of a
+            ChanceNode represents the expectation with respect to the 
+            possible outcomes of this node and their respective probabilities. 
+
+            Returns
+            -------
+            float
+                The EU of the ChanceNode
+        &#34;&#34;&#34;
+        raise NotImplementedError(&#34;TODO - Exercise 2 Task 2&#34;)
+        
+# Relevant for exercise 2.3
+class ActionNode(TreeNode):
+    
+    def __init__(self, name: str, options: List[str], parent: Optional[TreeNode] = None):
+        &#34;&#34;&#34;
+        Constructor for an ActionNode. One can choose one action out of 
+        multiple options. Also stores the best_action that was determined
+        in the get_eu method.
+        
+        Parameters
+        ----------
+        name: str
+            A unique name for this ActionNode.
+            
+        options: [str,]
+            A list of possible options for this ActionNode.
+            
+        parent: TreeNode (optional)
+            The parent node of this node, usually not needed, as the add_child
+            method of the DT will set the parent attribute correctly.
+        &#34;&#34;&#34;
+        self.best_action = None
+        super(ActionNode, self).__init__(name, options, parent)
+        
+    def get_eu(self) -&gt; float:
+        &#34;&#34;&#34;
+            Computes the EU of the ActionNode. This EU should be the
+            best possible EU corresponding to the action that has the
+            highest EU. The action with the highest EU should also be stored
+            in the best_action attribute so that it can be retrieved by the
+            backward induction algorithm of the DecisionTree.
+
+            Returns
+            -------
+            float
+                The EU corresponding action that maximizes the EU.
+        &#34;&#34;&#34;
+        raise NotImplementedError(&#34;TODO - Exercise 2 Task 3&#34;)
+                
+ 
+# A class you do not need to touch, but that allows us to actually 
+# work with decision trees. The solution can be achieved using the 
+# backward_induction algorithm that is implemented here. You can 
+# check how the different nodes are used here and you can use the
+# result from that function to check your get_eu implementations.
+class DecisionTree(object):
+    &#34;&#34;&#34;
+        Very simple implementation of a decision tree. Since we are using
+        a dictionary to store all nodes (and all action_nodes for easier
+        access) using their names, the nodes we are adding need to have 
+        different names to avoid accidentially overwriting some nodes 
+        (see get_simple_dt for an example of how you can name the nodes).
+    &#34;&#34;&#34;
+    
+    def __init__(self):
+        self.root = None
+        self.nodes = {}
+        self.action_nodes = {}
+        
+    def set_root(self, node: TreeNode):
+        &#34;&#34;&#34;
+            Method to set the root node of the decision tree.
+            
+            Parameter
+            --------
+            node: TreeNode
+                The node which should be the root of the DT.
+        &#34;&#34;&#34;
+        self.root = node
+        self.nodes[node.name] = node
+        if isinstance(node, ActionNode):
+            self.action_nodes[node.name] = node
+        
+    def add_child(self, node: TreeNode, branch: str, child: TreeNode):
+        &#34;&#34;&#34;
+            Method to add a new node as the child of another node.
+            
+            Parameters
+            ---------
+            node: TreeNode
+                A node already contained in the dt under which to add the 
+                child.
+
+            branch: str
+                Name of the branch the child should be added under.
+
+            child: TreeNode
+                The new child node which should be added.
+        &#34;&#34;&#34;
+        if node.name in self.nodes:
+            self.nodes[node.name].add_child(branch, child)
+            self.nodes[child.name] = child
+            if isinstance(child, ActionNode):
+                self.action_nodes[child.name] = child
+            child.parent = node
+        else:
+            raise AttributeError(&#34;Node {} does not exist.&#34;.format(node))
+            
+    def backward_induction(self, actions: Optional[Dict[str,str]] = None) -&gt; Dict[str, Tuple[str, float]]:
+        &#34;&#34;&#34;
+            Method to perform backward_induction on this decision tree (DT) to 
+            compute for each action_node it&#39;s optimal decision and the
+            corresponding eu.
+            
+            Parameter
+            --------
+            actions: dict (optional)
+                If given, specifies certain actions as given, i.e. they should
+                not be optimized. The dictionary should contain action_node 
+                name: decision pairs, e.g. {&#34;Party&#34;: &#34;yes&#34;} for the simple DT.
+                
+            Returns
+            -------
+            dict
+                A dictionary containing the action node names as keys and a 
+                tuple consisting of the action to choose and it&#39;s associated
+                expected utility as value, e.g. {&#34;Party&#34;: (&#34;yes&#34;, 140)}
+        &#34;&#34;&#34;
+        if actions is None:
+            actions = {}
+            
+        # Reset best actions!
+        for node in self.action_nodes.values():
+            node.best_action = None
+        
+        for node in actions:
+            self.action_nodes[node].best_action = actions[node]
+            
+        # Compute the EU for the entire tree so that all &#34;best_actions&#34;
+        # are set in action nodes.
+        eu = self.root.get_eu()
+        for node in self.action_nodes.values():
+            actions[node.name] = (node.best_action, node.get_eu())
+            
+        return actions
+
+        
+# =============================================================================
+# Exercise 3 - Markov Decision Process
+# =============================================================================
+
+class MarkovDecisionProcess(object):
+    &#34;&#34;&#34;
+        Main class you should be working on for exercise 3. 
+        You will have to implement the &#34;value_iteration&#34; and &#34;get_action&#34;
+        functions.
+    &#34;&#34;&#34;
+    def __init__(self, environment: Gridworld, states: List[Tuple[int,int]], 
+                        initial_state: Tuple[int,int], actions: List[str], 
+                        transition_model: SimpleTransitionModel, reward_function: Dict[Tuple[int,int], float], 
+                        discount: float, terminal_states: Optional[List[Tuple[int,int]]] = None):
+        &#34;&#34;&#34;
+            Constructor for an MDP
+            
+            Parameters
+            ----------
+            environment: `mdp.gridworld.Gridworld`
+                The environment this MDP lives in.
+            states: [tuple,]
+                A list of states, in this cases tuples representing positions
+                within the environment
+            initial_state: tuple
+                A tuple representing the initial position of the agent
+            actions: [string,]
+                A list of possible actions, here we only consider the
+                actions &#34;N&#34;,&#34;S&#34;,&#34;E&#34;,&#34;W&#34; as available actions.
+            transition_model: `mdp.transitionModels.SimpleTransitionModel`
+                The transition model representing the probabilities of going
+                from one state to another using a certain action
+            reward_function: dict(tuple:float)
+                A dictionary containing rewards for all possible terminal
+                states. Values should be between -1, 1 to not confuse the 
+                visualizations
+            discount: float
+                Discounting factor to be used in the Bellmann equation during
+                value iteration.
+            terminal_states: list, optional
+                List of terminalstates for the environment. If not given, the
+                keys in the reward function are assumed to be the terminal 
+                states. If these are given, the rewards are considered &#34;intermediate&#34;
+                rewards that do not terminate an episode.
+                
+        &#34;&#34;&#34;
+        self.environment = environment        
+        self.initial_state = initial_state
+        self.states = states
+        self.actions = actions
+        self.transition_model = transition_model
+        self.reward_function = reward_function
+        self.discount = discount
+        self.renderers = []
+        if terminal_states is None:
+            self.terminal_states = list(reward_function.keys())
+        else:
+            self.terminal_states = list(terminal_states)
+        
+        
+    ######
+    #
+    # Task 1 and 2
+    # Value Iteration
+    #
+    ######
+    def value_iteration(self, num_max_iterations: Optional[int] =100, 
+                                epsilon: Optional[float] =None, 
+                                plot_delay: Optional[float] =None) -&gt; Dict[Tuple[int,int], float]:
+        &#34;&#34;&#34;
+            Computes the expected utilities for each state of the MDP using
+            value iteration!
+            
+            Parameters
+            ----------
+            num_max_iterations: int, optional
+                The maximum number of iterations that should be performed.
+                Default: 100
+                
+            epsilon: float, optional
+                Threshold for the changes in the expected utility values.
+                Required for exercise 2.
+            
+            plot_delay: float, optional
+                If this is given, the current utilities will be plotted by all
+                registered renderers, pausing the given delay (in seconds)
+                before continuing with the next iteration. Default: None
+            
+            Returns
+            --------
+            dict(tuple:float)
+                A dictionary containing state:expected utility pairs for 
+                each state of the MDP.
+        &#34;&#34;&#34;
+        
+        #Hint: The MDP object already contains the required variables, such
+        # as the transition_model or the reward_function, see the constructor
+        # for their respective names.
+        
+        #Hint: Remember that the reward function is only a dictionary, where
+        # only the terminal states are specified! You will need to consider
+        # how you deal with the not-specified states!
+        
+        #Hint: You might want to use the &#34;get_neighbour_states&#34; function
+        # provided by the environment. 
+        
+        #Hint: You can use the transition_model like a function. Look at the
+        # documentation of the &#34;__call__&#34; method in 
+        # transitionModels.SimpleTransitionModel for more information.
+        
+        raise NotImplementedError(&#34;TODO Exercise 3, Tasks 1 and 2&#34;)
+        
+        #Hint: You can can use &#34;render_utilities&#34; within your loop if you want 
+        # to have online visualization of your computed utilities
+        
+        
+    ######
+    #
+    # Task 3
+    # Policy computation
+    # Hint: In case you have problems with exercise 1, you can compute
+    # utility values by hand, and use those for task 3.
+    #
+    ######       
+    def get_policy(self, utilities: Dict[Tuple[int,int], float]) -&gt; Dict[Tuple[int,int], str]:
+        &#34;&#34;&#34;
+            Computes an optimal policy based on the given utilities and 
+            the internal transitionModel.
+            
+            Parameters
+            ----------
+            utilities: dict(tuple:float)
+                A dictionary containing state:expected utility pairs for all
+                states of the MDP
+                
+            Returns
+            --------
+            dict(tuple:string)
+                A dictionary containing state:action pairs. The actions should
+                be one of &#34;N&#34;,&#34;S&#34;,&#34;E&#34;,&#34;W&#34; and represent the optimal action
+                given the utilities and the transition probabilities!
+        &#34;&#34;&#34;
+        raise NotImplementedError(&#34;TODO Exercise 3, Task 3&#34;)
+            
+    
+    ######
+    #
+    # Helper functions that can be used to visualize the computed results!
+    # You would normally not have to make any changes here, but feel free to
+    # modify the code if you want to do things differently.
+    #
+    ######
+    
+    def render_utilities(self, utilities: Dict[Tuple[int,int], float], 
+                                iteration: Optional[int] =0, 
+                                pause: Optional[float] =0.0):
+        &#34;&#34;&#34;
+            Calls all registered renderers to plot the given utilities in
+            the grid. Will pause the execution for pause
+            seconds after plotting.
+            
+            Parameters
+            ----------
+            utilities: dict(tuple:float)
+                A dictionary containing state:expected utility pairs for all
+                states of the MDP
+
+            iteration: int, optional
+                The current iteration these utilities were produced at. Will
+                be displayed in the plot. Default: 0
+
+            pause: float, optional
+                The time in seconds the program should pause after plotting.
+                Default: 0.0
+        &#34;&#34;&#34;
+        for rend in self.renderers:
+            rend.plot_utilities(utilities, iteration, walls=True)
+            #This will pause twice if you use both renderers!
+            rend.pause(pause) 
+         
+    
+    def render_policy(self, policy: Dict[Tuple[int,int], str]):
+        &#34;&#34;&#34;
+            Calls all registered renderers to plot the given policy.
+            
+            Parameters
+            ----------
+            policy: dict(tuple:string)
+                A dictionary containing state:action pairs.
+            
+        &#34;&#34;&#34;
+        for rend in self.renderers:
+            rend.plot_policy(policy, walls=True)
+            
+    def render_agent(self, agent_pos: Tuple[int,int], pause: Optional[float] =0.0):
+        &#34;&#34;&#34;
+            Calls all registered renderers to plot the grid with the agent
+            at the specified position. Will pause the execution for pause
+            seconds after plotting.
+            
+            Parameters
+            ----------
+            agent_pos: tuple
+                The current position of the agent in the world.
+
+            pause: float, optional
+                The time in seconds the program should pause after plotting.
+                Default: 0.0
+        &#34;&#34;&#34;
+        grid =self.environment.get_grid_representation(add_outer=True)
+        for pos in self.reward_function:
+            grid[pos[1]+1][pos[0]+1] = self.reward_function[pos]
+        for rend in self.renderers:
+            #Do +1 on the agent pos, because we added the walls here
+            #which means the agent needs to be shifted in the visualization
+            #to account for the walls
+            rend.plot(grid, (agent_pos[0]+1,agent_pos[1]+1))
+            rend.pause(pause)
+            
+    def use_policy(self, policy: Dict[Tuple[int,int], str], step_delay: Optional[float] =0.5):
+        &#34;&#34;&#34;
+            Uses the given policy in order to reach a terminal state as given
+            by the reward function. In case the agent reaches a state with a 
+            positive reward, it is a success, otherwise it is a failure.
+            The agent&#39;s intended and actual action will be printed and it&#39;s
+            progress rendered by all registered renderers.
+            
+            Parameters
+            ----------
+            policy: dict(tuple:String)
+                The policy to follow in the form as returned by get_policy
+            
+            step_delay: float, optional
+                Delay (in seconds) between two steps. Default: 0.5
+        &#34;&#34;&#34;
+        agent_pos = self.initial_state
+        
+        #Plot initial state
+        self.render_agent(agent_pos, step_delay)
+        
+        reached = False
+        while not reached:
+            intended_action = policy[agent_pos]
+            print(&#34;Agent wants to perform: {}&#34;.format(intended_action))
+            performed_action = self.transitionModel.sample_action(agent_pos, intended_action)
+            print(&#34;Agent performs: {}&#34;.format(performed_action))
+            
+            agent_pos = self.environment.act(agent_pos, performed_action)
+            
+            #The reward Function only holds values for terminal states
+            if agent_pos in self.terminal_states:
+                reached = True
+                
+            #Render resulting state
+            self.render_agent(agent_pos, step_delay)
+                    
+        if self.rewardFunction[agent_pos] &gt; 0: 
+            print(&#34;Agent reached positive state! Success!&#34;)
+        else:
+            print(&#34;Agent reached negative state! Failure!&#34;)
+          
+
+
+
+# Some example decision trees that are used in the example calls.
+# I suggest working through them by hand to compare your implementation&#39;s
+# solution with your manual solution.   
+def get_simple_dt():
+    &#34;&#34;&#34;
+        Creates a simple 1 decision tree to show how the classes
+        are meant to be used and how the nodes can be named to allow easy
+        distinction of the different nodes. The problem basically boils
+        down to throwing a party or not which takes into account the
+        probability of it raining.
+    &#34;&#34;&#34;
+    dt = DecisionTree()
+    dt.set_root(ActionNode(&#34;Party&#34;, [&#34;yes&#34;, &#34;no&#34;]))
+    
+    c1 = ChanceNode(&#34;Party:yes,Rain&#34;, {&#34;yes&#34;: 0.6, &#34;no&#34;: 0.4})
+    dt.add_child(dt.root, &#34;yes&#34;, c1)
+    dt.add_child(c1, &#34;yes&#34;, UtilityNode(&#34;Party:yes,Rain:yes&#34;, -100))
+    dt.add_child(c1, &#34;no&#34;, UtilityNode(&#34;Party:yes,Rain:no&#34;, 500))
+    
+    c2 = ChanceNode(&#34;Party:no,Rain&#34;, {&#34;yes&#34;: 0.6, &#34;no&#34;: 0.4})
+    dt.add_child(dt.root, &#34;no&#34;, c2)
+    dt.add_child(c2, &#34;yes&#34;, UtilityNode(&#34;Party:no,Rain:yes&#34;, 0))
+    dt.add_child(c2, &#34;no&#34;, UtilityNode(&#34;Party:no,Rain:no&#34;, 50))
+    
+    return dt
+
+def get_two_decision_dt():
+    &#34;&#34;&#34;
+        A more complex DecisionTree with 2 hierarchical actions:
+        You can choose to perform a survey regarding the market situation
+        of your startup idea. If you choose to perform a survey you can
+        find out something about the likely demand for your product. 
+        Regardless of whether you perform the survey or not you can then decide
+        to do your start-up. The market has a certain probability to be low, medium
+        or high which determines your final utilities.
+        In this example you can already see that decision trees can become fairly unwieldy 
+        quickly.
+    &#34;&#34;&#34;
+    dt = DecisionTree()
+    dt.set_root(ActionNode(&#34;Survey&#34;, [&#34;yes&#34;, &#34;no&#34;]))
+    
+    c1 = ChanceNode(&#34;Survey:yes,Demand&#34;, {&#34;low&#34;: 0.25, &#34;medium&#34;:0.45, &#34;huge&#34;:0.3})
+    dt.add_child(dt.root, &#34;yes&#34;, c1)
+    
+    a2 = ActionNode(&#34;Survey:no,Start-up&#34;, [&#34;yes&#34;, &#34;no&#34;])
+    dt.add_child(dt.root, &#34;no&#34;, a2)
+    
+    c2 = ChanceNode(&#34;Survey:no,Start-up:yes,Market&#34;, {&#34;low&#34;:0.3, &#34;medium&#34;:0.5, &#34;high&#34;: 0.2})
+    dt.add_child(a2, &#34;yes&#34;, c2)
+    
+    dt.add_child(a2, &#34;no&#34;, UtilityNode(&#34;Survey:no,Start-up:no&#34;, 0))
+    dt.add_child(c2, &#34;low&#34;, UtilityNode(&#34;Survey:no,Start-up:yes,Market:low&#34;, -15))
+    dt.add_child(c2, &#34;medium&#34;, UtilityNode(&#34;Survey:no,Start-up:yes,Market:medium&#34;, 5))
+    dt.add_child(c2, &#34;high&#34;, UtilityNode(&#34;Survey:no,Start-up:yes,Market:high&#34;, 25))
+    
+    a3 = ActionNode(&#34;Survey:yes,Demand:low,Start-up&#34;, [&#34;yes&#34;, &#34;no&#34;])
+    dt.add_child(c1, &#34;low&#34;, a3)
+    c3 = ChanceNode(&#34;Survey:yes,Demand:low,Start-up:yes,Market&#34;, {&#34;low&#34;:0.75, &#34;medium&#34;:0.2, &#34;high&#34;: 0.05})
+    dt.add_child(a3, &#34;yes&#34;, c3)
+    dt.add_child(a3, &#34;no&#34;, UtilityNode(&#34;Survey:yes,Demand:low,Start-up:no&#34;,-5))
+    dt.add_child(c3, &#34;low&#34;, UtilityNode(&#34;Survey:yes,Demand:low,Start-up:yes:Market:low&#34;,-20))
+    dt.add_child(c3, &#34;medium&#34;, UtilityNode(&#34;Survey:yes,Demand:low,Start-up:yes:Market:medium&#34;,0))
+    dt.add_child(c3, &#34;high&#34;, UtilityNode(&#34;Survey:yes,Demand:low,Start-up:yes:Market:high&#34;,20))
+    
+    a4 = ActionNode(&#34;Survey:yes,Demand:medium,Start-up&#34;, [&#34;yes&#34;, &#34;no&#34;])
+    dt.add_child(c1, &#34;medium&#34;, a4)
+    c4 = ChanceNode(&#34;Survey:yes,Demand:medium,Start-up:yes,Market&#34;, {&#34;low&#34;:0.15, &#34;medium&#34;:0.6, &#34;high&#34;: 0.25})
+    dt.add_child(a4, &#34;yes&#34;, c4)
+    dt.add_child(a4, &#34;no&#34;, UtilityNode(&#34;Survey:yes,Demand:medium,Start-up:no&#34;,-5))
+    dt.add_child(c4, &#34;low&#34;, UtilityNode(&#34;Survey:yes,Demand:medium,Start-up:yes:Market:low&#34;,-20))
+    dt.add_child(c4, &#34;medium&#34;, UtilityNode(&#34;Survey:yes,Demand:medium,Start-up:yes:Market:medium&#34;,0))
+    dt.add_child(c4, &#34;high&#34;, UtilityNode(&#34;Survey:yes,Demand:medium,Start-up:yes:Market:high&#34;,20))
+    
+    a5 = ActionNode(&#34;Survey:yes,Demand:huge,Start-up&#34;, [&#34;yes&#34;, &#34;no&#34;])
+    dt.add_child(c1, &#34;huge&#34;, a5)
+    c5 = ChanceNode(&#34;Survey:yes,Demand:huge,Start-up:yes,Market&#34;, {&#34;low&#34;:0.05, &#34;medium&#34;:0.3, &#34;high&#34;: 0.65})
+    dt.add_child(a5, &#34;yes&#34;, c5)
+    dt.add_child(a5, &#34;no&#34;, UtilityNode(&#34;Survey:yes,Demand:huge,Start-up:no&#34;,-5))
+    dt.add_child(c5, &#34;low&#34;, UtilityNode(&#34;Survey:yes,Demand:huge,Start-up:yes:Market:low&#34;,-20))
+    dt.add_child(c5, &#34;medium&#34;, UtilityNode(&#34;Survey:yes,Demand:huge,Start-up:yes:Market:medium&#34;,0))
+    dt.add_child(c5, &#34;high&#34;, UtilityNode(&#34;Survey:yes,Demand:huge,Start-up:yes:Market:high&#34;,20))
+    
+    return dt
+  
+            
+#####
+#
+# Specification of some simple testworlds for the MDP
+#
+#####
+def testWorld1():
+    &#34;&#34;&#34;
+        The simple example from the lecture and the assignment sheet.
+    &#34;&#34;&#34;
+    
+    #Specify a gridworld using &#34;g&#34; for free ground and &#34;#&#34; for walls/obstacles.
+    #We could also specify the outer walls here, but then we need to not
+    #addOuter when getting a grid representation, or adding walls when plotting!
+    world_string = &#34;gggg\n&#34; + \
+                  &#34;g#gg\n&#34; + \
+                  &#34;gggg&#34;
+                  
+    environment = Gridworld()
+    states = environment.parse_environment(world_string, get_passable_states=True)
+    
+    initial_state = (0,0)
+    
+    #We use a simple dictionary as reword function where we only specify the 
+    #terminal states.
+    rewards = dict()
+    rewards[(3,2)] = 1
+    rewards[(3,1)] = -1
+    
+    return environment, states, initial_state, rewards
+
+
+def testWorld2():
+    world_string = &#34;ggggg\n&#34; + \
+                  &#34;g#ggg\n&#34; + \
+                  &#34;g#ggg\n&#34; + \
+                  &#34;ggggg\n&#34; + \
+                  &#34;ggggg&#34;
+                  
+    environment = Gridworld()
+    states = environment.parse_environment(world_string, get_passable_states=True)
+    
+    initial_state = (0,1)
+    
+    #We use a simple dictionary as reword function where we only specify the 
+    #terminal states.
+    rewards = dict()
+    rewards[(0,0)] = -1
+    rewards[(1,0)] = -1
+    rewards[(2,0)] = -1
+    rewards[(3,0)] = -1
+    rewards[(4,0)] = -1
+    rewards[(2,2)] = 0.1
+    rewards[(4,2)] = 1
+    
+    return environment, states, initial_state, rewards
+
+
+def testWorld3():
+    world_string = &#34;gg#gggg\n&#34; + \
+                  &#34;gg#gggg\n&#34; + \
+                  &#34;gg#gggg\n&#34; + \
+                  &#34;ggggggg\n&#34; + \
+                  &#34;gggg##g\n&#34; + \
+                  &#34;ggggggg&#34;
+                  
+    environment = Gridworld()
+    states = environment.parse_environment(world_string, get_passable_states=True)
+    
+    initial_state = (6,5)
+    
+    #We use a simple dictionary as reword function where we only specify the 
+    #terminal states.
+    rewards = dict()
+    rewards[(2,2)] = -1
+    rewards[(6,4)] = -1
+    rewards[(1,3)] = -0.5
+    rewards[(0,5)] = 1
+    rewards[(0,1)] = 0.5
+    
+    # You might want to experiment what happens if you do not specify all
+    # states giving rewards as terminal states, e.g. by omitting (0,1) from
+    # the list below    
+    terminals = [(2,2),(6,4),(1,3),(0,5),(0,1)] 
+    
+    return environment, states, initial_state, rewards, terminals
+
+        
+
+if __name__ == &#34;__main__&#34;:
+    
+
+# =============================================================================
+#   Exercise 2 - Example calls of using the Decision Tree
+# =============================================================================
+    
+    dt = get_simple_dt()
+    print(&#34;Optimal action sequence for the simple DT: &#34;, dt.backward_induction())
+    
+    dt2 = get_two_decision_dt()
+    print(&#34;Optimal action sequence for the two decision DT: &#34;, dt2.backward_induction())
+    
+# =============================================================================
+#   Exercise 3 - Example calls for using the MDP
+# =============================================================================
+    #We are currently only supporting these 4 actions    
+    actions= [&#34;N&#34;,&#34;S&#34;,&#34;E&#34;,&#34;W&#34;]
+    
+    environment, states, initial_state, reward_function = testWorld1()
+#    environment, states, initial_state, reward_function = testWorld2()
+#    environment, states, initial_state, reward_function, terminals = testWorld3()
+
+    # Feel free to create your own testworlds or try different parameters for
+    # the transition model
+    accuracy = 0.8
+    ratio = 0.5 #Both accidental directions are equally likely
+    discount = 0.9
+
+    # Set up our simple transition model with the specified parameters
+    trans = SimpleTransitionModel(accuracy, environment, ratio=ratio)
+    
+    
+    # Set up our actual Markov Decision Process with all required variables
+    mdp = MarkovDecisionProcess(environment, states, initial_state, actions, 
+                                trans, reward_function, discount)
+    
+    # Add the basic console renderer
+    mdp.renderers.append(renderer.ConsoleRenderer())
+    # If matplotlib is installed, we will add the matplotlib renderer as well
+    if renderer.matplotlibAvailable:
+        mdp.renderers.append(renderer.MatplotlibRenderer())
+    
+    
+    # After implementing Exercise 3.1, you can get your computed utilities like this
+    # If you do not want to plot intermediate steps, just set plot_delay to
+    # None or just omit it.
+    utilities = mdp.value_iteration(num_max_iterations=100, plot_delay=0.1)
+    
+    # After implementing Exercise 3.2, you can also use a threshold epsilon which
+    # stops the computation upon convergence.
+#    utilities = mdp.value_iteration(num_max_iterations=1000, epsilon=0.001, plot_delay=0.1)
+    
+    # After implementing Exercise 3.3, you can get your computed policy like this
+#    policy = mdp.get_policy(utilities)
+    
+    # This line can be used to render your policy
+#    mdp.render_policy(policy)
+    
+    # If you want to let the agent follow the computed policy you can 
+    # uncomment this line here
+#    mdp.use_policy(policy, stepDelay=0.5)
+
+    # This is here to prevent the program from finishing at the end as long as
+    # a figure is still shown.    
+    if renderer.matplotlibAvailable:
+        renderer.show()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="assignment6.get_simple_dt"><code class="name flex">
+<span>def <span class="ident">get_simple_dt</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a simple 1 decision tree to show how the classes
+are meant to be used and how the nodes can be named to allow easy
+distinction of the different nodes. The problem basically boils
+down to throwing a party or not which takes into account the
+probability of it raining.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_simple_dt():
+    &#34;&#34;&#34;
+        Creates a simple 1 decision tree to show how the classes
+        are meant to be used and how the nodes can be named to allow easy
+        distinction of the different nodes. The problem basically boils
+        down to throwing a party or not which takes into account the
+        probability of it raining.
+    &#34;&#34;&#34;
+    dt = DecisionTree()
+    dt.set_root(ActionNode(&#34;Party&#34;, [&#34;yes&#34;, &#34;no&#34;]))
+    
+    c1 = ChanceNode(&#34;Party:yes,Rain&#34;, {&#34;yes&#34;: 0.6, &#34;no&#34;: 0.4})
+    dt.add_child(dt.root, &#34;yes&#34;, c1)
+    dt.add_child(c1, &#34;yes&#34;, UtilityNode(&#34;Party:yes,Rain:yes&#34;, -100))
+    dt.add_child(c1, &#34;no&#34;, UtilityNode(&#34;Party:yes,Rain:no&#34;, 500))
+    
+    c2 = ChanceNode(&#34;Party:no,Rain&#34;, {&#34;yes&#34;: 0.6, &#34;no&#34;: 0.4})
+    dt.add_child(dt.root, &#34;no&#34;, c2)
+    dt.add_child(c2, &#34;yes&#34;, UtilityNode(&#34;Party:no,Rain:yes&#34;, 0))
+    dt.add_child(c2, &#34;no&#34;, UtilityNode(&#34;Party:no,Rain:no&#34;, 50))
+    
+    return dt</code></pre>
+</details>
+</dd>
+<dt id="assignment6.get_two_decision_dt"><code class="name flex">
+<span>def <span class="ident">get_two_decision_dt</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A more complex DecisionTree with 2 hierarchical actions:
+You can choose to perform a survey regarding the market situation
+of your startup idea. If you choose to perform a survey you can
+find out something about the likely demand for your product.
+Regardless of whether you perform the survey or not you can then decide
+to do your start-up. The market has a certain probability to be low, medium
+or high which determines your final utilities.
+In this example you can already see that decision trees can become fairly unwieldy
+quickly.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_two_decision_dt():
+    &#34;&#34;&#34;
+        A more complex DecisionTree with 2 hierarchical actions:
+        You can choose to perform a survey regarding the market situation
+        of your startup idea. If you choose to perform a survey you can
+        find out something about the likely demand for your product. 
+        Regardless of whether you perform the survey or not you can then decide
+        to do your start-up. The market has a certain probability to be low, medium
+        or high which determines your final utilities.
+        In this example you can already see that decision trees can become fairly unwieldy 
+        quickly.
+    &#34;&#34;&#34;
+    dt = DecisionTree()
+    dt.set_root(ActionNode(&#34;Survey&#34;, [&#34;yes&#34;, &#34;no&#34;]))
+    
+    c1 = ChanceNode(&#34;Survey:yes,Demand&#34;, {&#34;low&#34;: 0.25, &#34;medium&#34;:0.45, &#34;huge&#34;:0.3})
+    dt.add_child(dt.root, &#34;yes&#34;, c1)
+    
+    a2 = ActionNode(&#34;Survey:no,Start-up&#34;, [&#34;yes&#34;, &#34;no&#34;])
+    dt.add_child(dt.root, &#34;no&#34;, a2)
+    
+    c2 = ChanceNode(&#34;Survey:no,Start-up:yes,Market&#34;, {&#34;low&#34;:0.3, &#34;medium&#34;:0.5, &#34;high&#34;: 0.2})
+    dt.add_child(a2, &#34;yes&#34;, c2)
+    
+    dt.add_child(a2, &#34;no&#34;, UtilityNode(&#34;Survey:no,Start-up:no&#34;, 0))
+    dt.add_child(c2, &#34;low&#34;, UtilityNode(&#34;Survey:no,Start-up:yes,Market:low&#34;, -15))
+    dt.add_child(c2, &#34;medium&#34;, UtilityNode(&#34;Survey:no,Start-up:yes,Market:medium&#34;, 5))
+    dt.add_child(c2, &#34;high&#34;, UtilityNode(&#34;Survey:no,Start-up:yes,Market:high&#34;, 25))
+    
+    a3 = ActionNode(&#34;Survey:yes,Demand:low,Start-up&#34;, [&#34;yes&#34;, &#34;no&#34;])
+    dt.add_child(c1, &#34;low&#34;, a3)
+    c3 = ChanceNode(&#34;Survey:yes,Demand:low,Start-up:yes,Market&#34;, {&#34;low&#34;:0.75, &#34;medium&#34;:0.2, &#34;high&#34;: 0.05})
+    dt.add_child(a3, &#34;yes&#34;, c3)
+    dt.add_child(a3, &#34;no&#34;, UtilityNode(&#34;Survey:yes,Demand:low,Start-up:no&#34;,-5))
+    dt.add_child(c3, &#34;low&#34;, UtilityNode(&#34;Survey:yes,Demand:low,Start-up:yes:Market:low&#34;,-20))
+    dt.add_child(c3, &#34;medium&#34;, UtilityNode(&#34;Survey:yes,Demand:low,Start-up:yes:Market:medium&#34;,0))
+    dt.add_child(c3, &#34;high&#34;, UtilityNode(&#34;Survey:yes,Demand:low,Start-up:yes:Market:high&#34;,20))
+    
+    a4 = ActionNode(&#34;Survey:yes,Demand:medium,Start-up&#34;, [&#34;yes&#34;, &#34;no&#34;])
+    dt.add_child(c1, &#34;medium&#34;, a4)
+    c4 = ChanceNode(&#34;Survey:yes,Demand:medium,Start-up:yes,Market&#34;, {&#34;low&#34;:0.15, &#34;medium&#34;:0.6, &#34;high&#34;: 0.25})
+    dt.add_child(a4, &#34;yes&#34;, c4)
+    dt.add_child(a4, &#34;no&#34;, UtilityNode(&#34;Survey:yes,Demand:medium,Start-up:no&#34;,-5))
+    dt.add_child(c4, &#34;low&#34;, UtilityNode(&#34;Survey:yes,Demand:medium,Start-up:yes:Market:low&#34;,-20))
+    dt.add_child(c4, &#34;medium&#34;, UtilityNode(&#34;Survey:yes,Demand:medium,Start-up:yes:Market:medium&#34;,0))
+    dt.add_child(c4, &#34;high&#34;, UtilityNode(&#34;Survey:yes,Demand:medium,Start-up:yes:Market:high&#34;,20))
+    
+    a5 = ActionNode(&#34;Survey:yes,Demand:huge,Start-up&#34;, [&#34;yes&#34;, &#34;no&#34;])
+    dt.add_child(c1, &#34;huge&#34;, a5)
+    c5 = ChanceNode(&#34;Survey:yes,Demand:huge,Start-up:yes,Market&#34;, {&#34;low&#34;:0.05, &#34;medium&#34;:0.3, &#34;high&#34;: 0.65})
+    dt.add_child(a5, &#34;yes&#34;, c5)
+    dt.add_child(a5, &#34;no&#34;, UtilityNode(&#34;Survey:yes,Demand:huge,Start-up:no&#34;,-5))
+    dt.add_child(c5, &#34;low&#34;, UtilityNode(&#34;Survey:yes,Demand:huge,Start-up:yes:Market:low&#34;,-20))
+    dt.add_child(c5, &#34;medium&#34;, UtilityNode(&#34;Survey:yes,Demand:huge,Start-up:yes:Market:medium&#34;,0))
+    dt.add_child(c5, &#34;high&#34;, UtilityNode(&#34;Survey:yes,Demand:huge,Start-up:yes:Market:high&#34;,20))
+    
+    return dt</code></pre>
+</details>
+</dd>
+<dt id="assignment6.testWorld1"><code class="name flex">
+<span>def <span class="ident">testWorld1</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The simple example from the lecture and the assignment sheet.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def testWorld1():
+    &#34;&#34;&#34;
+        The simple example from the lecture and the assignment sheet.
+    &#34;&#34;&#34;
+    
+    #Specify a gridworld using &#34;g&#34; for free ground and &#34;#&#34; for walls/obstacles.
+    #We could also specify the outer walls here, but then we need to not
+    #addOuter when getting a grid representation, or adding walls when plotting!
+    world_string = &#34;gggg\n&#34; + \
+                  &#34;g#gg\n&#34; + \
+                  &#34;gggg&#34;
+                  
+    environment = Gridworld()
+    states = environment.parse_environment(world_string, get_passable_states=True)
+    
+    initial_state = (0,0)
+    
+    #We use a simple dictionary as reword function where we only specify the 
+    #terminal states.
+    rewards = dict()
+    rewards[(3,2)] = 1
+    rewards[(3,1)] = -1
+    
+    return environment, states, initial_state, rewards</code></pre>
+</details>
+</dd>
+<dt id="assignment6.testWorld2"><code class="name flex">
+<span>def <span class="ident">testWorld2</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def testWorld2():
+    world_string = &#34;ggggg\n&#34; + \
+                  &#34;g#ggg\n&#34; + \
+                  &#34;g#ggg\n&#34; + \
+                  &#34;ggggg\n&#34; + \
+                  &#34;ggggg&#34;
+                  
+    environment = Gridworld()
+    states = environment.parse_environment(world_string, get_passable_states=True)
+    
+    initial_state = (0,1)
+    
+    #We use a simple dictionary as reword function where we only specify the 
+    #terminal states.
+    rewards = dict()
+    rewards[(0,0)] = -1
+    rewards[(1,0)] = -1
+    rewards[(2,0)] = -1
+    rewards[(3,0)] = -1
+    rewards[(4,0)] = -1
+    rewards[(2,2)] = 0.1
+    rewards[(4,2)] = 1
+    
+    return environment, states, initial_state, rewards</code></pre>
+</details>
+</dd>
+<dt id="assignment6.testWorld3"><code class="name flex">
+<span>def <span class="ident">testWorld3</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def testWorld3():
+    world_string = &#34;gg#gggg\n&#34; + \
+                  &#34;gg#gggg\n&#34; + \
+                  &#34;gg#gggg\n&#34; + \
+                  &#34;ggggggg\n&#34; + \
+                  &#34;gggg##g\n&#34; + \
+                  &#34;ggggggg&#34;
+                  
+    environment = Gridworld()
+    states = environment.parse_environment(world_string, get_passable_states=True)
+    
+    initial_state = (6,5)
+    
+    #We use a simple dictionary as reword function where we only specify the 
+    #terminal states.
+    rewards = dict()
+    rewards[(2,2)] = -1
+    rewards[(6,4)] = -1
+    rewards[(1,3)] = -0.5
+    rewards[(0,5)] = 1
+    rewards[(0,1)] = 0.5
+    
+    # You might want to experiment what happens if you do not specify all
+    # states giving rewards as terminal states, e.g. by omitting (0,1) from
+    # the list below    
+    terminals = [(2,2),(6,4),(1,3),(0,5),(0,1)] 
+    
+    return environment, states, initial_state, rewards, terminals</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="assignment6.ActionNode"><code class="flex name class">
+<span>class <span class="ident">ActionNode</span></span>
+<span>(</span><span>name: str, options: List[str], parent: Optional[<a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a>] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for nodes in a simple decision tree. Each node in the tree
+is either a root (no parent), a leave (no branches and no children)
+or an intermediate node, with a parent and named branches with child
+nodes.</p>
+<p>Constructor for an ActionNode. One can choose one action out of
+multiple options. Also stores the best_action that was determined
+in the get_eu method.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>A unique name for this ActionNode.</dd>
+<dt><strong><code>options</code></strong> :&ensp;<code>[str,]</code></dt>
+<dd>A list of possible options for this ActionNode.</dd>
+<dt><strong><code>parent</code></strong> :&ensp;<code><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a> (optional)</code></dt>
+<dd>The parent node of this node, usually not needed, as the add_child
+method of the DT will set the parent attribute correctly.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ActionNode(TreeNode):
+    
+    def __init__(self, name: str, options: List[str], parent: Optional[TreeNode] = None):
+        &#34;&#34;&#34;
+        Constructor for an ActionNode. One can choose one action out of 
+        multiple options. Also stores the best_action that was determined
+        in the get_eu method.
+        
+        Parameters
+        ----------
+        name: str
+            A unique name for this ActionNode.
+            
+        options: [str,]
+            A list of possible options for this ActionNode.
+            
+        parent: TreeNode (optional)
+            The parent node of this node, usually not needed, as the add_child
+            method of the DT will set the parent attribute correctly.
+        &#34;&#34;&#34;
+        self.best_action = None
+        super(ActionNode, self).__init__(name, options, parent)
+        
+    def get_eu(self) -&gt; float:
+        &#34;&#34;&#34;
+            Computes the EU of the ActionNode. This EU should be the
+            best possible EU corresponding to the action that has the
+            highest EU. The action with the highest EU should also be stored
+            in the best_action attribute so that it can be retrieved by the
+            backward induction algorithm of the DecisionTree.
+
+            Returns
+            -------
+            float
+                The EU corresponding action that maximizes the EU.
+        &#34;&#34;&#34;
+        raise NotImplementedError(&#34;TODO - Exercise 2 Task 3&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="assignment6.ActionNode.get_eu"><code class="name flex">
+<span>def <span class="ident">get_eu</span></span>(<span>self) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes the EU of the ActionNode. This EU should be the
+best possible EU corresponding to the action that has the
+highest EU. The action with the highest EU should also be stored
+in the best_action attribute so that it can be retrieved by the
+backward induction algorithm of the DecisionTree.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>The EU corresponding action that maximizes the EU.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_eu(self) -&gt; float:
+    &#34;&#34;&#34;
+        Computes the EU of the ActionNode. This EU should be the
+        best possible EU corresponding to the action that has the
+        highest EU. The action with the highest EU should also be stored
+        in the best_action attribute so that it can be retrieved by the
+        backward induction algorithm of the DecisionTree.
+
+        Returns
+        -------
+        float
+            The EU corresponding action that maximizes the EU.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO - Exercise 2 Task 3&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a></b></code>:
+<ul class="hlist">
+<li><code><a title="assignment6.TreeNode.add_child" href="#assignment6.TreeNode.add_child">add_child</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="assignment6.ChanceNode"><code class="flex name class">
+<span>class <span class="ident">ChanceNode</span></span>
+<span>(</span><span>name: str, probs: Dict[str, float], parent: Optional[<a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a>] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for nodes in a simple decision tree. Each node in the tree
+is either a root (no parent), a leave (no branches and no children)
+or an intermediate node, with a parent and named branches with child
+nodes.</p>
+<p>Constructor for a ChanceNode. This is similar to our DiscreteVariables
+of a Bayesian network, but is simplyfied here for the sake of decision
+trees.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>A unique name for this ChanceNode.</dd>
+<dt><strong><code>probs</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary containing the possible outcomes as keys and their
+respective probabilities as values.</dd>
+<dt><strong><code>parent</code></strong> :&ensp;<code><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a> (optional)</code></dt>
+<dd>The parent node of this node, usually not needed, as the add_child
+method of the DT will set the parent attribute correctly.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ChanceNode(TreeNode):
+    
+    def __init__(self, name: str, probs: Dict[str, float], parent: Optional[TreeNode] =None):
+        &#34;&#34;&#34;
+        Constructor for a ChanceNode. This is similar to our DiscreteVariables
+        of a Bayesian network, but is simplyfied here for the sake of decision
+        trees.
+        
+        Parameters
+        ----------
+        name: str
+            A unique name for this ChanceNode.
+            
+        probs: dict
+            A dictionary containing the possible outcomes as keys and their
+            respective probabilities as values.
+            
+        parent: TreeNode (optional)
+            The parent node of this node, usually not needed, as the add_child
+            method of the DT will set the parent attribute correctly.
+        &#34;&#34;&#34;
+        self.probs = dict(probs)
+        super(ChanceNode, self).__init__(name, list(probs.keys()), parent)
+        
+    def get_eu(self) -&gt; float:
+        &#34;&#34;&#34;
+            Computes the expected utility of this ChanceNode. The EU of a
+            ChanceNode represents the expectation with respect to the 
+            possible outcomes of this node and their respective probabilities. 
+
+            Returns
+            -------
+            float
+                The EU of the ChanceNode
+        &#34;&#34;&#34;
+        raise NotImplementedError(&#34;TODO - Exercise 2 Task 2&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="assignment6.ChanceNode.get_eu"><code class="name flex">
+<span>def <span class="ident">get_eu</span></span>(<span>self) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes the expected utility of this ChanceNode. The EU of a
+ChanceNode represents the expectation with respect to the
+possible outcomes of this node and their respective probabilities. </p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>The EU of the ChanceNode</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_eu(self) -&gt; float:
+    &#34;&#34;&#34;
+        Computes the expected utility of this ChanceNode. The EU of a
+        ChanceNode represents the expectation with respect to the 
+        possible outcomes of this node and their respective probabilities. 
+
+        Returns
+        -------
+        float
+            The EU of the ChanceNode
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO - Exercise 2 Task 2&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a></b></code>:
+<ul class="hlist">
+<li><code><a title="assignment6.TreeNode.add_child" href="#assignment6.TreeNode.add_child">add_child</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="assignment6.DecisionTree"><code class="flex name class">
+<span>class <span class="ident">DecisionTree</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Very simple implementation of a decision tree. Since we are using
+a dictionary to store all nodes (and all action_nodes for easier
+access) using their names, the nodes we are adding need to have
+different names to avoid accidentially overwriting some nodes
+(see get_simple_dt for an example of how you can name the nodes).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DecisionTree(object):
+    &#34;&#34;&#34;
+        Very simple implementation of a decision tree. Since we are using
+        a dictionary to store all nodes (and all action_nodes for easier
+        access) using their names, the nodes we are adding need to have 
+        different names to avoid accidentially overwriting some nodes 
+        (see get_simple_dt for an example of how you can name the nodes).
+    &#34;&#34;&#34;
+    
+    def __init__(self):
+        self.root = None
+        self.nodes = {}
+        self.action_nodes = {}
+        
+    def set_root(self, node: TreeNode):
+        &#34;&#34;&#34;
+            Method to set the root node of the decision tree.
+            
+            Parameter
+            --------
+            node: TreeNode
+                The node which should be the root of the DT.
+        &#34;&#34;&#34;
+        self.root = node
+        self.nodes[node.name] = node
+        if isinstance(node, ActionNode):
+            self.action_nodes[node.name] = node
+        
+    def add_child(self, node: TreeNode, branch: str, child: TreeNode):
+        &#34;&#34;&#34;
+            Method to add a new node as the child of another node.
+            
+            Parameters
+            ---------
+            node: TreeNode
+                A node already contained in the dt under which to add the 
+                child.
+
+            branch: str
+                Name of the branch the child should be added under.
+
+            child: TreeNode
+                The new child node which should be added.
+        &#34;&#34;&#34;
+        if node.name in self.nodes:
+            self.nodes[node.name].add_child(branch, child)
+            self.nodes[child.name] = child
+            if isinstance(child, ActionNode):
+                self.action_nodes[child.name] = child
+            child.parent = node
+        else:
+            raise AttributeError(&#34;Node {} does not exist.&#34;.format(node))
+            
+    def backward_induction(self, actions: Optional[Dict[str,str]] = None) -&gt; Dict[str, Tuple[str, float]]:
+        &#34;&#34;&#34;
+            Method to perform backward_induction on this decision tree (DT) to 
+            compute for each action_node it&#39;s optimal decision and the
+            corresponding eu.
+            
+            Parameter
+            --------
+            actions: dict (optional)
+                If given, specifies certain actions as given, i.e. they should
+                not be optimized. The dictionary should contain action_node 
+                name: decision pairs, e.g. {&#34;Party&#34;: &#34;yes&#34;} for the simple DT.
+                
+            Returns
+            -------
+            dict
+                A dictionary containing the action node names as keys and a 
+                tuple consisting of the action to choose and it&#39;s associated
+                expected utility as value, e.g. {&#34;Party&#34;: (&#34;yes&#34;, 140)}
+        &#34;&#34;&#34;
+        if actions is None:
+            actions = {}
+            
+        # Reset best actions!
+        for node in self.action_nodes.values():
+            node.best_action = None
+        
+        for node in actions:
+            self.action_nodes[node].best_action = actions[node]
+            
+        # Compute the EU for the entire tree so that all &#34;best_actions&#34;
+        # are set in action nodes.
+        eu = self.root.get_eu()
+        for node in self.action_nodes.values():
+            actions[node.name] = (node.best_action, node.get_eu())
+            
+        return actions</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="assignment6.DecisionTree.add_child"><code class="name flex">
+<span>def <span class="ident">add_child</span></span>(<span>self, node: <a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a>, branch: str, child: <a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to add a new node as the child of another node.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>node</code></strong> :&ensp;<code><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a></code></dt>
+<dd>A node already contained in the dt under which to add the
+child.</dd>
+<dt><strong><code>branch</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the branch the child should be added under.</dd>
+<dt><strong><code>child</code></strong> :&ensp;<code><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a></code></dt>
+<dd>The new child node which should be added.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_child(self, node: TreeNode, branch: str, child: TreeNode):
+    &#34;&#34;&#34;
+        Method to add a new node as the child of another node.
+        
+        Parameters
+        ---------
+        node: TreeNode
+            A node already contained in the dt under which to add the 
+            child.
+
+        branch: str
+            Name of the branch the child should be added under.
+
+        child: TreeNode
+            The new child node which should be added.
+    &#34;&#34;&#34;
+    if node.name in self.nodes:
+        self.nodes[node.name].add_child(branch, child)
+        self.nodes[child.name] = child
+        if isinstance(child, ActionNode):
+            self.action_nodes[child.name] = child
+        child.parent = node
+    else:
+        raise AttributeError(&#34;Node {} does not exist.&#34;.format(node))</code></pre>
+</details>
+</dd>
+<dt id="assignment6.DecisionTree.backward_induction"><code class="name flex">
+<span>def <span class="ident">backward_induction</span></span>(<span>self, actions: Optional[Dict[str, str]] = None) ‑> Dict[str, Tuple[str, float]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to perform backward_induction on this decision tree (DT) to
+compute for each action_node it's optimal decision and the
+corresponding eu.</p>
+<h2 id="parameter">Parameter</h2>
+<p>actions: dict (optional)
+If given, specifies certain actions as given, i.e. they should
+not be optimized. The dictionary should contain action_node
+name: decision pairs, e.g. {"Party": "yes"} for the simple DT.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>A dictionary containing the action node names as keys and a
+tuple consisting of the action to choose and it's associated
+expected utility as value, e.g. {"Party": ("yes", 140)}</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward_induction(self, actions: Optional[Dict[str,str]] = None) -&gt; Dict[str, Tuple[str, float]]:
+    &#34;&#34;&#34;
+        Method to perform backward_induction on this decision tree (DT) to 
+        compute for each action_node it&#39;s optimal decision and the
+        corresponding eu.
+        
+        Parameter
+        --------
+        actions: dict (optional)
+            If given, specifies certain actions as given, i.e. they should
+            not be optimized. The dictionary should contain action_node 
+            name: decision pairs, e.g. {&#34;Party&#34;: &#34;yes&#34;} for the simple DT.
+            
+        Returns
+        -------
+        dict
+            A dictionary containing the action node names as keys and a 
+            tuple consisting of the action to choose and it&#39;s associated
+            expected utility as value, e.g. {&#34;Party&#34;: (&#34;yes&#34;, 140)}
+    &#34;&#34;&#34;
+    if actions is None:
+        actions = {}
+        
+    # Reset best actions!
+    for node in self.action_nodes.values():
+        node.best_action = None
+    
+    for node in actions:
+        self.action_nodes[node].best_action = actions[node]
+        
+    # Compute the EU for the entire tree so that all &#34;best_actions&#34;
+    # are set in action nodes.
+    eu = self.root.get_eu()
+    for node in self.action_nodes.values():
+        actions[node.name] = (node.best_action, node.get_eu())
+        
+    return actions</code></pre>
+</details>
+</dd>
+<dt id="assignment6.DecisionTree.set_root"><code class="name flex">
+<span>def <span class="ident">set_root</span></span>(<span>self, node: <a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Method to set the root node of the decision tree.</p>
+<h2 id="parameter">Parameter</h2>
+<p>node: TreeNode
+The node which should be the root of the DT.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_root(self, node: TreeNode):
+    &#34;&#34;&#34;
+        Method to set the root node of the decision tree.
+        
+        Parameter
+        --------
+        node: TreeNode
+            The node which should be the root of the DT.
+    &#34;&#34;&#34;
+    self.root = node
+    self.nodes[node.name] = node
+    if isinstance(node, ActionNode):
+        self.action_nodes[node.name] = node</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="assignment6.MarkovDecisionProcess"><code class="flex name class">
+<span>class <span class="ident">MarkovDecisionProcess</span></span>
+<span>(</span><span>environment: Gridworld, states: List[Tuple[int, int]], initial_state: Tuple[int, int], actions: List[str], transition_model: SimpleTransitionModel, reward_function: Dict[Tuple[int, int], float], discount: float, terminal_states: Optional[List[Tuple[int, int]]] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Main class you should be working on for exercise 3.
+You will have to implement the "value_iteration" and "get_action"
+functions.</p>
+<p>Constructor for an MDP</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>environment</code></strong> :&ensp;<code><a title="mdp.gridworld.Gridworld" href="mdp/gridworld.html#mdp.gridworld.Gridworld">Gridworld</a></code></dt>
+<dd>The environment this MDP lives in.</dd>
+<dt><strong><code>states</code></strong> :&ensp;<code>[tuple,]</code></dt>
+<dd>A list of states, in this cases tuples representing positions
+within the environment</dd>
+<dt><strong><code>initial_state</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>A tuple representing the initial position of the agent</dd>
+<dt><strong><code>actions</code></strong> :&ensp;<code>[string,]</code></dt>
+<dd>A list of possible actions, here we only consider the
+actions "N","S","E","W" as available actions.</dd>
+<dt><strong><code>transition_model</code></strong> :&ensp;<code><a title="mdp.transitionModels.SimpleTransitionModel" href="mdp/transitionModels.html#mdp.transitionModels.SimpleTransitionModel">SimpleTransitionModel</a></code></dt>
+<dd>The transition model representing the probabilities of going
+from one state to another using a certain action</dd>
+<dt><strong><code>reward_function</code></strong> :&ensp;<code>dict(tuple:float)</code></dt>
+<dd>A dictionary containing rewards for all possible terminal
+states. Values should be between -1, 1 to not confuse the
+visualizations</dd>
+<dt><strong><code>discount</code></strong> :&ensp;<code>float</code></dt>
+<dd>Discounting factor to be used in the Bellmann equation during
+value iteration.</dd>
+<dt><strong><code>terminal_states</code></strong> :&ensp;<code>list</code>, optional</dt>
+<dd>List of terminalstates for the environment. If not given, the
+keys in the reward function are assumed to be the terminal
+states. If these are given, the rewards are considered "intermediate"
+rewards that do not terminate an episode.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MarkovDecisionProcess(object):
+    &#34;&#34;&#34;
+        Main class you should be working on for exercise 3. 
+        You will have to implement the &#34;value_iteration&#34; and &#34;get_action&#34;
+        functions.
+    &#34;&#34;&#34;
+    def __init__(self, environment: Gridworld, states: List[Tuple[int,int]], 
+                        initial_state: Tuple[int,int], actions: List[str], 
+                        transition_model: SimpleTransitionModel, reward_function: Dict[Tuple[int,int], float], 
+                        discount: float, terminal_states: Optional[List[Tuple[int,int]]] = None):
+        &#34;&#34;&#34;
+            Constructor for an MDP
+            
+            Parameters
+            ----------
+            environment: `mdp.gridworld.Gridworld`
+                The environment this MDP lives in.
+            states: [tuple,]
+                A list of states, in this cases tuples representing positions
+                within the environment
+            initial_state: tuple
+                A tuple representing the initial position of the agent
+            actions: [string,]
+                A list of possible actions, here we only consider the
+                actions &#34;N&#34;,&#34;S&#34;,&#34;E&#34;,&#34;W&#34; as available actions.
+            transition_model: `mdp.transitionModels.SimpleTransitionModel`
+                The transition model representing the probabilities of going
+                from one state to another using a certain action
+            reward_function: dict(tuple:float)
+                A dictionary containing rewards for all possible terminal
+                states. Values should be between -1, 1 to not confuse the 
+                visualizations
+            discount: float
+                Discounting factor to be used in the Bellmann equation during
+                value iteration.
+            terminal_states: list, optional
+                List of terminalstates for the environment. If not given, the
+                keys in the reward function are assumed to be the terminal 
+                states. If these are given, the rewards are considered &#34;intermediate&#34;
+                rewards that do not terminate an episode.
+                
+        &#34;&#34;&#34;
+        self.environment = environment        
+        self.initial_state = initial_state
+        self.states = states
+        self.actions = actions
+        self.transition_model = transition_model
+        self.reward_function = reward_function
+        self.discount = discount
+        self.renderers = []
+        if terminal_states is None:
+            self.terminal_states = list(reward_function.keys())
+        else:
+            self.terminal_states = list(terminal_states)
+        
+        
+    ######
+    #
+    # Task 1 and 2
+    # Value Iteration
+    #
+    ######
+    def value_iteration(self, num_max_iterations: Optional[int] =100, 
+                                epsilon: Optional[float] =None, 
+                                plot_delay: Optional[float] =None) -&gt; Dict[Tuple[int,int], float]:
+        &#34;&#34;&#34;
+            Computes the expected utilities for each state of the MDP using
+            value iteration!
+            
+            Parameters
+            ----------
+            num_max_iterations: int, optional
+                The maximum number of iterations that should be performed.
+                Default: 100
+                
+            epsilon: float, optional
+                Threshold for the changes in the expected utility values.
+                Required for exercise 2.
+            
+            plot_delay: float, optional
+                If this is given, the current utilities will be plotted by all
+                registered renderers, pausing the given delay (in seconds)
+                before continuing with the next iteration. Default: None
+            
+            Returns
+            --------
+            dict(tuple:float)
+                A dictionary containing state:expected utility pairs for 
+                each state of the MDP.
+        &#34;&#34;&#34;
+        
+        #Hint: The MDP object already contains the required variables, such
+        # as the transition_model or the reward_function, see the constructor
+        # for their respective names.
+        
+        #Hint: Remember that the reward function is only a dictionary, where
+        # only the terminal states are specified! You will need to consider
+        # how you deal with the not-specified states!
+        
+        #Hint: You might want to use the &#34;get_neighbour_states&#34; function
+        # provided by the environment. 
+        
+        #Hint: You can use the transition_model like a function. Look at the
+        # documentation of the &#34;__call__&#34; method in 
+        # transitionModels.SimpleTransitionModel for more information.
+        
+        raise NotImplementedError(&#34;TODO Exercise 3, Tasks 1 and 2&#34;)
+        
+        #Hint: You can can use &#34;render_utilities&#34; within your loop if you want 
+        # to have online visualization of your computed utilities
+        
+        
+    ######
+    #
+    # Task 3
+    # Policy computation
+    # Hint: In case you have problems with exercise 1, you can compute
+    # utility values by hand, and use those for task 3.
+    #
+    ######       
+    def get_policy(self, utilities: Dict[Tuple[int,int], float]) -&gt; Dict[Tuple[int,int], str]:
+        &#34;&#34;&#34;
+            Computes an optimal policy based on the given utilities and 
+            the internal transitionModel.
+            
+            Parameters
+            ----------
+            utilities: dict(tuple:float)
+                A dictionary containing state:expected utility pairs for all
+                states of the MDP
+                
+            Returns
+            --------
+            dict(tuple:string)
+                A dictionary containing state:action pairs. The actions should
+                be one of &#34;N&#34;,&#34;S&#34;,&#34;E&#34;,&#34;W&#34; and represent the optimal action
+                given the utilities and the transition probabilities!
+        &#34;&#34;&#34;
+        raise NotImplementedError(&#34;TODO Exercise 3, Task 3&#34;)
+            
+    
+    ######
+    #
+    # Helper functions that can be used to visualize the computed results!
+    # You would normally not have to make any changes here, but feel free to
+    # modify the code if you want to do things differently.
+    #
+    ######
+    
+    def render_utilities(self, utilities: Dict[Tuple[int,int], float], 
+                                iteration: Optional[int] =0, 
+                                pause: Optional[float] =0.0):
+        &#34;&#34;&#34;
+            Calls all registered renderers to plot the given utilities in
+            the grid. Will pause the execution for pause
+            seconds after plotting.
+            
+            Parameters
+            ----------
+            utilities: dict(tuple:float)
+                A dictionary containing state:expected utility pairs for all
+                states of the MDP
+
+            iteration: int, optional
+                The current iteration these utilities were produced at. Will
+                be displayed in the plot. Default: 0
+
+            pause: float, optional
+                The time in seconds the program should pause after plotting.
+                Default: 0.0
+        &#34;&#34;&#34;
+        for rend in self.renderers:
+            rend.plot_utilities(utilities, iteration, walls=True)
+            #This will pause twice if you use both renderers!
+            rend.pause(pause) 
+         
+    
+    def render_policy(self, policy: Dict[Tuple[int,int], str]):
+        &#34;&#34;&#34;
+            Calls all registered renderers to plot the given policy.
+            
+            Parameters
+            ----------
+            policy: dict(tuple:string)
+                A dictionary containing state:action pairs.
+            
+        &#34;&#34;&#34;
+        for rend in self.renderers:
+            rend.plot_policy(policy, walls=True)
+            
+    def render_agent(self, agent_pos: Tuple[int,int], pause: Optional[float] =0.0):
+        &#34;&#34;&#34;
+            Calls all registered renderers to plot the grid with the agent
+            at the specified position. Will pause the execution for pause
+            seconds after plotting.
+            
+            Parameters
+            ----------
+            agent_pos: tuple
+                The current position of the agent in the world.
+
+            pause: float, optional
+                The time in seconds the program should pause after plotting.
+                Default: 0.0
+        &#34;&#34;&#34;
+        grid =self.environment.get_grid_representation(add_outer=True)
+        for pos in self.reward_function:
+            grid[pos[1]+1][pos[0]+1] = self.reward_function[pos]
+        for rend in self.renderers:
+            #Do +1 on the agent pos, because we added the walls here
+            #which means the agent needs to be shifted in the visualization
+            #to account for the walls
+            rend.plot(grid, (agent_pos[0]+1,agent_pos[1]+1))
+            rend.pause(pause)
+            
+    def use_policy(self, policy: Dict[Tuple[int,int], str], step_delay: Optional[float] =0.5):
+        &#34;&#34;&#34;
+            Uses the given policy in order to reach a terminal state as given
+            by the reward function. In case the agent reaches a state with a 
+            positive reward, it is a success, otherwise it is a failure.
+            The agent&#39;s intended and actual action will be printed and it&#39;s
+            progress rendered by all registered renderers.
+            
+            Parameters
+            ----------
+            policy: dict(tuple:String)
+                The policy to follow in the form as returned by get_policy
+            
+            step_delay: float, optional
+                Delay (in seconds) between two steps. Default: 0.5
+        &#34;&#34;&#34;
+        agent_pos = self.initial_state
+        
+        #Plot initial state
+        self.render_agent(agent_pos, step_delay)
+        
+        reached = False
+        while not reached:
+            intended_action = policy[agent_pos]
+            print(&#34;Agent wants to perform: {}&#34;.format(intended_action))
+            performed_action = self.transitionModel.sample_action(agent_pos, intended_action)
+            print(&#34;Agent performs: {}&#34;.format(performed_action))
+            
+            agent_pos = self.environment.act(agent_pos, performed_action)
+            
+            #The reward Function only holds values for terminal states
+            if agent_pos in self.terminal_states:
+                reached = True
+                
+            #Render resulting state
+            self.render_agent(agent_pos, step_delay)
+                    
+        if self.rewardFunction[agent_pos] &gt; 0: 
+            print(&#34;Agent reached positive state! Success!&#34;)
+        else:
+            print(&#34;Agent reached negative state! Failure!&#34;)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="assignment6.MarkovDecisionProcess.get_policy"><code class="name flex">
+<span>def <span class="ident">get_policy</span></span>(<span>self, utilities: Dict[Tuple[int, int], float]) ‑> Dict[Tuple[int, int], str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes an optimal policy based on the given utilities and
+the internal transitionModel.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>utilities</code></strong> :&ensp;<code>dict(tuple:float)</code></dt>
+<dd>A dictionary containing state:expected utility pairs for all
+states of the MDP</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict(tuple:string)</code></dt>
+<dd>A dictionary containing state:action pairs. The actions should
+be one of "N","S","E","W" and represent the optimal action
+given the utilities and the transition probabilities!</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_policy(self, utilities: Dict[Tuple[int,int], float]) -&gt; Dict[Tuple[int,int], str]:
+    &#34;&#34;&#34;
+        Computes an optimal policy based on the given utilities and 
+        the internal transitionModel.
+        
+        Parameters
+        ----------
+        utilities: dict(tuple:float)
+            A dictionary containing state:expected utility pairs for all
+            states of the MDP
+            
+        Returns
+        --------
+        dict(tuple:string)
+            A dictionary containing state:action pairs. The actions should
+            be one of &#34;N&#34;,&#34;S&#34;,&#34;E&#34;,&#34;W&#34; and represent the optimal action
+            given the utilities and the transition probabilities!
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO Exercise 3, Task 3&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment6.MarkovDecisionProcess.render_agent"><code class="name flex">
+<span>def <span class="ident">render_agent</span></span>(<span>self, agent_pos: Tuple[int, int], pause: Optional[float] = 0.0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calls all registered renderers to plot the grid with the agent
+at the specified position. Will pause the execution for pause
+seconds after plotting.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>agent_pos</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The current position of the agent in the world.</dd>
+<dt><strong><code>pause</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The time in seconds the program should pause after plotting.
+Default: 0.0</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def render_agent(self, agent_pos: Tuple[int,int], pause: Optional[float] =0.0):
+    &#34;&#34;&#34;
+        Calls all registered renderers to plot the grid with the agent
+        at the specified position. Will pause the execution for pause
+        seconds after plotting.
+        
+        Parameters
+        ----------
+        agent_pos: tuple
+            The current position of the agent in the world.
+
+        pause: float, optional
+            The time in seconds the program should pause after plotting.
+            Default: 0.0
+    &#34;&#34;&#34;
+    grid =self.environment.get_grid_representation(add_outer=True)
+    for pos in self.reward_function:
+        grid[pos[1]+1][pos[0]+1] = self.reward_function[pos]
+    for rend in self.renderers:
+        #Do +1 on the agent pos, because we added the walls here
+        #which means the agent needs to be shifted in the visualization
+        #to account for the walls
+        rend.plot(grid, (agent_pos[0]+1,agent_pos[1]+1))
+        rend.pause(pause)</code></pre>
+</details>
+</dd>
+<dt id="assignment6.MarkovDecisionProcess.render_policy"><code class="name flex">
+<span>def <span class="ident">render_policy</span></span>(<span>self, policy: Dict[Tuple[int, int], str])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calls all registered renderers to plot the given policy.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>policy</code></strong> :&ensp;<code>dict(tuple:string)</code></dt>
+<dd>A dictionary containing state:action pairs.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def render_policy(self, policy: Dict[Tuple[int,int], str]):
+    &#34;&#34;&#34;
+        Calls all registered renderers to plot the given policy.
+        
+        Parameters
+        ----------
+        policy: dict(tuple:string)
+            A dictionary containing state:action pairs.
+        
+    &#34;&#34;&#34;
+    for rend in self.renderers:
+        rend.plot_policy(policy, walls=True)</code></pre>
+</details>
+</dd>
+<dt id="assignment6.MarkovDecisionProcess.render_utilities"><code class="name flex">
+<span>def <span class="ident">render_utilities</span></span>(<span>self, utilities: Dict[Tuple[int, int], float], iteration: Optional[int] = 0, pause: Optional[float] = 0.0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calls all registered renderers to plot the given utilities in
+the grid. Will pause the execution for pause
+seconds after plotting.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>utilities</code></strong> :&ensp;<code>dict(tuple:float)</code></dt>
+<dd>A dictionary containing state:expected utility pairs for all
+states of the MDP</dd>
+<dt><strong><code>iteration</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The current iteration these utilities were produced at. Will
+be displayed in the plot. Default: 0</dd>
+<dt><strong><code>pause</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The time in seconds the program should pause after plotting.
+Default: 0.0</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def render_utilities(self, utilities: Dict[Tuple[int,int], float], 
+                            iteration: Optional[int] =0, 
+                            pause: Optional[float] =0.0):
+    &#34;&#34;&#34;
+        Calls all registered renderers to plot the given utilities in
+        the grid. Will pause the execution for pause
+        seconds after plotting.
+        
+        Parameters
+        ----------
+        utilities: dict(tuple:float)
+            A dictionary containing state:expected utility pairs for all
+            states of the MDP
+
+        iteration: int, optional
+            The current iteration these utilities were produced at. Will
+            be displayed in the plot. Default: 0
+
+        pause: float, optional
+            The time in seconds the program should pause after plotting.
+            Default: 0.0
+    &#34;&#34;&#34;
+    for rend in self.renderers:
+        rend.plot_utilities(utilities, iteration, walls=True)
+        #This will pause twice if you use both renderers!
+        rend.pause(pause) </code></pre>
+</details>
+</dd>
+<dt id="assignment6.MarkovDecisionProcess.use_policy"><code class="name flex">
+<span>def <span class="ident">use_policy</span></span>(<span>self, policy: Dict[Tuple[int, int], str], step_delay: Optional[float] = 0.5)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Uses the given policy in order to reach a terminal state as given
+by the reward function. In case the agent reaches a state with a
+positive reward, it is a success, otherwise it is a failure.
+The agent's intended and actual action will be printed and it's
+progress rendered by all registered renderers.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>policy</code></strong> :&ensp;<code>dict(tuple:String)</code></dt>
+<dd>The policy to follow in the form as returned by get_policy</dd>
+<dt><strong><code>step_delay</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>Delay (in seconds) between two steps. Default: 0.5</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def use_policy(self, policy: Dict[Tuple[int,int], str], step_delay: Optional[float] =0.5):
+    &#34;&#34;&#34;
+        Uses the given policy in order to reach a terminal state as given
+        by the reward function. In case the agent reaches a state with a 
+        positive reward, it is a success, otherwise it is a failure.
+        The agent&#39;s intended and actual action will be printed and it&#39;s
+        progress rendered by all registered renderers.
+        
+        Parameters
+        ----------
+        policy: dict(tuple:String)
+            The policy to follow in the form as returned by get_policy
+        
+        step_delay: float, optional
+            Delay (in seconds) between two steps. Default: 0.5
+    &#34;&#34;&#34;
+    agent_pos = self.initial_state
+    
+    #Plot initial state
+    self.render_agent(agent_pos, step_delay)
+    
+    reached = False
+    while not reached:
+        intended_action = policy[agent_pos]
+        print(&#34;Agent wants to perform: {}&#34;.format(intended_action))
+        performed_action = self.transitionModel.sample_action(agent_pos, intended_action)
+        print(&#34;Agent performs: {}&#34;.format(performed_action))
+        
+        agent_pos = self.environment.act(agent_pos, performed_action)
+        
+        #The reward Function only holds values for terminal states
+        if agent_pos in self.terminal_states:
+            reached = True
+            
+        #Render resulting state
+        self.render_agent(agent_pos, step_delay)
+                
+    if self.rewardFunction[agent_pos] &gt; 0: 
+        print(&#34;Agent reached positive state! Success!&#34;)
+    else:
+        print(&#34;Agent reached negative state! Failure!&#34;)</code></pre>
+</details>
+</dd>
+<dt id="assignment6.MarkovDecisionProcess.value_iteration"><code class="name flex">
+<span>def <span class="ident">value_iteration</span></span>(<span>self, num_max_iterations: Optional[int] = 100, epsilon: Optional[float] = None, plot_delay: Optional[float] = None) ‑> Dict[Tuple[int, int], float]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Computes the expected utilities for each state of the MDP using
+value iteration!</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>num_max_iterations</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The maximum number of iterations that should be performed.
+Default: 100</dd>
+<dt><strong><code>epsilon</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>Threshold for the changes in the expected utility values.
+Required for exercise 2.</dd>
+<dt><strong><code>plot_delay</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>If this is given, the current utilities will be plotted by all
+registered renderers, pausing the given delay (in seconds)
+before continuing with the next iteration. Default: None</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict(tuple:float)</code></dt>
+<dd>A dictionary containing state:expected utility pairs for
+each state of the MDP.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def value_iteration(self, num_max_iterations: Optional[int] =100, 
+                            epsilon: Optional[float] =None, 
+                            plot_delay: Optional[float] =None) -&gt; Dict[Tuple[int,int], float]:
+    &#34;&#34;&#34;
+        Computes the expected utilities for each state of the MDP using
+        value iteration!
+        
+        Parameters
+        ----------
+        num_max_iterations: int, optional
+            The maximum number of iterations that should be performed.
+            Default: 100
+            
+        epsilon: float, optional
+            Threshold for the changes in the expected utility values.
+            Required for exercise 2.
+        
+        plot_delay: float, optional
+            If this is given, the current utilities will be plotted by all
+            registered renderers, pausing the given delay (in seconds)
+            before continuing with the next iteration. Default: None
+        
+        Returns
+        --------
+        dict(tuple:float)
+            A dictionary containing state:expected utility pairs for 
+            each state of the MDP.
+    &#34;&#34;&#34;
+    
+    #Hint: The MDP object already contains the required variables, such
+    # as the transition_model or the reward_function, see the constructor
+    # for their respective names.
+    
+    #Hint: Remember that the reward function is only a dictionary, where
+    # only the terminal states are specified! You will need to consider
+    # how you deal with the not-specified states!
+    
+    #Hint: You might want to use the &#34;get_neighbour_states&#34; function
+    # provided by the environment. 
+    
+    #Hint: You can use the transition_model like a function. Look at the
+    # documentation of the &#34;__call__&#34; method in 
+    # transitionModels.SimpleTransitionModel for more information.
+    
+    raise NotImplementedError(&#34;TODO Exercise 3, Tasks 1 and 2&#34;)
+    
+    #Hint: You can can use &#34;render_utilities&#34; within your loop if you want 
+    # to have online visualization of your computed utilities</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="assignment6.TreeNode"><code class="flex name class">
+<span>class <span class="ident">TreeNode</span></span>
+<span>(</span><span>name: str, branches: Optional[List[str]] = None, parent: Optional[<a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a>] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for nodes in a simple decision tree. Each node in the tree
+is either a root (no parent), a leave (no branches and no children)
+or an intermediate node, with a parent and named branches with child
+nodes.</p>
+<p>Constructor of the base TreeNode. Should not be called directly but only by the
+implementing classes (ActionNode, ChanceNode, UtilityNode).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the node.</dd>
+<dt><strong><code>branches</code></strong> :&ensp;<code>List[str]</code>, optional</dt>
+<dd>A list of named branches. These names usually represent possible actions coming from
+ActionNodes or outcomes coming from UtilityNodes. These branches can represent possible
+children, that still need to be added with add_child.</dd>
+<dt><strong><code>parent</code></strong> :&ensp;<code><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a></code>, optional</dt>
+<dd>The parent of the current node in the tree.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TreeNode(object):
+    &#34;&#34;&#34;
+        Base class for nodes in a simple decision tree. Each node in the tree 
+        is either a root (no parent), a leave (no branches and no children)
+        or an intermediate node, with a parent and named branches with child 
+        nodes.
+    &#34;&#34;&#34;
+    
+    def __init__(self, name: str, branches: Optional[List[str]] =None, 
+                        parent: Optional[TreeNode] =None):
+        &#34;&#34;&#34;
+            Constructor of the base TreeNode. Should not be called directly but only by the 
+            implementing classes (ActionNode, ChanceNode, UtilityNode).
+
+            Parameters
+            ----------
+            name: str
+                The name of the node.
+
+            branches: List[str], optional
+                A list of named branches. These names usually represent possible actions coming from
+                ActionNodes or outcomes coming from UtilityNodes. These branches can represent possible
+                children, that still need to be added with add_child.
+
+            parent: TreeNode, optional
+                The parent of the current node in the tree.
+        &#34;&#34;&#34;
+        self.name = name
+        self.parent = parent
+        self.children = {}
+        self.branches = branches
+        
+    def add_child(self, branch: str, child: TreeNode):
+        &#34;&#34;&#34;
+            Adds a child to one of the branches of this TreeNode.
+            A child can only be added to already existing branches.
+
+            Parameters
+            ----------
+            branch: str
+                The branch to add the child to.
+
+            child: TreeNode
+                A reference of the TreeNode that should be added as child.
+
+            Raises
+            ------
+            AttributeError
+                If the given branch was not initially specified when creating the TreeNode.
+        &#34;&#34;&#34;
+        if branch in self.branches:
+            self.children[branch] = child
+        else:
+            raise AttributeError(&#34;Node {} does not have branch {}&#34;.format(self, branch))
+            
+    def get_eu(self) -&gt; float:
+        &#34;&#34;&#34;
+            Need to be implemented by the inheriting classes. Should
+            return the exptected utility for this node which is different
+            depending on the node type.
+        &#34;&#34;&#34;
+        raise NotImplementedError(&#34;Needs to be implemented by inheriting classes!&#34;)
+        
+    def __str__(self) -&gt; str:
+        &#34;&#34;&#34;
+            Overwrites the default string representation of this class to just
+            return it&#39;s name.
+        &#34;&#34;&#34;
+        return self.name
+    
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;
+            Overwrites the default string representation of this class to just
+            return it&#39;s name.
+        &#34;&#34;&#34;
+        return self.name</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="assignment6.ActionNode" href="#assignment6.ActionNode">ActionNode</a></li>
+<li><a title="assignment6.ChanceNode" href="#assignment6.ChanceNode">ChanceNode</a></li>
+<li><a title="assignment6.UtilityNode" href="#assignment6.UtilityNode">UtilityNode</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="assignment6.TreeNode.add_child"><code class="name flex">
+<span>def <span class="ident">add_child</span></span>(<span>self, branch: str, child: <a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adds a child to one of the branches of this TreeNode.
+A child can only be added to already existing branches.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>branch</code></strong> :&ensp;<code>str</code></dt>
+<dd>The branch to add the child to.</dd>
+<dt><strong><code>child</code></strong> :&ensp;<code><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a></code></dt>
+<dd>A reference of the TreeNode that should be added as child.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>AttributeError</code></dt>
+<dd>If the given branch was not initially specified when creating the TreeNode.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_child(self, branch: str, child: TreeNode):
+    &#34;&#34;&#34;
+        Adds a child to one of the branches of this TreeNode.
+        A child can only be added to already existing branches.
+
+        Parameters
+        ----------
+        branch: str
+            The branch to add the child to.
+
+        child: TreeNode
+            A reference of the TreeNode that should be added as child.
+
+        Raises
+        ------
+        AttributeError
+            If the given branch was not initially specified when creating the TreeNode.
+    &#34;&#34;&#34;
+    if branch in self.branches:
+        self.children[branch] = child
+    else:
+        raise AttributeError(&#34;Node {} does not have branch {}&#34;.format(self, branch))</code></pre>
+</details>
+</dd>
+<dt id="assignment6.TreeNode.get_eu"><code class="name flex">
+<span>def <span class="ident">get_eu</span></span>(<span>self) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Need to be implemented by the inheriting classes. Should
+return the exptected utility for this node which is different
+depending on the node type.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_eu(self) -&gt; float:
+    &#34;&#34;&#34;
+        Need to be implemented by the inheriting classes. Should
+        return the exptected utility for this node which is different
+        depending on the node type.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;Needs to be implemented by inheriting classes!&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="assignment6.UtilityNode"><code class="flex name class">
+<span>class <span class="ident">UtilityNode</span></span>
+<span>(</span><span>name: str, utility: float, parent: Optional[<a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a>] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for nodes in a simple decision tree. Each node in the tree
+is either a root (no parent), a leave (no branches and no children)
+or an intermediate node, with a parent and named branches with child
+nodes.</p>
+<p>Constructor for a UtilityNode. These nodes represent the leave nodes
+of a decision tree, i.e. their utilities need to contain the sum
+of all partial utilities.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>A unique name for this UtilityNode.</dd>
+<dt><strong><code>utility</code></strong> :&ensp;<code>float</code></dt>
+<dd>The utility associated with this node.</dd>
+<dt><strong><code>parent</code></strong> :&ensp;<code><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a> (optional)</code></dt>
+<dd>The parent node of this node, usually not needed, as the add_child
+method of the dt will set the parent attribute correctly.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UtilityNode(TreeNode):
+    
+    def __init__(self, name: str, utility: float, parent: Optional[TreeNode] =None):
+        &#34;&#34;&#34;
+        Constructor for a UtilityNode. These nodes represent the leave nodes
+        of a decision tree, i.e. their utilities need to contain the sum
+        of all partial utilities.
+        
+        Parameters
+        ----------
+        name: str
+            A unique name for this UtilityNode.
+            
+        utility: float
+            The utility associated with this node.
+            
+        parent: TreeNode (optional)
+            The parent node of this node, usually not needed, as the add_child
+            method of the dt will set the parent attribute correctly.
+        &#34;&#34;&#34;
+        self.utility = utility
+        super(UtilityNode,self).__init__(name, parent)
+    
+    def get_eu(self) -&gt; float:
+        &#34;&#34;&#34;
+            Returns the expected utility of this UtilityNode. 
+
+            Returns
+            -------
+            float
+                The EU of the UtilityNode.
+        &#34;&#34;&#34;
+        raise NotImplementedError(&#34;TODO - Exercise 2 Task 1&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="assignment6.UtilityNode.get_eu"><code class="name flex">
+<span>def <span class="ident">get_eu</span></span>(<span>self) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the expected utility of this UtilityNode. </p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>The EU of the UtilityNode.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_eu(self) -&gt; float:
+    &#34;&#34;&#34;
+        Returns the expected utility of this UtilityNode. 
+
+        Returns
+        -------
+        float
+            The EU of the UtilityNode.
+    &#34;&#34;&#34;
+    raise NotImplementedError(&#34;TODO - Exercise 2 Task 1&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a></b></code>:
+<ul class="hlist">
+<li><code><a title="assignment6.TreeNode.add_child" href="#assignment6.TreeNode.add_child">add_child</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="assignment6.get_simple_dt" href="#assignment6.get_simple_dt">get_simple_dt</a></code></li>
+<li><code><a title="assignment6.get_two_decision_dt" href="#assignment6.get_two_decision_dt">get_two_decision_dt</a></code></li>
+<li><code><a title="assignment6.testWorld1" href="#assignment6.testWorld1">testWorld1</a></code></li>
+<li><code><a title="assignment6.testWorld2" href="#assignment6.testWorld2">testWorld2</a></code></li>
+<li><code><a title="assignment6.testWorld3" href="#assignment6.testWorld3">testWorld3</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="assignment6.ActionNode" href="#assignment6.ActionNode">ActionNode</a></code></h4>
+<ul class="">
+<li><code><a title="assignment6.ActionNode.get_eu" href="#assignment6.ActionNode.get_eu">get_eu</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="assignment6.ChanceNode" href="#assignment6.ChanceNode">ChanceNode</a></code></h4>
+<ul class="">
+<li><code><a title="assignment6.ChanceNode.get_eu" href="#assignment6.ChanceNode.get_eu">get_eu</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="assignment6.DecisionTree" href="#assignment6.DecisionTree">DecisionTree</a></code></h4>
+<ul class="">
+<li><code><a title="assignment6.DecisionTree.add_child" href="#assignment6.DecisionTree.add_child">add_child</a></code></li>
+<li><code><a title="assignment6.DecisionTree.backward_induction" href="#assignment6.DecisionTree.backward_induction">backward_induction</a></code></li>
+<li><code><a title="assignment6.DecisionTree.set_root" href="#assignment6.DecisionTree.set_root">set_root</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="assignment6.MarkovDecisionProcess" href="#assignment6.MarkovDecisionProcess">MarkovDecisionProcess</a></code></h4>
+<ul class="two-column">
+<li><code><a title="assignment6.MarkovDecisionProcess.get_policy" href="#assignment6.MarkovDecisionProcess.get_policy">get_policy</a></code></li>
+<li><code><a title="assignment6.MarkovDecisionProcess.render_agent" href="#assignment6.MarkovDecisionProcess.render_agent">render_agent</a></code></li>
+<li><code><a title="assignment6.MarkovDecisionProcess.render_policy" href="#assignment6.MarkovDecisionProcess.render_policy">render_policy</a></code></li>
+<li><code><a title="assignment6.MarkovDecisionProcess.render_utilities" href="#assignment6.MarkovDecisionProcess.render_utilities">render_utilities</a></code></li>
+<li><code><a title="assignment6.MarkovDecisionProcess.use_policy" href="#assignment6.MarkovDecisionProcess.use_policy">use_policy</a></code></li>
+<li><code><a title="assignment6.MarkovDecisionProcess.value_iteration" href="#assignment6.MarkovDecisionProcess.value_iteration">value_iteration</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="assignment6.TreeNode" href="#assignment6.TreeNode">TreeNode</a></code></h4>
+<ul class="">
+<li><code><a title="assignment6.TreeNode.add_child" href="#assignment6.TreeNode.add_child">add_child</a></code></li>
+<li><code><a title="assignment6.TreeNode.get_eu" href="#assignment6.TreeNode.get_eu">get_eu</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="assignment6.UtilityNode" href="#assignment6.UtilityNode">UtilityNode</a></code></h4>
+<ul class="">
+<li><code><a title="assignment6.UtilityNode.get_eu" href="#assignment6.UtilityNode.get_eu">get_eu</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
